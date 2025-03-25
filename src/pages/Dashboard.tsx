@@ -1,6 +1,5 @@
-
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import Navbar from '@/components/Navbar';
@@ -148,15 +147,7 @@ const statsCards = [
 const Dashboard = () => {
   const { user, isAdmin } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
-
-  // Navigation links for dashboard
-  const navLinks = [
-    { name: 'Dashboard', href: '/dashboard', current: true, icon: <LayoutDashboard className="h-5 w-5" /> },
-    { name: 'Recipes', href: '/recipes', current: false, icon: <BookOpen className="h-5 w-5" /> },
-    { name: 'Classes', href: '/classes', current: false, icon: <GraduationCap className="h-5 w-5" /> },
-    { name: 'Pantry', href: '/pantry', current: false, icon: <Package className="h-5 w-5" /> },
-    { name: 'Shopping', href: '/shopping', current: false, icon: <ShoppingCart className="h-5 w-5" /> }
-  ];
+  const location = useLocation();
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -165,24 +156,6 @@ const Dashboard = () => {
       {/* Main content */}
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
         <div className="max-w-7xl mx-auto">
-          {/* Desktop Navigation for Dashboard */}
-          <div className="hidden md:flex mb-8 space-x-8 border-b border-blue-100 pb-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                className={`flex items-center px-1 pt-1 text-sm font-medium ${
-                  link.current 
-                    ? "border-blue-500 text-blue-700 border-b-2" 
-                    : "border-transparent text-blue-400 hover:border-blue-300 hover:text-blue-600 border-b-2"
-                }`}
-              >
-                {link.icon}
-                <span className="ml-1">{link.name}</span>
-              </Link>
-            ))}
-          </div>
-          
           {/* Dashboard Header */}
           <div className="mb-8">
             <h1 className="text-2xl font-semibold text-blue-900">Dashboard</h1>

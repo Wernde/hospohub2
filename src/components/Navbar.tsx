@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChefHat, Menu, X, LayoutDashboard } from 'lucide-react';
 import UserMenu from '@/components/UserMenu';
@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user } = useAuth();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +19,29 @@ const Navbar = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Check if we're on the home page
+  const isHomePage = location.pathname === '/';
+
+  // Navigation links
+  const dashboardLinks = [
+    { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
+    { name: 'Recipes', href: '/recipes' },
+    { name: 'Classes', href: '/classes' },
+    { name: 'Pantry', href: '/pantry' },
+    { name: 'Shopping', href: '/shopping' }
+  ];
+
+  // Home page links
+  const homeLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'Features', href: '#features' },
+    { name: 'Testimonials', href: '#testimonials' },
+    { name: 'Pricing', href: '/pricing' },
+  ];
+
+  // Choose which links to display based on the current page
+  const navLinks = isHomePage ? homeLinks : dashboardLinks;
 
   return (
     <nav
@@ -42,24 +66,18 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="space-x-6">
-              <Link to="/" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
-                Home
-              </Link>
-              {user && (
-                <Link to="/dashboard" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline flex items-center gap-1">
-                  <LayoutDashboard className="w-4 h-4" />
-                  Dashboard
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.href}
+                  className={`text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline flex items-center gap-1 ${
+                    location.pathname === link.href ? 'border-b-2 border-blue-300 pb-1' : ''
+                  }`}
+                >
+                  {link.icon && link.icon}
+                  {link.name}
                 </Link>
-              )}
-              <a href="#features" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
-                Features
-              </a>
-              <a href="#testimonials" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
-                Testimonials
-              </a>
-              <Link to="/pricing" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
-                Pricing
-              </Link>
+              ))}
             </div>
             <UserMenu />
           </div>
@@ -82,60 +100,39 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-blue-900/95 backdrop-blur-lg shadow-subtle animate-fade-in">
           <div className="container mx-auto px-6 py-6 flex flex-col space-y-4">
-            <Link 
-              to="/" 
-              className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Home
-            </Link>
-            {user && (
+            {navLinks.map((link) => (
               <Link 
-                to="/dashboard" 
-                className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors flex items-center gap-2"
+                key={link.name}
+                to={link.href} 
+                className={`px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors flex items-center gap-2 ${
+                  location.pathname === link.href ? 'bg-blue-800/70 text-blue-300' : ''
+                }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                <LayoutDashboard className="w-4 h-4" />
-                Dashboard
+                {link.icon && link.icon}
+                {link.name}
               </Link>
-            )}
-            <a
-              href="#features"
-              className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Features
-            </a>
-            <a
-              href="#testimonials"
-              className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Testimonials
-            </a>
-            <Link
-              to="/pricing"
-              className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Pricing
-            </Link>
+            ))}
             <div className="pt-2 flex flex-col space-y-3">
-              <Button 
-                variant="outline" 
-                className="w-full border-blue-300/30 text-blue-300 hover:bg-blue-800/50"
-                onClick={() => setIsMobileMenuOpen(false)}
-                asChild
-              >
-                <Link to="/auth">Log in</Link>
-              </Button>
-              <Button 
-                className="w-full bg-blue-500 hover:bg-blue-600"
-                onClick={() => setIsMobileMenuOpen(false)}
-                asChild
-              >
-                <Link to="/auth?tab=signup">Sign up</Link>
-              </Button>
+              {!user && (
+                <>
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-blue-300/30 text-blue-300 hover:bg-blue-800/50"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    asChild
+                  >
+                    <Link to="/auth">Log in</Link>
+                  </Button>
+                  <Button 
+                    className="w-full bg-blue-500 hover:bg-blue-600"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    asChild
+                  >
+                    <Link to="/auth?tab=signup">Sign up</Link>
+                  </Button>
+                </>
+              )}
             </div>
           </div>
         </div>
