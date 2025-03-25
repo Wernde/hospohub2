@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronDown, ClipboardList, BarChart3, BookOpen } from 'lucide-react';
+import { ArrowRight, ChevronDown, ClipboardList, BarChart3, BookOpen, Book } from 'lucide-react';
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
