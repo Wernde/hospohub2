@@ -43,14 +43,12 @@ const AdminDashboard = () => {
       
       if (profilesError) throw profilesError;
       
-      // Get admin role information using a custom query
+      // Get admin role information using the RPC function
       const { data: adminRoles, error: rolesError } = await supabase
         .rpc('get_admin_users');
         
       if (rolesError) {
-        // If RPC function doesn't exist, try a direct query as fallback
-        console.warn('RPC function get_admin_users not found, using fallback');
-        // We won't attempt to query user_roles directly since it's not in the types
+        console.error('Error fetching admin roles:', rolesError);
       }
       
       // Create a set of admin user IDs for faster lookup
