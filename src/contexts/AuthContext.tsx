@@ -4,16 +4,34 @@ import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 
+interface Organization {
+  id: string;
+  name: string;
+  created_at: string;
+}
+
+interface OrganizationMembership {
+  organization_id: string;
+  organization: Organization;
+  access_level: number;
+  status: string;
+}
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;
   isLoading: boolean;
   isAdmin: boolean;
-  signUp: (email: string, password: string) => Promise<void>;
+  userOrganizations: OrganizationMembership[];
+  activeOrganization: Organization | null;
+  setActiveOrganization: (org: Organization | null) => void;
+  signUp: (email: string, password: string) => Promise<{user: User | null, error: Error | null}>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   checkIsAdmin: () => Promise<boolean>;
   setAsAdmin: (userId: string) => Promise<void>;
+  getUserAccessLevel: (organizationId: string) => number | null;
+  canUserPerformAction: (organizationId: string, requiredLevel: number) => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,20 +41,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [session, setSession] = useState<Session | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [userOrganizations, setUserOrganizations] = useState<OrganizationMembership[]>([]);
+  const [activeOrganization, setActiveOrganization] = useState<Organization | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
+      async (event, session) => {
         console.log('Auth state changed:', event);
         setSession(session);
         setUser(session?.user ?? null);
         
         if (session?.user) {
-          checkIsAdmin().then(isAdmin => setIsAdmin(isAdmin));
+          const isAdminCheck = await checkIsAdmin();
+          setIsAdmin(isAdminCheck);
+          await fetchUserOrganizations(session.user.id);
         } else {
           setIsAdmin(false);
+          setUserOrganizations([]);
+          setActiveOrganization(null);
         }
         
         setIsLoading(false);
@@ -44,12 +68,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     );
 
     // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        checkIsAdmin().then(isAdmin => setIsAdmin(isAdmin));
+        const isAdminCheck = await checkIsAdmin();
+        setIsAdmin(isAdminCheck);
+        await fetchUserOrganizations(session.user.id);
       }
       
       setIsLoading(false);
@@ -57,6 +83,34 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const fetchUserOrganizations = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('organization_members')
+        .select(`
+          organization_id,
+          access_level,
+          status,
+          organization:organizations(*)
+        `)
+        .eq('user_id', userId)
+        .eq('status', 'active');
+
+      if (error) throw error;
+
+      if (data && data.length > 0) {
+        setUserOrganizations(data as OrganizationMembership[]);
+        
+        // Set first organization as active by default if none is active
+        if (!activeOrganization) {
+          setActiveOrganization(data[0].organization as Organization);
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching user organizations:', error);
+    }
+  };
 
   const checkIsAdmin = async (): Promise<boolean> => {
     try {
@@ -104,7 +158,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const signUp = async (email: string, password: string) => {
     try {
       setIsLoading(true);
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
       });
@@ -114,13 +168,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         title: 'Account created!',
         description: 'Check your email for the confirmation link.',
       });
+      
+      return { user: data.user, error: null };
     } catch (error: any) {
       toast({
         title: 'Error',
         description: error.message,
         variant: 'destructive',
       });
-      throw error;
+      return { user: null, error };
     } finally {
       setIsLoading(false);
     }
@@ -171,16 +227,37 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const getUserAccessLevel = (organizationId: string): number | null => {
+    const membership = userOrganizations.find(
+      org => org.organization_id === organizationId
+    );
+    return membership ? membership.access_level : null;
+  };
+
+  const canUserPerformAction = (organizationId: string, requiredLevel: number): boolean => {
+    // System admins can do everything
+    if (isAdmin) return true;
+    
+    // Check organization-specific permissions
+    const userLevel = getUserAccessLevel(organizationId);
+    return userLevel !== null && userLevel >= requiredLevel;
+  };
+
   const value = {
     user,
     session,
     isLoading,
     isAdmin,
+    userOrganizations,
+    activeOrganization,
+    setActiveOrganization,
     signUp,
     signIn,
     signOut,
     checkIsAdmin,
     setAsAdmin,
+    getUserAccessLevel,
+    canUserPerformAction,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
