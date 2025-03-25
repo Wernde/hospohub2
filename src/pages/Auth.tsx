@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Input } from '@/components/ui/input';
@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChefHat, Info } from 'lucide-react';
+import { AlertCircle, ChefHat, Info, Wifi, WifiOff } from 'lucide-react';
 import { toast } from 'sonner';
 
 const Auth = () => {
@@ -17,6 +17,31 @@ const Auth = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
+
+  // Monitor online/offline status
+  useEffect(() => {
+    const handleOnline = () => {
+      setIsOnline(true);
+      toast.success('Connection restored');
+    };
+    
+    const handleOffline = () => {
+      setIsOnline(false);
+      toast.error('You are offline. Authentication requires an internet connection.');
+    };
+
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+
+    // Initial online status check
+    setIsOnline(navigator.onLine);
+
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
 
   // If user is already logged in, redirect to home page
   if (user) {
@@ -27,6 +52,11 @@ const Auth = () => {
     event.preventDefault();
     setError(null);
 
+    if (!isOnline) {
+      setError('You are offline. Please check your internet connection.');
+      return;
+    }
+
     if (!email || !password) {
       setError('Please fill in all fields');
       return;
@@ -35,12 +65,17 @@ const Auth = () => {
     try {
       if (type === 'login') {
         await signIn(email, password);
+        // We don't need to do anything here because the auth state change will redirect
       } else {
         await signUp(email, password);
       }
     } catch (e: any) {
       console.error('Authentication error:', e);
-      // Error is already handled by toast in the context
+      if (e.message === 'Failed to fetch') {
+        setError('Connection error. Please check your internet connection and try again.');
+      } else {
+        // Error is already handled by toast in the context
+      }
     }
   };
 
@@ -59,6 +94,13 @@ const Auth = () => {
             HospoHub
           </span>
         </div>
+
+        {!isOnline && (
+          <div className="mb-4 p-3 bg-yellow-100 text-yellow-800 rounded-md flex items-center gap-2">
+            <WifiOff className="h-5 w-5" />
+            <span>You are currently offline. Authentication requires an internet connection.</span>
+          </div>
+        )}
 
         <Tabs defaultValue={defaultTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-6">
@@ -98,7 +140,12 @@ const Auth = () => {
                       disabled={isLoading}
                     />
                   </div>
-                  {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+                  {error && (
+                    <div className="bg-destructive/10 p-3 rounded-md flex items-start gap-2">
+                      <AlertCircle className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
+                      <p className="text-sm font-medium text-destructive">{error}</p>
+                    </div>
+                  )}
                   <Button
                     type="button"
                     variant="outline"
@@ -110,8 +157,19 @@ const Auth = () => {
                   </Button>
                 </CardContent>
                 <CardFooter>
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Logging in..." : "Login"}
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={isLoading || !isOnline}
+                  >
+                    {isOnline ? (
+                      isLoading ? "Logging in..." : "Login"
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        <WifiOff className="h-4 w-4" />
+                        Waiting for connection
+                      </span>
+                    )}
                   </Button>
                 </CardFooter>
               </form>
@@ -150,11 +208,27 @@ const Auth = () => {
                       disabled={isLoading}
                     />
                   </div>
-                  {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+                  {error && (
+                    <div className="bg-destructive/10 p-3 rounded-md flex items-start gap-2">
+                      <AlertCircle className="h-5 w-5 text-destructive mt-0.5 flex-shrink-0" />
+                      <p className="text-sm font-medium text-destructive">{error}</p>
+                    </div>
+                  )}
                 </CardContent>
                 <CardFooter>
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Creating account..." : "Sign up"}
+                  <Button 
+                    type="submit" 
+                    className="w-full" 
+                    disabled={isLoading || !isOnline}
+                  >
+                    {isOnline ? (
+                      isLoading ? "Creating account..." : "Sign up"
+                    ) : (
+                      <span className="flex items-center gap-2">
+                        <WifiOff className="h-4 w-4" />
+                        Waiting for connection
+                      </span>
+                    )}
                   </Button>
                 </CardFooter>
               </form>
