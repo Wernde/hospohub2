@@ -71,13 +71,13 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <div className="space-x-6">
+          <div className="hidden md:flex flex-1 items-center justify-center">
+            <div className="flex justify-between w-full max-w-2xl">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline flex items-center gap-1 ${
+                  className={`text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline flex items-center gap-1 px-3 ${
                     location.pathname === link.href ? 'border-b-2 border-blue-300 pb-1' : ''
                   }`}
                 >
@@ -86,6 +86,10 @@ const Navbar = () => {
                 </Link>
               ))}
             </div>
+          </div>
+
+          {/* User Menu */}
+          <div className="hidden md:flex items-center">
             <UserMenu />
           </div>
 
