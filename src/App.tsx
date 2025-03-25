@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +17,7 @@ import OrganizationCreate from "./pages/organization/OrganizationCreate";
 import OrganizationSettings from "./pages/organization/OrganizationSettings";
 import OrganizationMembers from "./pages/organization/OrganizationMembers";
 
+// Create a new QueryClient instance outside the component
 const queryClient = new QueryClient();
 
 const App = () => (
