@@ -1,12 +1,15 @@
+
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChefHat, Menu, X } from 'lucide-react';
+import { ChefHat, Menu, X, LayoutDashboard } from 'lucide-react';
 import UserMenu from '@/components/UserMenu';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +45,12 @@ const Navbar = () => {
               <Link to="/" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
                 Home
               </Link>
+              {user && (
+                <Link to="/dashboard" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline flex items-center gap-1">
+                  <LayoutDashboard className="w-4 h-4" />
+                  Dashboard
+                </Link>
+              )}
               <a href="#features" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
                 Features
               </a>
@@ -80,6 +89,16 @@ const Navbar = () => {
             >
               Home
             </Link>
+            {user && (
+              <Link 
+                to="/dashboard" 
+                className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors flex items-center gap-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                Dashboard
+              </Link>
+            )}
             <a
               href="#features"
               className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"

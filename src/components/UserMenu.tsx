@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
-import { User, LogOut, ShieldCheck } from 'lucide-react';
+import { User, LogOut, ShieldCheck, LayoutDashboard } from 'lucide-react';
 
 const UserMenu = () => {
   const { user, signOut, isAdmin } = useAuth();
@@ -52,6 +52,12 @@ const UserMenu = () => {
           )}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link to="/dashboard" className="cursor-pointer flex w-full items-center gap-2">
+            <LayoutDashboard className="h-4 w-4" />
+            <span>Dashboard</span>
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link to="/profile" className="cursor-pointer flex w-full items-center gap-2">
             <User className="h-4 w-4" />
