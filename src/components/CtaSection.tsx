@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 const CtaSection = () => {
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="py-24 bg-background overflow-hidden">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="max-w-5xl mx-auto relative rounded-3xl overflow-hidden shadow-elevated">
           <div className="absolute inset-0 bg-gradient-to-r from-primary to-blue-600 -z-10"></div>
