@@ -74,14 +74,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const setAsAdmin = async (userId: string): Promise<void> => {
     try {
-      const { error } = await supabase
-        .from('user_roles')
-        .upsert({ 
-          user_id: userId, 
-          role: 'admin'
-        });
+      // Use rpc to call a function or build a custom SQL statement
+      const { error } = await supabase.rpc('assign_admin_role', { 
+        user_id_param: userId 
+      });
 
-      if (error) throw error;
+      if (error) {
+        // If the RPC function doesn't exist yet, fallback to direct SQL for now
+        // This is a temporary solution until we create the proper RPC function
+        const { error: insertError } = await supabase.from('user_roles')
+          .insert({ user_id: userId, role: 'admin' })
+          .select();
+
+        if (insertError) throw insertError;
+      }
 
       toast({
         title: 'Admin role assigned',

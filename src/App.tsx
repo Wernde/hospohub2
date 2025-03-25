@@ -25,9 +25,13 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             
-            {/* Protected routes */}
+            {/* Protected routes (requires any authenticated user) */}
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
+            </Route>
+            
+            {/* Protected admin routes (requires admin role) */}
+            <Route element={<ProtectedRoute requireAdmin={true} />}>
               <Route path="/admin" element={<AdminDashboard />} />
             </Route>
             

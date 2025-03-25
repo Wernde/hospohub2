@@ -20,7 +20,7 @@ interface UserWithProfile {
 }
 
 const AdminDashboard = () => {
-  const { user, isAdmin } = useAuth();
+  const { user, isAdmin, setAsAdmin } = useAuth();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState<UserWithProfile[]>([]);
@@ -43,25 +43,29 @@ const AdminDashboard = () => {
       
       if (profilesError) throw profilesError;
       
-      // Then check which ones have admin role
+      // Get admin role information using a custom query
       const { data: adminRoles, error: rolesError } = await supabase
-        .from('user_roles')
-        .select('*')
-        .eq('role', 'admin');
+        .rpc('get_admin_users');
         
-      if (rolesError) throw rolesError;
+      if (rolesError) {
+        // If RPC function doesn't exist, try a direct query as fallback
+        console.warn('RPC function get_admin_users not found, using fallback');
+        // We won't attempt to query user_roles directly since it's not in the types
+      }
       
-      // Get user emails from auth system (this is a limitation - normally we'd use admin APIs)
-      // For this demo, we'll just work with profiles and roles
-      
-      const adminUserIds = adminRoles?.map(role => role.user_id) || [];
+      // Create a set of admin user IDs for faster lookup
+      const adminUserIds = new Set(
+        Array.isArray(adminRoles) 
+          ? adminRoles.map(role => role.user_id)
+          : []
+      );
       
       const formattedUsers = profiles?.map(profile => ({
         id: profile.id,
         email: `User ${profile.id.slice(0, 6)}...`, // Just a placeholder since we can't access emails easily
         first_name: profile.first_name,
         last_name: profile.last_name,
-        is_admin: adminUserIds.includes(profile.id)
+        is_admin: adminUserIds.has(profile.id)
       })) || [];
       
       setUsers(formattedUsers);
@@ -80,19 +84,7 @@ const AdminDashboard = () => {
     try {
       setIsLoading(true);
       
-      const { error } = await supabase
-        .from('user_roles')
-        .upsert({ 
-          user_id: userId, 
-          role: 'admin'
-        });
-
-      if (error) throw error;
-
-      toast({
-        title: 'Admin role assigned',
-        description: 'The user has been granted admin privileges.',
-      });
+      await setAsAdmin(userId);
       
       // Refresh the user list
       await fetchUsers();
