@@ -6,71 +6,31 @@ const Footer = () => {
   return (
     <footer className="bg-blue-900 text-white">
       <div className="container mx-auto px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <Link to="/" className="flex items-center space-x-2 mb-4">
-              <ChefHat className="w-8 h-8 text-blue-300" />
-              <span className="font-display text-xl font-semibold text-white">
-                HospoHub
-              </span>
-            </Link>
-            
-            <p className="text-blue-100/80 mb-4">
-              Empowering hospitality education with intelligent recipe and inventory management.
-            </p>
-            
-            <div className="flex space-x-4">
-              <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
-                <Facebook className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
+        <div className="flex flex-col items-center text-center">
+          <Link to="/" className="flex items-center space-x-2 mb-4">
+            <ChefHat className="w-8 h-8 text-blue-300" />
+            <span className="font-display text-xl font-semibold text-white">
+              HospoHub
+            </span>
+          </Link>
           
-          <div>
-            <h3 className="font-semibold text-lg mb-4 text-white">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <a href="#features" className="text-blue-100/80 hover:text-blue-300 transition-colors">
-                  Features
-                </a>
-              </li>
-              <li>
-                <Link to="/pricing" className="text-blue-100/80 hover:text-blue-300 transition-colors">
-                  Pricing
-                </Link>
-              </li>
-              <li>
-                <Link to="/about" className="text-blue-100/80 hover:text-blue-300 transition-colors">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact" className="text-blue-100/80 hover:text-blue-300 transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <p className="text-blue-100/80 mb-4 max-w-md">
+            Empowering hospitality education with intelligent recipe and inventory management.
+          </p>
           
-          <div>
-            <h3 className="font-semibold text-lg mb-4 text-white">Contact</h3>
-            <ul className="space-y-2">
-              <li className="text-blue-100/80">
-                Email: contact@hospohub.com
-              </li>
-              <li className="text-blue-100/80">
-                Phone: +1 (555) 123-4567
-              </li>
-            </ul>
+          <div className="flex space-x-4 mb-8">
+            <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
+              <Twitter className="w-5 h-5" />
+            </a>
+            <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
+              <Linkedin className="w-5 h-5" />
+            </a>
           </div>
         </div>
         
