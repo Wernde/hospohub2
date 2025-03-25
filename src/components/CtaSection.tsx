@@ -4,18 +4,18 @@ import { Button } from '@/components/ui/button';
 
 const CtaSection = () => {
   return (
-    <section className="py-24 bg-background overflow-hidden">
+    <section className="py-20 bg-background overflow-hidden">
       <div className="container mx-auto px-6 lg:px-8">
         <div className="max-w-5xl mx-auto relative rounded-3xl overflow-hidden shadow-elevated">
           <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-900 -z-10"></div>
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] opacity-10 mix-blend-overlay"></div>
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80')] opacity-20 mix-blend-overlay"></div>
           
-          <div className="p-8 sm:p-16 flex flex-col items-center text-center">
+          <div className="p-8 sm:p-12 flex flex-col items-center text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
               Ready to transform your culinary classroom?
             </h2>
             
-            <p className="text-white/90 max-w-2xl text-lg mb-10">
+            <p className="text-white/90 max-w-2xl text-lg mb-8">
               Join over 200+ hospitality education programs already using HospoHub to 
               streamline their recipe management and enhance student learning.
             </p>

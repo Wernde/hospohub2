@@ -1,7 +1,7 @@
 
 import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Book, ChevronDown } from 'lucide-react';
+import { ArrowRight, ChevronDown, ClipboardList, BarChart3, BookOpen } from 'lucide-react';
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,7 @@ const HeroSection = () => {
   return (
     <section 
       ref={heroRef}
-      className="relative pt-36 pb-24 overflow-hidden"
+      className="relative pt-36 pb-16 overflow-hidden"
     >
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-600/10 via-blue-800/5 to-transparent"></div>
       
@@ -60,12 +60,12 @@ const HeroSection = () => {
               Recipe Management for <span className="text-gradient">Hospitality Education</span>
             </h1>
             
-            <p className="mt-6 text-xl text-foreground/80 leading-relaxed animate-on-scroll animate-fade-in stagger-1">
+            <p className="mt-6 text-xl text-foreground/80 leading-relaxed animate-on-scroll animate-fade-in stagger-1 mb-6">
               Streamline your hospitality department with an intelligent recipe management 
               system designed specifically for culinary schools and educational institutions.
             </p>
             
-            <div className="mt-8 flex flex-wrap gap-4 animate-on-scroll animate-fade-in stagger-2">
+            <div className="mt-4 flex flex-wrap gap-4 animate-on-scroll animate-fade-in stagger-2">
               <Button size="lg" className="animated-button bg-blue-600 hover:bg-blue-700 px-8 shadow-md">
                 Get Started
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -82,11 +82,17 @@ const HeroSection = () => {
               </Button>
             </div>
             
-            <div className="mt-8 flex items-center space-x-4 animate-on-scroll animate-fade-in stagger-3">
+            <div className="mt-6 flex items-center space-x-4 animate-on-scroll animate-fade-in stagger-3">
               <div className="flex -space-x-2">
-                <div className="w-8 h-8 rounded-full bg-blue-500 border-2 border-white"></div>
-                <div className="w-8 h-8 rounded-full bg-blue-600 border-2 border-white"></div>
-                <div className="w-8 h-8 rounded-full bg-blue-700 border-2 border-white"></div>
+                <div className="w-8 h-8 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center">
+                  <BookOpen className="w-4 h-4 text-white" />
+                </div>
+                <div className="w-8 h-8 rounded-full bg-blue-600 border-2 border-white flex items-center justify-center">
+                  <ClipboardList className="w-4 h-4 text-white" />
+                </div>
+                <div className="w-8 h-8 rounded-full bg-blue-700 border-2 border-white flex items-center justify-center">
+                  <BarChart3 className="w-4 h-4 text-white" />
+                </div>
               </div>
               <div className="text-sm text-foreground/70">
                 Trusted by <span className="font-semibold text-foreground">200+</span> culinary institutions
