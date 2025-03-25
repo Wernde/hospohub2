@@ -20,7 +20,7 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/90 backdrop-blur-md shadow-subtle py-3'
+          ? 'bg-blue-900/90 backdrop-blur-md shadow-subtle py-3'
           : 'bg-transparent py-5'
       }`}
     >
@@ -30,8 +30,8 @@ const Navbar = () => {
             to="/" 
             className="flex items-center space-x-2 transition-transform duration-300 hover:scale-[1.02]"
           >
-            <ChefHat className="w-8 h-8 text-primary" />
-            <span className="font-display text-xl font-semibold text-foreground">
+            <ChefHat className="w-8 h-8 text-blue-300" />
+            <span className="font-display text-xl font-semibold text-white">
               HospoHub
             </span>
           </Link>
@@ -39,24 +39,24 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             <div className="space-x-6">
-              <Link to="/" className="text-foreground/80 hover:text-primary transition-colors duration-200 link-underline">
+              <Link to="/" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
                 Home
               </Link>
-              <a href="#features" className="text-foreground/80 hover:text-primary transition-colors duration-200 link-underline">
+              <a href="#features" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
                 Features
               </a>
-              <a href="#testimonials" className="text-foreground/80 hover:text-primary transition-colors duration-200 link-underline">
+              <a href="#testimonials" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
                 Testimonials
               </a>
-              <Link to="/pricing" className="text-foreground/80 hover:text-primary transition-colors duration-200 link-underline">
+              <Link to="/pricing" className="text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline">
                 Pricing
               </Link>
             </div>
             <div className="flex items-center space-x-3">
-              <Button variant="outline" className="border-primary/30 text-primary hover:bg-primary/5">
+              <Button variant="outline" className="border-blue-300/30 text-blue-300 hover:bg-blue-800/50">
                 Log in
               </Button>
-              <Button className="bg-primary hover:bg-primary/90 shadow-sm">
+              <Button className="bg-blue-500 hover:bg-blue-600 shadow-sm">
                 Sign up
               </Button>
             </div>
@@ -64,7 +64,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-foreground"
+            className="md:hidden text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -78,32 +78,32 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-white/95 backdrop-blur-lg shadow-subtle animate-fade-in">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-blue-900/95 backdrop-blur-lg shadow-subtle animate-fade-in">
           <div className="container mx-auto px-6 py-6 flex flex-col space-y-4">
             <Link 
               to="/" 
-              className="px-4 py-2 text-foreground/80 hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
+              className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Home
             </Link>
             <a
               href="#features"
-              className="px-4 py-2 text-foreground/80 hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
+              className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Features
             </a>
             <a
               href="#testimonials"
-              className="px-4 py-2 text-foreground/80 hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
+              className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Testimonials
             </a>
             <Link
               to="/pricing"
-              className="px-4 py-2 text-foreground/80 hover:text-primary hover:bg-primary/5 rounded-md transition-colors"
+              className="px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Pricing
@@ -111,13 +111,13 @@ const Navbar = () => {
             <div className="pt-2 flex flex-col space-y-3">
               <Button 
                 variant="outline" 
-                className="w-full border-primary/30 text-primary hover:bg-primary/5"
+                className="w-full border-blue-300/30 text-blue-300 hover:bg-blue-800/50"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Log in
               </Button>
               <Button 
-                className="w-full bg-primary hover:bg-primary/90"
+                className="w-full bg-blue-500 hover:bg-blue-600"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Sign up

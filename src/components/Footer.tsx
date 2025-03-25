@@ -4,136 +4,94 @@ import { ChefHat, Facebook, Instagram, Linkedin, Twitter } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-white">
-      <div className="container mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    <footer className="bg-blue-900 text-white">
+      <div className="container mx-auto px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           <div>
             <Link to="/" className="flex items-center space-x-2 mb-6">
-              <ChefHat className="w-8 h-8 text-primary" />
+              <ChefHat className="w-8 h-8 text-blue-300" />
               <span className="font-display text-xl font-semibold text-white">
                 HospoHub
               </span>
             </Link>
             
-            <p className="text-white/70 mb-6">
+            <p className="text-blue-100/80 mb-6">
               Empowering hospitality education with intelligent recipe and inventory management.
             </p>
             
             <div className="flex space-x-4">
-              <a href="#" className="text-white/70 hover:text-primary transition-colors">
+              <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/70 hover:text-primary transition-colors">
+              <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/70 hover:text-primary transition-colors">
+              <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-white/70 hover:text-primary transition-colors">
+              <a href="#" className="text-blue-200/70 hover:text-blue-300 transition-colors">
                 <Linkedin className="w-5 h-5" />
               </a>
             </div>
           </div>
           
           <div>
-            <h3 className="font-semibold text-lg mb-6">Platform</h3>
-            <ul className="space-y-4">
+            <h3 className="font-semibold text-lg mb-4 text-white">Quick Links</h3>
+            <ul className="space-y-3">
               <li>
-                <a href="#features" className="text-white/70 hover:text-primary transition-colors">
+                <a href="#features" className="text-blue-100/80 hover:text-blue-300 transition-colors">
                   Features
                 </a>
               </li>
               <li>
-                <Link to="/pricing" className="text-white/70 hover:text-primary transition-colors">
+                <Link to="/pricing" className="text-blue-100/80 hover:text-blue-300 transition-colors">
                   Pricing
                 </Link>
               </li>
               <li>
-                <Link to="/integrations" className="text-white/70 hover:text-primary transition-colors">
-                  Integrations
-                </Link>
-              </li>
-              <li>
-                <Link to="/customers" className="text-white/70 hover:text-primary transition-colors">
-                  Customers
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-semibold text-lg mb-6">Resources</h3>
-            <ul className="space-y-4">
-              <li>
-                <Link to="/blog" className="text-white/70 hover:text-primary transition-colors">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link to="/guides" className="text-white/70 hover:text-primary transition-colors">
-                  Guides
-                </Link>
-              </li>
-              <li>
-                <Link to="/documentation" className="text-white/70 hover:text-primary transition-colors">
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link to="/support" className="text-white/70 hover:text-primary transition-colors">
-                  Support
-                </Link>
-              </li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="font-semibold text-lg mb-6">Company</h3>
-            <ul className="space-y-4">
-              <li>
-                <Link to="/about" className="text-white/70 hover:text-primary transition-colors">
+                <Link to="/about" className="text-blue-100/80 hover:text-blue-300 transition-colors">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link to="/careers" className="text-white/70 hover:text-primary transition-colors">
-                  Careers
+                <Link to="/contact" className="text-blue-100/80 hover:text-blue-300 transition-colors">
+                  Contact
                 </Link>
               </li>
-              <li>
-                <Link to="/privacy" className="text-white/70 hover:text-primary transition-colors">
-                  Privacy Policy
-                </Link>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="font-semibold text-lg mb-4 text-white">Contact</h3>
+            <ul className="space-y-3">
+              <li className="text-blue-100/80">
+                Email: contact@hospohub.com
               </li>
-              <li>
-                <Link to="/terms" className="text-white/70 hover:text-primary transition-colors">
-                  Terms of Service
-                </Link>
+              <li className="text-blue-100/80">
+                Phone: +1 (555) 123-4567
+              </li>
+              <li className="text-blue-100/80">
+                Address: 123 Culinary Ave, Foodtown, CA 94567
               </li>
             </ul>
           </div>
         </div>
         
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white/50 text-sm">
+        <div className="mt-10 pt-6 border-t border-blue-800 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-blue-200/50 text-sm">
             © 2025 HospoHub. All rights reserved.
           </p>
           
           <div className="mt-4 md:mt-0">
             <ul className="flex space-x-6 text-sm">
               <li>
-                <Link to="/privacy" className="text-white/50 hover:text-primary transition-colors">
+                <Link to="/privacy" className="text-blue-200/50 hover:text-blue-300 transition-colors">
                   Privacy
                 </Link>
               </li>
               <li>
-                <Link to="/terms" className="text-white/50 hover:text-primary transition-colors">
+                <Link to="/terms" className="text-blue-200/50 hover:text-blue-300 transition-colors">
                   Terms
-                </Link>
-              </li>
-              <li>
-                <Link to="/cookies" className="text-white/50 hover:text-primary transition-colors">
-                  Cookies
                 </Link>
               </li>
             </ul>
