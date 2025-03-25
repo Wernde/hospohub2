@@ -1,15 +1,18 @@
 
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChefHat } from 'lucide-react';
+import { ChefHat, Info } from 'lucide-react';
+import { toast } from 'sonner';
 
 const Auth = () => {
+  const [searchParams] = useSearchParams();
+  const defaultTab = searchParams.get('tab') === 'signup' ? 'signup' : 'login';
   const { user, signIn, signUp, isLoading } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -41,6 +44,12 @@ const Auth = () => {
     }
   };
 
+  const fillAdminCredentials = () => {
+    setEmail('admin@hospohub.com');
+    setPassword('admin');
+    toast.info('Admin credentials filled. Click Login to continue.');
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-900 to-blue-700 px-4">
       <div className="w-full max-w-md">
@@ -51,7 +60,7 @@ const Auth = () => {
           </span>
         </div>
 
-        <Tabs defaultValue="login" className="w-full">
+        <Tabs defaultValue={defaultTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-6">
             <TabsTrigger value="login">Login</TabsTrigger>
             <TabsTrigger value="signup">Sign up</TabsTrigger>
@@ -90,6 +99,15 @@ const Auth = () => {
                     />
                   </div>
                   {error && <p className="text-sm font-medium text-destructive">{error}</p>}
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full flex items-center justify-center gap-2 mt-2"
+                    onClick={fillAdminCredentials}
+                  >
+                    <Info className="h-4 w-4" />
+                    Fill Admin Credentials
+                  </Button>
                 </CardContent>
                 <CardFooter>
                   <Button type="submit" className="w-full" disabled={isLoading}>
