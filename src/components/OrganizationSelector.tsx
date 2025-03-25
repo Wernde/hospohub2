@@ -10,15 +10,33 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Building, ChevronDown } from 'lucide-react';
+import { Building, ChevronDown, Plus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from '@/hooks/use-toast';
 
 const OrganizationSelector = () => {
   const { userOrganizations, activeOrganization, setActiveOrganization } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
-  if (!userOrganizations.length) {
-    return null;
+  if (!userOrganizations || userOrganizations.length === 0) {
+    return (
+      <Button 
+        variant="outline" 
+        size="sm"
+        onClick={() => navigate('/organization/create')}
+        className="flex items-center gap-2 bg-blue-800/40 border-blue-700 hover:bg-blue-800/60 text-blue-100"
+      >
+        <Plus className="h-4 w-4" />
+        <span>Create Organization</span>
+      </Button>
+    );
   }
+
+  const handleCreateNewOrg = () => {
+    navigate('/organization/create');
+    setIsOpen(false);
+  };
 
   return (
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -49,6 +67,10 @@ const OrganizationSelector = () => {
             onClick={() => {
               setActiveOrganization(membership.organization);
               setIsOpen(false);
+              toast({
+                title: "Organization switched",
+                description: `You are now working in ${membership.organization.name}`,
+              });
             }}
           >
             <div className="flex items-center justify-between w-full">
@@ -66,6 +88,14 @@ const OrganizationSelector = () => {
             </div>
           </DropdownMenuItem>
         ))}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem 
+          className="cursor-pointer text-blue-600 hover:text-blue-800"
+          onClick={handleCreateNewOrg}
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          Create New Organization
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

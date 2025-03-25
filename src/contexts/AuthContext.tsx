@@ -7,7 +7,9 @@ import { useToast } from '@/hooks/use-toast';
 interface Organization {
   id: string;
   name: string;
+  description?: string;
   created_at: string;
+  logo_url?: string;
 }
 
 interface OrganizationMembership {
@@ -25,7 +27,7 @@ interface AuthContextType {
   userOrganizations: OrganizationMembership[];
   activeOrganization: Organization | null;
   setActiveOrganization: (org: Organization | null) => void;
-  signUp: (email: string, password: string) => Promise<{user: User | null, error: Error | null}>;
+  signUp: (email: string, password: string, organizationName?: string) => Promise<{user: User | null, error: Error | null}>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   checkIsAdmin: () => Promise<boolean>;
@@ -44,6 +46,26 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [userOrganizations, setUserOrganizations] = useState<OrganizationMembership[]>([]);
   const [activeOrganization, setActiveOrganization] = useState<Organization | null>(null);
   const { toast } = useToast();
+
+  // Load active organization from localStorage
+  useEffect(() => {
+    const savedOrgId = localStorage.getItem('activeOrganizationId');
+    if (savedOrgId && userOrganizations.length > 0) {
+      const savedOrg = userOrganizations.find(
+        membership => membership.organization_id === savedOrgId
+      );
+      if (savedOrg) {
+        setActiveOrganization(savedOrg.organization);
+      }
+    }
+  }, [userOrganizations]);
+
+  // Save active organization to localStorage when it changes
+  useEffect(() => {
+    if (activeOrganization) {
+      localStorage.setItem('activeOrganizationId', activeOrganization.id);
+    }
+  }, [activeOrganization]);
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -155,7 +177,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, organizationName?: string) => {
     try {
       setIsLoading(true);
       const { data, error } = await supabase.auth.signUp({
@@ -164,6 +186,45 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       if (error) throw error;
+      
+      // If organization name is provided, create an organization for the user
+      if (organizationName && data.user) {
+        try {
+          // Create the organization
+          const { data: orgData, error: orgError } = await supabase
+            .from('organizations')
+            .insert([
+              { 
+                name: organizationName, 
+                created_by: data.user.id 
+              }
+            ])
+            .select()
+            .single();
+          
+          if (orgError) throw orgError;
+          
+          // Add the user as an admin of the organization
+          const { error: memberError } = await supabase
+            .from('organization_members')
+            .insert([
+              { 
+                user_id: data.user.id, 
+                organization_id: orgData.id,
+                access_level: 3 // Admin
+              }
+            ]);
+          
+          if (memberError) throw memberError;
+          
+          // Set this as the active organization
+          setActiveOrganization(orgData);
+        } catch (orgError) {
+          console.error('Error creating organization during signup:', orgError);
+          // Continue with signup even if org creation fails
+        }
+      }
+      
       toast({
         title: 'Account created!',
         description: 'Check your email for the confirmation link.',
@@ -216,6 +277,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         title: 'Signed out',
         description: 'You have been signed out successfully.',
       });
+      // Clear active organization in localStorage
+      localStorage.removeItem('activeOrganizationId');
     } catch (error: any) {
       toast({
         title: 'Error',

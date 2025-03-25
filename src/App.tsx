@@ -12,6 +12,9 @@ import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
+import OrganizationCreate from "./pages/organization/OrganizationCreate";
+import OrganizationSettings from "./pages/organization/OrganizationSettings";
+import OrganizationMembers from "./pages/organization/OrganizationMembers";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +33,20 @@ const App = () => (
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/organization/create" element={<OrganizationCreate />} />
+              
+              {/* Organization routes (requires org membership) */}
+              <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={1}>}>
+                {/* Organization admin routes */}
+                <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={3}>}>
+                  <Route path="/organization/settings" element={<OrganizationSettings />} />
+                </Route>
+                
+                {/* Organization manager routes */}
+                <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={2}>}>
+                  <Route path="/organization/members" element={<OrganizationMembers />} />
+                </Route>
+              </Route>
             </Route>
             
             {/* Protected admin routes (requires admin role) */}
