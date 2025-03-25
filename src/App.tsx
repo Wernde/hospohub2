@@ -36,14 +36,14 @@ const App = () => (
               <Route path="/organization/create" element={<OrganizationCreate />} />
               
               {/* Organization routes (requires org membership) */}
-              <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={1}>}>
+              <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={1} />}>
                 {/* Organization admin routes */}
-                <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={3}>}>
+                <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={3} />}>
                   <Route path="/organization/settings" element={<OrganizationSettings />} />
                 </Route>
                 
                 {/* Organization manager routes */}
-                <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={2}>}>
+                <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={2} />}>
                   <Route path="/organization/members" element={<OrganizationMembers />} />
                 </Route>
               </Route>
