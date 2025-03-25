@@ -60,8 +60,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const checkIsAdmin = async (): Promise<boolean> => {
     try {
+      // Specify the expected parameter type explicitly
       const { data, error } = await supabase.rpc('has_role', { 
-        _role: 'admin' 
+        _role: 'admin' as string
       });
       
       if (error) throw error;
@@ -74,9 +75,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const setAsAdmin = async (userId: string): Promise<void> => {
     try {
-      // Use RPC to call our function
+      // Specify the parameter type explicitly
       const { error } = await supabase.rpc('assign_admin_role', { 
-        user_id_param: userId 
+        user_id_param: userId as string 
       });
 
       if (error) throw error;

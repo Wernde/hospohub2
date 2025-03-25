@@ -19,6 +19,10 @@ interface UserWithProfile {
   is_admin: boolean;
 }
 
+interface AdminUser {
+  user_id: string;
+}
+
 const AdminDashboard = () => {
   const { user, isAdmin, setAsAdmin } = useAuth();
   const { toast } = useToast();
@@ -45,7 +49,7 @@ const AdminDashboard = () => {
       
       // Get admin role information using the RPC function
       const { data: adminRoles, error: rolesError } = await supabase
-        .rpc('get_admin_users');
+        .rpc('get_admin_users') as { data: AdminUser[] | null, error: any };
         
       if (rolesError) {
         console.error('Error fetching admin roles:', rolesError);
