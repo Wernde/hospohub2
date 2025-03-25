@@ -5,8 +5,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider, useAuth } from "@/contexts/AuthContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
+import AiChat from "@/components/AiChat";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Profile from "./pages/Profile";
@@ -19,6 +20,12 @@ import OrganizationMembers from "./pages/organization/OrganizationMembers";
 
 // Create a new QueryClient instance outside the component
 const queryClient = new QueryClient();
+
+// Component to render the AI assistant only when user is authenticated
+const AuthenticatedAIAssistant = () => {
+  const { user } = useAuth();
+  return user ? <AiChat /> : null;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -59,6 +66,7 @@ const App = () => (
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <AuthenticatedAIAssistant />
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
