@@ -1,8 +1,8 @@
-
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ChefHat, Menu, X } from 'lucide-react';
+import UserMenu from '@/components/UserMenu';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,14 +52,7 @@ const Navbar = () => {
                 Pricing
               </Link>
             </div>
-            <div className="flex items-center space-x-3">
-              <Button variant="outline" className="border-blue-300/30 text-blue-300 hover:bg-blue-800/50">
-                Log in
-              </Button>
-              <Button className="bg-blue-500 hover:bg-blue-600 shadow-sm">
-                Sign up
-              </Button>
-            </div>
+            <UserMenu />
           </div>
 
           {/* Mobile Menu Button */}
@@ -113,14 +106,16 @@ const Navbar = () => {
                 variant="outline" 
                 className="w-full border-blue-300/30 text-blue-300 hover:bg-blue-800/50"
                 onClick={() => setIsMobileMenuOpen(false)}
+                asChild
               >
-                Log in
+                <Link to="/auth">Log in</Link>
               </Button>
               <Button 
                 className="w-full bg-blue-500 hover:bg-blue-600"
                 onClick={() => setIsMobileMenuOpen(false)}
+                asChild
               >
-                Sign up
+                <Link to="/auth?tab=signup">Sign up</Link>
               </Button>
             </div>
           </div>
