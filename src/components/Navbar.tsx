@@ -6,6 +6,13 @@ import { ChefHat, Menu, X, LayoutDashboard } from 'lucide-react';
 import UserMenu from '@/components/UserMenu';
 import { useAuth } from '@/contexts/AuthContext';
 
+// Define a proper interface for our navigation links
+interface NavLink {
+  name: string;
+  href: string;
+  icon?: React.ReactNode;
+}
+
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -24,7 +31,7 @@ const Navbar = () => {
   const isHomePage = location.pathname === '/';
 
   // Navigation links
-  const dashboardLinks = [
+  const dashboardLinks: NavLink[] = [
     { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
     { name: 'Recipes', href: '/recipes' },
     { name: 'Classes', href: '/classes' },
@@ -33,7 +40,7 @@ const Navbar = () => {
   ];
 
   // Home page links
-  const homeLinks = [
+  const homeLinks: NavLink[] = [
     { name: 'Home', href: '/' },
     { name: 'Features', href: '#features' },
     { name: 'Testimonials', href: '#testimonials' },
