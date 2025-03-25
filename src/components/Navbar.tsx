@@ -2,7 +2,16 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ChefHat, Menu, X, LayoutDashboard } from 'lucide-react';
+import { 
+  ChefHat, 
+  Menu, 
+  X, 
+  LayoutDashboard, 
+  BookOpen, 
+  GraduationCap, 
+  ShoppingBasket, 
+  ShoppingCart 
+} from 'lucide-react';
 import UserMenu from '@/components/UserMenu';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -10,7 +19,7 @@ import { useAuth } from '@/contexts/AuthContext';
 interface NavLink {
   name: string;
   href: string;
-  icon?: React.ReactNode;
+  icon: React.ReactNode;
 }
 
 const Navbar = () => {
@@ -30,21 +39,21 @@ const Navbar = () => {
   // Check if we're on the home page
   const isHomePage = location.pathname === '/';
 
-  // Navigation links
+  // Navigation links with icons
   const dashboardLinks: NavLink[] = [
     { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { name: 'Recipes', href: '/recipes' },
-    { name: 'Classes', href: '/classes' },
-    { name: 'Pantry', href: '/pantry' },
-    { name: 'Shopping', href: '/shopping' }
+    { name: 'Recipes', href: '/recipes', icon: <BookOpen className="w-4 h-4" /> },
+    { name: 'Classes', href: '/classes', icon: <GraduationCap className="w-4 h-4" /> },
+    { name: 'Pantry', href: '/pantry', icon: <ShoppingBasket className="w-4 h-4" /> },
+    { name: 'Shopping', href: '/shopping', icon: <ShoppingCart className="w-4 h-4" /> }
   ];
 
-  // Home page links
+  // Home page links with icons
   const homeLinks: NavLink[] = [
-    { name: 'Home', href: '/' },
-    { name: 'Features', href: '#features' },
-    { name: 'Testimonials', href: '#testimonials' },
-    { name: 'Pricing', href: '/pricing' },
+    { name: 'Home', href: '/', icon: <ChefHat className="w-4 h-4" /> },
+    { name: 'Features', href: '#features', icon: <LayoutDashboard className="w-4 h-4" /> },
+    { name: 'Testimonials', href: '#testimonials', icon: <BookOpen className="w-4 h-4" /> },
+    { name: 'Pricing', href: '/pricing', icon: <ShoppingCart className="w-4 h-4" /> },
   ];
 
   // Choose which links to display based on the current page
@@ -59,7 +68,7 @@ const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
+        <div className="flex items-center justify-between h-16">
           <Link 
             to="/" 
             className="flex items-center space-x-2 transition-transform duration-300 hover:scale-[1.02]"
@@ -77,12 +86,12 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`text-white/90 hover:text-blue-300 transition-colors duration-200 link-underline flex items-center gap-1 py-1 px-2 ${
-                    location.pathname === link.href ? 'border-b-2 border-blue-300' : ''
+                  className={`text-white/90 hover:text-blue-300 transition-colors duration-200 flex items-center gap-2 py-2 px-3 rounded-md ${
+                    location.pathname === link.href ? 'bg-blue-800/50 text-blue-300' : ''
                   }`}
                 >
-                  {link.icon && link.icon}
-                  {link.name}
+                  {link.icon}
+                  <span>{link.name}</span>
                 </Link>
               ))}
             </div>
@@ -120,8 +129,8 @@ const Navbar = () => {
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                {link.icon && link.icon}
-                {link.name}
+                {link.icon}
+                <span>{link.name}</span>
               </Link>
             ))}
             <div className="pt-2 flex flex-col space-y-3">
