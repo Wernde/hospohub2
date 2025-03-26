@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Check, Clock, InfoIcon } from 'lucide-react';
+import { Check, Clock, InfoIcon, Dollar, Users, Utensils, Flag, Egg, ArrowUp, ArrowDown } from 'lucide-react';
 import { 
   Tooltip,
   TooltipContent,
@@ -18,61 +18,91 @@ interface FeatureItem {
   name: string;
   available: boolean;
   comingSoonInfo?: string;
+  icon?: React.ReactNode;
 }
 
 const RecipeFeaturesList = () => {
   const [selectedFeature, setSelectedFeature] = useState<FeatureItem | null>(null);
   
   const features: FeatureItem[] = [
-    { name: 'Create new recipes', available: true },
-    { name: 'Edit existing recipes', available: true },
-    { name: 'Upload recipe images', available: true },
-    { name: 'AI-powered extraction from documents', available: true },
-    { name: 'Filter and search recipes', available: true },
+    { 
+      name: 'Create new recipes', 
+      available: true,
+      icon: <Utensils className="h-5 w-5 text-green-500 flex-shrink-0" />
+    },
+    { 
+      name: 'Edit existing recipes', 
+      available: true,
+      icon: <Utensils className="h-5 w-5 text-green-500 flex-shrink-0" />
+    },
+    { 
+      name: 'Upload recipe images', 
+      available: true,
+      icon: <Utensils className="h-5 w-5 text-green-500 flex-shrink-0" />
+    },
+    { 
+      name: 'AI-powered extraction from documents', 
+      available: true,
+      icon: <Utensils className="h-5 w-5 text-green-500 flex-shrink-0" />
+    },
+    { 
+      name: 'Filter and search recipes', 
+      available: true,
+      icon: <Utensils className="h-5 w-5 text-green-500 flex-shrink-0" />
+    },
     { 
       name: 'Calculate ingredient quantities based on student numbers', 
       available: false,
-      comingSoonInfo: 'Coming in Summer 2025 - Scale recipes automatically based on class size.' 
+      comingSoonInfo: 'Coming in Summer 2025 - Scale recipes automatically based on class size.',
+      icon: <Users className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
     { 
       name: 'Convert between recipe units and store units', 
       available: false,
-      comingSoonInfo: 'Coming in Fall 2025 - Automatic conversion between different measurement systems.' 
+      comingSoonInfo: 'Coming in Fall 2025 - Automatic conversion between different measurement systems.',
+      icon: <ArrowDown className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
     { 
       name: 'Upload recipe attachments', 
       available: false,
-      comingSoonInfo: 'Coming in Spring 2025 - Support for PDFs, videos, and other supplementary materials.' 
+      comingSoonInfo: 'Coming in Spring 2025 - Support for PDFs, videos, and other supplementary materials.',
+      icon: <Utensils className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
     { 
       name: 'Send recipes for approval workflow', 
       available: false,
-      comingSoonInfo: 'Coming in Summer 2025 - Full approval workflow for institutional settings.' 
+      comingSoonInfo: 'Coming in Summer 2025 - Full approval workflow for institutional settings.',
+      icon: <Utensils className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
     { 
       name: 'Track recipe creator/teacher attribution', 
       available: false,
-      comingSoonInfo: 'Coming in Spring 2025 - Credit original creators and track modifications.' 
+      comingSoonInfo: 'Coming in Spring 2025 - Credit original creators and track modifications.',
+      icon: <Users className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
     { 
       name: 'Flag dietary restrictions and allergens', 
       available: false,
-      comingSoonInfo: 'Coming in Spring 2025 - Comprehensive allergen tracking and warnings.' 
+      comingSoonInfo: 'Coming in Spring 2025 - Comprehensive allergen tracking and warnings.',
+      icon: <Flag className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
     { 
       name: 'Suggest ingredient substitutions', 
       available: false,
-      comingSoonInfo: 'Coming in Fall 2025 - AI-powered substitution recommendations.' 
+      comingSoonInfo: 'Coming in Fall 2025 - AI-powered substitution recommendations.',
+      icon: <Egg className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
     { 
       name: 'Share recipes between teachers', 
       available: false,
-      comingSoonInfo: 'Coming in Summer 2025 - Collaboration features for educational settings.' 
+      comingSoonInfo: 'Coming in Summer 2025 - Collaboration features for educational settings.',
+      icon: <Users className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
     { 
       name: 'Ingredient cost analysis', 
       available: false,
-      comingSoonInfo: 'Coming in Fall 2025 - Calculate recipe costs and budget planning tools.' 
+      comingSoonInfo: 'Coming in Fall 2025 - Calculate recipe costs and budget planning tools.',
+      icon: <Dollar className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
   ];
 
@@ -150,9 +180,9 @@ const RecipeFeaturesList = () => {
             )}
           >
             {feature.available ? (
-              <Check className="h-5 w-5 text-green-500 flex-shrink-0" />
+              feature.icon || <Check className="h-5 w-5 text-green-500 flex-shrink-0" />
             ) : (
-              <Clock className="h-5 w-5 text-amber-500 flex-shrink-0" />
+              feature.icon || <Clock className="h-5 w-5 text-amber-500 flex-shrink-0" />
             )}
             <span className="text-sm">{feature.name}</span>
             
