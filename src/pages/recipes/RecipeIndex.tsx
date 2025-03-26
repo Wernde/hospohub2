@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Plus, Search, ChefHat, Clock, Users, BookOpen } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import RecipeFeaturesList from '@/components/recipes/RecipeFeaturesList';
 
 // Sample data for recipes
 const sampleRecipes = [
@@ -82,6 +82,9 @@ const RecipeIndex = () => {
               </Button>
             </div>
           </div>
+          
+          {/* Features List */}
+          <RecipeFeaturesList />
           
           {/* Recipe Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
