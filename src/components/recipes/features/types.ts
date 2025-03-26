@@ -5,7 +5,9 @@ export interface FeatureItem {
   name: string;
   available: boolean;
   comingSoonInfo?: string;
-  icon?: ReactNode;
+  iconName?: string;
+  iconColor?: string;
+  icon?: ReactNode; // Keep for backwards compatibility
   link?: string;
 }
 

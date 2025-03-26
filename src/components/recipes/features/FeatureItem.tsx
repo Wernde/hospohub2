@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Clock, InfoIcon, ExternalLink } from 'lucide-react';
+import { InfoIcon, ExternalLink } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { 
   TooltipProvider,
@@ -10,6 +10,7 @@ import {
   TooltipContent
 } from '@/components/ui/tooltip';
 import { FeatureItemProps } from './types';
+import FeatureIcon from './FeatureIcon';
 
 const FeatureItem: React.FC<FeatureItemProps> = ({
   feature,
@@ -23,7 +24,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
       }`}
       onClick={() => !feature.available && onClick(feature)}
     >
-      {feature.icon}
+      {feature.icon || <FeatureIcon iconName={feature.iconName} iconColor={feature.iconColor} />}
       <span className="text-sm">{feature.name}</span>
       
       {feature.available ? (
