@@ -8,7 +8,7 @@ import { PantryProvider } from '@/components/pantry/PantryContext';
 const PantryPage = () => {
   return (
     <PantryProvider>
-      <div className="flex flex-col w-full min-h-screen bg-gray-50">
+      <div className="flex flex-col w-full min-h-screen bg-background">
         <PantryHeader />
         <PantryLayout />
         <Toaster />

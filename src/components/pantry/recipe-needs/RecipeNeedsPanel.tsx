@@ -2,12 +2,22 @@
 import React from 'react';
 import RecipeNeedsList from './RecipeNeedsList';
 import ShoppingList from './ShoppingList';
+import { Card, CardContent } from '@/components/ui/card';
 
 const RecipeNeedsPanel = () => {
   return (
     <div className="space-y-6">
-      <RecipeNeedsList />
-      <ShoppingList />
+      <Card>
+        <CardContent className="pt-6">
+          <RecipeNeedsList />
+        </CardContent>
+      </Card>
+      
+      <Card>
+        <CardContent className="pt-6">
+          <ShoppingList />
+        </CardContent>
+      </Card>
     </div>
   );
 };

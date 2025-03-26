@@ -9,7 +9,8 @@ const AddItemButton = () => {
   
   return (
     <Button 
-      className="w-full mb-4 bg-green-500 hover:bg-green-600"
+      className="w-full mb-4"
+      variant="default"
       onClick={() => setShowAddItemForm(!showAddItemForm)}
     >
       <Plus size={20} className="mr-2" />
