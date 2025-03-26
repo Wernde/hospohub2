@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,6 @@ import {
 import UserMenu from '@/components/UserMenu';
 import { useAuth } from '@/contexts/AuthContext';
 
-// Define a proper interface for our navigation links
 interface NavLink {
   name: string;
   href: string;
@@ -36,10 +34,8 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Check if we're on the home page
   const isHomePage = location.pathname === '/';
 
-  // Navigation links with icons
   const dashboardLinks: NavLink[] = [
     { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
     { name: 'Recipes', href: '/recipes', icon: <BookOpen className="w-4 h-4" /> },
@@ -48,7 +44,6 @@ const Navbar = () => {
     { name: 'Shopping', href: '/shopping', icon: <ShoppingCart className="w-4 h-4" /> }
   ];
 
-  // Home page links with icons
   const homeLinks: NavLink[] = [
     { name: 'Home', href: '/', icon: <ChefHat className="w-4 h-4" /> },
     { name: 'Features', href: '#features', icon: <LayoutDashboard className="w-4 h-4" /> },
@@ -56,7 +51,6 @@ const Navbar = () => {
     { name: 'Pricing', href: '/pricing', icon: <ShoppingCart className="w-4 h-4" /> },
   ];
 
-  // Choose which links to display based on the current page
   const navLinks = isHomePage ? homeLinks : dashboardLinks;
 
   return (
@@ -79,7 +73,6 @@ const Navbar = () => {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex flex-1 items-center justify-center mx-6">
             <div className="flex justify-between space-x-2 md:space-x-4 lg:space-x-8">
               {navLinks.map((link) => (
@@ -97,12 +90,10 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* User Menu */}
           <div className="hidden md:flex items-center">
             <UserMenu />
           </div>
 
-          {/* Mobile Menu Button */}
           <button 
             className="md:hidden text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -116,7 +107,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-full left-0 right-0 bg-blue-900/95 backdrop-blur-lg shadow-subtle animate-fade-in">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">

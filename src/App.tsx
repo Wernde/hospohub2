@@ -19,6 +19,7 @@ import OrganizationSettings from "./pages/organization/OrganizationSettings";
 import OrganizationMembers from "./pages/organization/OrganizationMembers";
 import RecipeIndex from "./pages/recipes/RecipeIndex";
 import NewRecipe from "./pages/recipes/NewRecipe";
+import ClassesIndex from "./pages/classes/ClassesIndex";
 import ScheduleClass from "./pages/classes/ScheduleClass";
 import IngredientCalculator from "./pages/calculator/IngredientCalculator";
 
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/recipes" element={<RecipeIndex />} />
               <Route path="/recipes/new" element={<NewRecipe />} />
+              <Route path="/classes" element={<ClassesIndex />} />
               <Route path="/classes/schedule" element={<ScheduleClass />} />
               <Route path="/calculator" element={<IngredientCalculator />} />
               <Route path="/organization/create" element={<OrganizationCreate />} />

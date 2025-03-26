@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import QuickActionCard from './QuickActionCard';
-import { Plus, Calendar, MessageSquare } from 'lucide-react';
+import { Plus, Calendar, Calculator } from 'lucide-react';
 
 // Quick actions
 const quickActions = [
@@ -26,7 +26,7 @@ const quickActions = [
     id: 3,
     title: 'Ingredient Calculator',
     description: 'Calculate ingredient quantities for different class sizes.',
-    icon: <MessageSquare className="h-6 w-6 text-white" />,
+    icon: <Calculator className="h-6 w-6 text-white" />,
     iconBg: 'bg-yellow-500',
     href: '/calculator'
   }
