@@ -34,13 +34,15 @@ interface ClassDetailsFormProps {
   setDate: (date: Date | undefined) => void;
   onNavigateBack: () => void;
   onNavigateNext: () => void;
+  onFormData: (data: ClassFormValues) => void;
 }
 
 const ClassDetailsForm: React.FC<ClassDetailsFormProps> = ({
   date,
   setDate,
   onNavigateBack,
-  onNavigateNext
+  onNavigateNext,
+  onFormData
 }) => {
   const { toast } = useToast();
   const form = useForm<ClassFormValues>({
@@ -63,6 +65,9 @@ const ClassDetailsForm: React.FC<ClassDetailsFormProps> = ({
       });
       return;
     }
+    
+    // Pass the form data to the parent component
+    onFormData(data);
     
     // All fields are validated, proceed to the next step
     onNavigateNext();

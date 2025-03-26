@@ -31,6 +31,15 @@ interface Recipe {
   servings: number;
 }
 
+interface ClassDetailsFormData {
+  className: string;
+  instructor: string;
+  location: string;
+  startTime: string;
+  endTime: string;
+  description: string;
+}
+
 const mockRecipes: Recipe[] = [
   { id: '1', name: 'Classic Chocolate Cake', difficulty: 'Medium', prepTime: 30, cookTime: 45, servings: 12 },
   { id: '2', name: 'Vegetable Stir Fry', difficulty: 'Easy', prepTime: 15, cookTime: 10, servings: 4 },
@@ -45,14 +54,26 @@ const ScheduleClass = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [activeTab, setActiveTab] = useState('details');
   const [selectedRecipes, setSelectedRecipes] = useState<Recipe[]>([]);
+  const [classDetails, setClassDetails] = useState<ClassDetailsFormData>({
+    className: '',
+    instructor: '',
+    location: '',
+    startTime: '',
+    endTime: '',
+    description: '',
+  });
   const { toast } = useToast();
+
+  const handleFormData = (data: ClassDetailsFormData) => {
+    setClassDetails(data);
+  };
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Here we would save the class data including student information and recipes
     toast({
       title: "Class scheduled",
-      description: `Class has been scheduled with ${students.length} student(s) and ${selectedRecipes.length} recipe(s)`,
+      description: `${classDetails.className} has been scheduled with ${students.length} student(s) and ${selectedRecipes.length} recipe(s)`,
     });
     navigate('/classes');
   };
@@ -69,7 +90,7 @@ const ScheduleClass = () => {
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="details">Class Details</TabsTrigger>
               <TabsTrigger value="recipes">Recipe Selection</TabsTrigger>
-              <TabsTrigger value="students">Students & Dietary Requirements</TabsTrigger>
+              <TabsTrigger value="students">Students & Summary</TabsTrigger>
             </TabsList>
             
             <TabsContent value="details">
@@ -83,6 +104,7 @@ const ScheduleClass = () => {
                     setDate={setDate}
                     onNavigateBack={() => navigate('/classes')}
                     onNavigateNext={() => setActiveTab('recipes')}
+                    onFormData={handleFormData}
                   />
                 </CardContent>
               </Card>
@@ -108,7 +130,7 @@ const ScheduleClass = () => {
             <TabsContent value="students">
               <Card className="shadow-md mb-6">
                 <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b">
-                  <CardTitle className="text-xl text-blue-800">Students & Dietary Requirements</CardTitle>
+                  <CardTitle className="text-xl text-blue-800">Students & Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
                   <StudentsTab
@@ -116,6 +138,9 @@ const ScheduleClass = () => {
                     setStudents={setStudents}
                     onNavigateBack={() => setActiveTab('recipes')}
                     onSubmit={handleSubmit}
+                    classDetails={classDetails}
+                    date={date}
+                    selectedRecipes={selectedRecipes}
                   />
                 </CardContent>
               </Card>
