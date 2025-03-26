@@ -1,22 +1,22 @@
 
-import { initialPantryData } from './pantryItems';
+import { initialPantryData as originalPantryData } from './pantryItems';
 import { additionalPantryData } from './pantryItems2';
-import { mockRecipeNeeds } from './recipeNeeds';
+import { mockRecipeNeeds as originalRecipeNeeds } from './recipeNeeds';
 import { additionalRecipeNeeds } from './recipeNeeds2';
 import { PantryItem, RecipeNeed } from '../types';
 
 // Combine all pantry items
 export const allPantryItems: PantryItem[] = [
-  ...initialPantryData,
+  ...originalPantryData,
   ...additionalPantryData
 ];
 
 // Combine all recipe needs
 export const allRecipeNeeds: RecipeNeed[] = [
-  ...mockRecipeNeeds,
+  ...originalRecipeNeeds,
   ...additionalRecipeNeeds
 ];
 
 // Re-export for backward compatibility
-export const initialPantryData: PantryItem[] = allPantryItems;
-export const mockRecipeNeeds: RecipeNeed[] = allRecipeNeeds;
+export const initialPantryData = allPantryItems;
+export const mockRecipeNeeds = allRecipeNeeds;
