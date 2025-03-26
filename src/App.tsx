@@ -20,6 +20,7 @@ import OrganizationMembers from "./pages/organization/OrganizationMembers";
 import RecipeIndex from "./pages/recipes/RecipeIndex";
 import NewRecipe from "./pages/recipes/NewRecipe";
 import ScheduleClass from "./pages/classes/ScheduleClass";
+import IngredientCalculator from "./pages/calculator/IngredientCalculator";
 
 // Create a new QueryClient instance outside the component
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => (
               <Route path="/recipes" element={<RecipeIndex />} />
               <Route path="/recipes/new" element={<NewRecipe />} />
               <Route path="/classes/schedule" element={<ScheduleClass />} />
+              <Route path="/calculator" element={<IngredientCalculator />} />
               <Route path="/organization/create" element={<OrganizationCreate />} />
               
               {/* Organization routes (requires org membership) */}
