@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { Check, Clock, InfoIcon, Dollar, Users, Utensils, Flag, Egg, ArrowUp, ArrowDown } from 'lucide-react';
+import { Check, Clock, InfoIcon, DollarSign, Users, Utensils, Flag, Egg, ArrowUp, ArrowDown } from 'lucide-react';
 import { 
   Tooltip,
   TooltipContent,
@@ -102,7 +102,7 @@ const RecipeFeaturesList = () => {
       name: 'Ingredient cost analysis', 
       available: false,
       comingSoonInfo: 'Coming in Fall 2025 - Calculate recipe costs and budget planning tools.',
-      icon: <Dollar className="h-5 w-5 text-amber-500 flex-shrink-0" />
+      icon: <DollarSign className="h-5 w-5 text-amber-500 flex-shrink-0" />
     },
   ];
 
