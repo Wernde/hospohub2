@@ -206,7 +206,7 @@ const StudentDataImport: React.FC<StudentDataImportProps> = ({ onImport }) => {
                 onChange={handleFileUpload}
               />
               <label htmlFor="csv-upload">
-                <Button as="span" className="cursor-pointer">
+                <Button className="cursor-pointer">
                   Select CSV File
                 </Button>
               </label>
