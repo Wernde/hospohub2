@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Check, Clock, InfoIcon, DollarSign, Users, 
   Utensils, Flag, Egg, ArrowUp, ArrowDown, ExternalLink 
@@ -9,11 +8,10 @@ import FeaturesList from './FeaturesList';
 import FeatureDetail from './FeatureDetail';
 import NextUpcomingFeature from './NextUpcomingFeature';
 import FeatureHeaderActions from './FeatureHeaderActions';
+import { useFeatures } from './useFeatures';
 
 const RecipeFeaturesListContainer: React.FC = () => {
-  const [selectedFeature, setSelectedFeature] = useState<FeatureItem | null>(null);
-  
-  const features: FeatureItem[] = [
+  const initialFeatures: FeatureItem[] = [
     { 
       name: 'Create new recipes', 
       available: true,
@@ -98,21 +96,14 @@ const RecipeFeaturesListContainer: React.FC = () => {
     },
   ];
 
-  const upcomingFeatures = features.filter(feature => !feature.available);
-  
-  const nextUpcomingFeature = upcomingFeatures.length > 0 ? upcomingFeatures.reduce((earliest, feature) => {
-    const earliestDate = earliest.comingSoonInfo?.split(' - ')[0].split('in ')[1] || '';
-    const currentDate = feature.comingSoonInfo?.split(' - ')[0].split('in ')[1] || '';
-    
-    // Simple string comparison works for season + year format
-    return currentDate < earliestDate ? feature : earliest;
-  }, upcomingFeatures[0]) : null;
-
-  const handleFeatureClick = (feature: FeatureItem) => {
-    setSelectedFeature(
-      selectedFeature?.name === feature.name ? null : feature
-    );
-  };
+  const { 
+    features, 
+    selectedFeature, 
+    upcomingFeatures, 
+    nextUpcomingFeature, 
+    handleFeatureClick,
+    clearSelectedFeature
+  } = useFeatures(initialFeatures);
 
   return (
     <div className="bg-blue-50 rounded-lg p-6 my-8">
@@ -131,7 +122,7 @@ const RecipeFeaturesListContainer: React.FC = () => {
       
       <FeatureDetail 
         feature={selectedFeature} 
-        onDismiss={() => setSelectedFeature(null)} 
+        onDismiss={clearSelectedFeature} 
       />
     </div>
   );
