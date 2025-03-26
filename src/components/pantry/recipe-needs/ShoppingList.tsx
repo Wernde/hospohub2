@@ -1,9 +1,17 @@
 
 import React from 'react';
-import { ShoppingBag } from 'lucide-react';
+import { ShoppingBag, FileText } from 'lucide-react';
 import { usePantry } from '../PantryContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from '@/components/ui/table';
 
 interface ShoppingListProps {
   standalone?: boolean;
@@ -12,19 +20,40 @@ interface ShoppingListProps {
 const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
   const { shoppingList } = usePantry();
   
+  // Calculate total quantities for each ingredient by combining across recipes
+  const aggregatedItems = shoppingList.reduce((acc, item) => {
+    const key = `${item.name.toLowerCase()}-${item.unit}`;
+    if (!acc[key]) {
+      acc[key] = {
+        ...item,
+        recipes: [...new Set(item.recipes)],
+        classNames: [item.className]
+      };
+    } else {
+      acc[key].quantity += item.quantity;
+      acc[key].recipes = [...new Set([...acc[key].recipes, ...item.recipes])];
+      if (!acc[key].classNames.includes(item.className)) {
+        acc[key].classNames.push(item.className);
+      }
+    }
+    return acc;
+  }, {} as Record<string, any>);
+  
+  const aggregatedList = Object.values(aggregatedItems);
+  
   const content = (
     <div>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Shopping List</h2>
         <div className="flex space-x-2">
           <Button className="flex items-center px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            <ShoppingBag className="h-4 w-4 mr-1" />
-            <span>View Complete List</span>
+            <FileText className="h-4 w-4 mr-1" />
+            <span>Export</span>
           </Button>
         </div>
       </div>
       
-      {shoppingList.length === 0 ? (
+      {aggregatedList.length === 0 ? (
         <div className="bg-white p-8 rounded-lg shadow-sm border text-center">
           <ShoppingBag className="h-12 w-12 text-gray-300 mx-auto mb-4" />
           <h3 className="text-lg font-semibold text-gray-500 mb-2">Your shopping list is empty</h3>
@@ -33,27 +62,27 @@ const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow-sm border">
-          <table className="w-full">
-            <thead>
-              <tr className="text-left border-b">
-                <th className="p-4 font-medium">Ingredient</th>
-                <th className="p-4 font-medium">Quantity</th>
-                <th className="p-4 font-medium">For Recipe</th>
-                <th className="p-4 font-medium">Class</th>
-              </tr>
-            </thead>
-            <tbody>
-              {shoppingList.map(item => (
-                <tr key={item.id} className="border-b border-gray-100 hover:bg-gray-50">
-                  <td className="p-4">{item.name}</td>
-                  <td className="p-4">{item.quantity} {item.unit}</td>
-                  <td className="p-4">{item.recipes.join(', ')}</td>
-                  <td className="p-4">{item.className}</td>
-                </tr>
+        <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Ingredient</TableHead>
+                <TableHead>Quantity</TableHead>
+                <TableHead>For Recipe(s)</TableHead>
+                <TableHead>Class(es)</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {aggregatedList.map((item: any) => (
+                <TableRow key={item.id} className="hover:bg-gray-50">
+                  <TableCell className="font-medium">{item.name}</TableCell>
+                  <TableCell>{item.quantity.toFixed(2)} {item.unit}</TableCell>
+                  <TableCell>{item.recipes.join(', ')}</TableCell>
+                  <TableCell>{item.classNames.join(', ')}</TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
     </div>

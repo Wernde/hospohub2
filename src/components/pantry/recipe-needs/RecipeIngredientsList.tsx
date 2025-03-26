@@ -1,14 +1,57 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { usePantry } from '../PantryContext';
 import { RecipeNeed } from '../types';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
 
 interface RecipeIngredientsListProps {
   recipe: RecipeNeed;
 }
 
 const RecipeIngredientsList: React.FC<RecipeIngredientsListProps> = ({ recipe }) => {
-  const { updateIngredientStatus } = usePantry();
+  const { updateIngredientStatus, addToShoppingList } = usePantry();
+  const [orderQuantities, setOrderQuantities] = useState<Record<string, number>>({});
+  const { toast } = useToast();
+  
+  const handleOrderClick = (ingredientId: string, ingredient: any) => {
+    // Set default order quantity to the needed amount
+    if (!orderQuantities[ingredientId]) {
+      setOrderQuantities({
+        ...orderQuantities,
+        [ingredientId]: ingredient.storeQuantity
+      });
+    }
+    
+    // Update status to "order"
+    updateIngredientStatus(recipe.recipeId, ingredientId, 'order');
+  };
+  
+  const handleAddToShoppingList = (ingredient: any) => {
+    // Get the quantity from the input
+    const quantity = orderQuantities[ingredient.id] || ingredient.storeQuantity;
+    
+    // Create a modified ingredient with the custom quantity
+    const ingredientWithQuantity = {
+      ...ingredient,
+      storeQuantity: quantity
+    };
+    
+    // Add to shopping list with the custom quantity
+    addToShoppingList(ingredientWithQuantity, recipe);
+    
+    toast({
+      title: "Added to shopping list",
+      description: `${quantity} ${ingredient.storeUnit} of ${ingredient.name} added for ${recipe.recipeTitle}`,
+    });
+  };
+  
+  const handleQuantityChange = (ingredientId: string, value: number) => {
+    setOrderQuantities({
+      ...orderQuantities,
+      [ingredientId]: value
+    });
+  };
   
   return (
     <div className="border-t px-4 py-3">
@@ -74,11 +117,32 @@ const RecipeIngredientsList: React.FC<RecipeIngredientsListProps> = ({ recipe })
                         ? 'bg-red-500 text-white'
                         : 'bg-gray-200 hover:bg-red-500 hover:text-white'
                     }`}
-                    onClick={() => updateIngredientStatus(recipe.recipeId, ingredient.id, 'order')}
+                    onClick={() => handleOrderClick(ingredient.id, ingredient)}
                   >
                     Order
                   </button>
                 </div>
+                
+                {/* Show quantity input when order status is selected */}
+                {ingredient.pantryStatus === 'order' && (
+                  <div className="mt-2 flex space-x-2 items-center">
+                    <Input
+                      type="number"
+                      min="0.1"
+                      step="0.1"
+                      className="w-20 h-8 text-xs"
+                      value={orderQuantities[ingredient.id] || ingredient.storeQuantity}
+                      onChange={(e) => handleQuantityChange(ingredient.id, parseFloat(e.target.value) || 0)}
+                    />
+                    <span className="text-xs">{ingredient.storeUnit}</span>
+                    <button
+                      className="px-3 py-1 text-xs bg-blue-500 text-white rounded-full hover:bg-blue-600"
+                      onClick={() => handleAddToShoppingList(ingredient)}
+                    >
+                      Add to List
+                    </button>
+                  </div>
+                )}
               </td>
             </tr>
           ))}
