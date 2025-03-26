@@ -3,6 +3,7 @@ import React from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Loader2 } from 'lucide-react';
+import { RecipeFormData } from './RecipeFormHandler';
 
 interface RecipeParserDialogProps {
   isOpen: boolean;
@@ -11,6 +12,7 @@ interface RecipeParserDialogProps {
   parseResult: null | {
     success: boolean;
     message: string;
+    data?: RecipeFormData;
   };
   onApplyParsedData: () => void;
 }

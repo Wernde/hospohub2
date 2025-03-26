@@ -2,32 +2,26 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
+import { ArrowLeft, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChefHat, Clock, Users, Utensils, BookOpen, ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ImageUpload from '@/components/recipes/ImageUpload';
 import RecipeFileUpload from '@/components/recipes/RecipeFileUpload';
 import RecipeParserDialog from '@/components/recipes/RecipeParserDialog';
+import RecipeFormHandler, { RecipeFormData } from '@/components/recipes/RecipeFormHandler';
+import RecipeBasicInfo from '@/components/recipes/RecipeBasicInfo';
+import RecipeMetrics from '@/components/recipes/RecipeMetrics';
+import DifficultySelector from '@/components/recipes/DifficultySelector';
+import RecipeIngredientsInstructions from '@/components/recipes/RecipeIngredientsInstructions';
+import RecipeFormActions from '@/components/recipes/RecipeFormActions';
 
 // Mock function to simulate recipe parsing
 const simulateRecipeParsing = async (file: File): Promise<{
   success: boolean;
   message: string;
-  data?: {
-    title: string;
-    description: string;
-    prepTime: string;
-    cookTime: string;
-    servings: string;
-    difficulty: 'easy' | 'medium' | 'hard';
-    ingredients: string;
-    instructions: string;
-  }
+  data?: RecipeFormData;
 }> => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 2000));
@@ -59,51 +53,15 @@ const simulateRecipeParsing = async (file: File): Promise<{
 const NewRecipe = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    prepTime: '',
-    cookTime: '',
-    servings: '',
-    difficulty: 'medium',
-    ingredients: '',
-    instructions: ''
-  });
-  
-  // New state variables for file uploads and AI parsing
   const [recipeImage, setRecipeImage] = useState<File | null>(null);
   const [isParsingDialogOpen, setIsParsingDialogOpen] = useState(false);
   const [isParsing, setIsParsing] = useState(false);
   const [parseResult, setParseResult] = useState<null | {
     success: boolean;
     message: string;
-    data?: typeof formData;
+    data?: RecipeFormData;
   }>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate saving the recipe
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast({
-        title: "Recipe Created",
-        description: `"${formData.title}" has been successfully added to your recipes.`,
-      });
-      
-      // In a real app, we would save the recipe to a database here
-      // If we had an image, we would upload it to storage
-      navigate('/recipes');
-    }, 1500);
-  };
-  
   const handleFileSelect = async (file: File) => {
     setIsParsingDialogOpen(true);
     setIsParsing(true);
@@ -120,18 +78,6 @@ const NewRecipe = () => {
       });
     } finally {
       setIsParsing(false);
-    }
-  };
-  
-  const applyParsedData = () => {
-    if (parseResult?.success && parseResult.data) {
-      setFormData(parseResult.data);
-      setIsParsingDialogOpen(false);
-      
-      toast({
-        title: "Recipe Data Applied",
-        description: "The recipe information has been filled in from your file.",
-      });
     }
   };
 
@@ -165,173 +111,68 @@ const NewRecipe = () => {
               <RecipeFileUpload onFileSelect={handleFileSelect} />
             </CardContent>
             
-            <form onSubmit={handleSubmit}>
-              <CardContent className="space-y-6">
-                {/* Image Upload */}
-                <ImageUpload 
-                  onChange={setRecipeImage}
-                  value={recipeImage}
-                />
-                
-                {/* Basic Information */}
-                <div className="space-y-4">
-                  <div>
-                    <Label htmlFor="title">Recipe Title</Label>
-                    <Input 
-                      id="title"
-                      name="title"
-                      placeholder="E.g., Chocolate Souffle"
-                      value={formData.title}
-                      onChange={handleChange}
-                      required
+            <RecipeFormHandler>
+              {({ formData, handleChange, handleSubmit, isSubmitting, setParsedData }) => (
+                <form onSubmit={handleSubmit}>
+                  <CardContent className="space-y-6">
+                    {/* Image Upload */}
+                    <ImageUpload 
+                      onChange={setRecipeImage}
+                      value={recipeImage}
                     />
-                  </div>
+                    
+                    {/* Basic Information */}
+                    <RecipeBasicInfo
+                      title={formData.title}
+                      description={formData.description}
+                      onChange={handleChange}
+                    />
+                    
+                    {/* Recipe Metrics */}
+                    <RecipeMetrics
+                      prepTime={formData.prepTime}
+                      cookTime={formData.cookTime}
+                      servings={formData.servings}
+                      onChange={handleChange}
+                    />
+                    
+                    {/* Difficulty Level */}
+                    <DifficultySelector
+                      value={formData.difficulty}
+                      onChange={handleChange}
+                    />
+                    
+                    {/* Ingredients and Instructions */}
+                    <RecipeIngredientsInstructions
+                      ingredients={formData.ingredients}
+                      instructions={formData.instructions}
+                      onChange={handleChange}
+                    />
+                  </CardContent>
                   
-                  <div>
-                    <Label htmlFor="description">Description</Label>
-                    <Textarea 
-                      id="description"
-                      name="description"
-                      placeholder="Brief description of the recipe"
-                      value={formData.description}
-                      onChange={handleChange}
-                      rows={3}
-                    />
-                  </div>
-                </div>
-                
-                {/* Recipe Metrics */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <Label htmlFor="prepTime" className="flex items-center gap-1">
-                      <Clock className="h-4 w-4" />
-                      Prep Time (minutes)
-                    </Label>
-                    <Input 
-                      id="prepTime"
-                      name="prepTime"
-                      type="number"
-                      placeholder="15"
-                      value={formData.prepTime}
-                      onChange={handleChange}
-                    />
-                  </div>
+                  <CardFooter>
+                    <RecipeFormActions isSubmitting={isSubmitting} />
+                  </CardFooter>
                   
-                  <div>
-                    <Label htmlFor="cookTime" className="flex items-center gap-1">
-                      <Utensils className="h-4 w-4" />
-                      Cook Time (minutes)
-                    </Label>
-                    <Input 
-                      id="cookTime"
-                      name="cookTime"
-                      type="number"
-                      placeholder="30"
-                      value={formData.cookTime}
-                      onChange={handleChange}
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="servings" className="flex items-center gap-1">
-                      <Users className="h-4 w-4" />
-                      Servings
-                    </Label>
-                    <Input 
-                      id="servings"
-                      name="servings"
-                      type="number"
-                      placeholder="4"
-                      value={formData.servings}
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                
-                {/* Difficulty Level */}
-                <div>
-                  <Label htmlFor="difficulty">Difficulty Level</Label>
-                  <select
-                    id="difficulty"
-                    name="difficulty"
-                    value={formData.difficulty}
-                    onChange={handleChange}
-                    className="w-full h-10 px-3 bg-transparent border border-input rounded-md text-sm"
-                  >
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                  </select>
-                </div>
-                
-                {/* Ingredients */}
-                <div>
-                  <Label htmlFor="ingredients">Ingredients</Label>
-                  <Textarea 
-                    id="ingredients"
-                    name="ingredients"
-                    placeholder="Enter each ingredient on a new line"
-                    value={formData.ingredients}
-                    onChange={handleChange}
-                    rows={5}
-                    required
+                  {/* Recipe Parser Dialog */}
+                  <RecipeParserDialog
+                    isOpen={isParsingDialogOpen}
+                    onClose={() => setIsParsingDialogOpen(false)}
+                    isParsing={isParsing}
+                    parseResult={parseResult}
+                    onApplyParsedData={() => {
+                      if (parseResult?.success && parseResult.data) {
+                        setParsedData(parseResult.data);
+                        setIsParsingDialogOpen(false);
+                      }
+                    }}
                   />
-                </div>
-                
-                {/* Instructions */}
-                <div>
-                  <Label htmlFor="instructions">Instructions</Label>
-                  <Textarea 
-                    id="instructions"
-                    name="instructions"
-                    placeholder="Enter step-by-step instructions"
-                    value={formData.instructions}
-                    onChange={handleChange}
-                    rows={8}
-                    required
-                  />
-                </div>
-              </CardContent>
-              
-              <CardFooter className="flex justify-between">
-                <Button 
-                  type="button" 
-                  variant="outline" 
-                  onClick={() => navigate(-1)}
-                >
-                  Cancel
-                </Button>
-                <Button 
-                  type="submit" 
-                  disabled={isSubmitting}
-                  className="gap-2"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                      Saving...
-                    </>
-                  ) : (
-                    <>
-                      <ChefHat className="h-4 w-4" />
-                      Add Recipe
-                    </>
-                  )}
-                </Button>
-              </CardFooter>
-            </form>
+                </form>
+              )}
+            </RecipeFormHandler>
           </Card>
         </div>
       </main>
-      
-      {/* Recipe Parser Dialog */}
-      <RecipeParserDialog
-        isOpen={isParsingDialogOpen}
-        onClose={() => setIsParsingDialogOpen(false)}
-        isParsing={isParsing}
-        parseResult={parseResult}
-        onApplyParsedData={applyParsedData}
-      />
       
       <Footer />
     </div>
