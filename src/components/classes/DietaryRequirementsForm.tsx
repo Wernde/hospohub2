@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +5,16 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Plus, X } from 'lucide-react';
+import { v4 as uuidv4 } from 'uuid';
+
+interface Student {
+  id: string;
+  name: string;
+  email: string;
+  dietaryRequirements: string[];
+  allergies: string[];
+  notes?: string;
+}
 
 interface StudentFormData {
   name: string;
@@ -16,7 +25,7 @@ interface StudentFormData {
 }
 
 interface DietaryRequirementsFormProps {
-  onSubmit: (data: StudentFormData) => void;
+  onAddStudent: (student: Student) => void;
 }
 
 const commonDietaryRequirements = [
@@ -44,7 +53,7 @@ const commonAllergies = [
   'Sesame'
 ];
 
-const DietaryRequirementsForm: React.FC<DietaryRequirementsFormProps> = ({ onSubmit }) => {
+const DietaryRequirementsForm: React.FC<DietaryRequirementsFormProps> = ({ onAddStudent }) => {
   const [formData, setFormData] = useState<StudentFormData>({
     name: '',
     email: '',
@@ -119,9 +128,14 @@ const DietaryRequirementsForm: React.FC<DietaryRequirementsFormProps> = ({ onSub
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
     
-    // Reset form
+    const newStudent: Student = {
+      ...formData,
+      id: uuidv4()
+    };
+    
+    onAddStudent(newStudent);
+    
     setFormData({
       name: '',
       email: '',
