@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { 
   PantryItem, 
@@ -41,7 +42,7 @@ interface PantryContextType {
   // Actions
   toggleCategory: (category: string) => void;
   toggleRecipe: (recipeId: string) => void;
-  updateIngredientStatus: (recipeId: string, ingredientId: string, newStatus: string) => void;
+  updateIngredientStatus: (recipeId: string, ingredientId: string, newStatus: "check" | "in-pantry" | "partial" | "order") => void;
   updatePantryQuantity: (itemId: string, newQuantity: number) => void;
   removePantryItem: (itemId: string) => void;
   handleAddItem: () => void;
@@ -98,7 +99,7 @@ export const PantryProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           // Ingredient not in pantry
           return {
             ...ingredient,
-            pantryStatus: 'order',
+            pantryStatus: 'order' as const,
             inPantry: 0
           };
         }
@@ -123,20 +124,20 @@ export const PantryProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         if (availableInPantry >= ingredient.storeQuantity) {
           return {
             ...ingredient,
-            pantryStatus: 'in-pantry',
+            pantryStatus: 'in-pantry' as const,
             inPantry: availableInPantry
           };
         } else if (availableInPantry > 0) {
           return {
             ...ingredient,
-            pantryStatus: 'partial',
+            pantryStatus: 'partial' as const,
             inPantry: availableInPantry,
             needed: ingredient.storeQuantity - availableInPantry
           };
         } else {
           return {
             ...ingredient,
-            pantryStatus: 'order',
+            pantryStatus: 'order' as const,
             inPantry: 0
           };
         }
@@ -223,7 +224,7 @@ export const PantryProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   };
   
   // Update ingredient pantry status (swipe)
-  const updateIngredientStatus = (recipeId: string, ingredientId: string, newStatus: string) => {
+  const updateIngredientStatus = (recipeId: string, ingredientId: string, newStatus: "check" | "in-pantry" | "partial" | "order") => {
     const updatedRecipeNeeds = recipeNeeds.map(recipe => {
       if (recipe.recipeId === recipeId) {
         const updatedIngredients = recipe.ingredients.map(ingredient => {
