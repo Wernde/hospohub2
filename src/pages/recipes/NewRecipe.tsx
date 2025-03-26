@@ -10,6 +10,51 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/componen
 import { ChefHat, Clock, Users, Utensils, BookOpen, ArrowLeft } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ImageUpload from '@/components/recipes/ImageUpload';
+import RecipeFileUpload from '@/components/recipes/RecipeFileUpload';
+import RecipeParserDialog from '@/components/recipes/RecipeParserDialog';
+
+// Mock function to simulate recipe parsing
+const simulateRecipeParsing = async (file: File): Promise<{
+  success: boolean;
+  message: string;
+  data?: {
+    title: string;
+    description: string;
+    prepTime: string;
+    cookTime: string;
+    servings: string;
+    difficulty: 'easy' | 'medium' | 'hard';
+    ingredients: string;
+    instructions: string;
+  }
+}> => {
+  // Simulate API delay
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  
+  // Simulate successful parsing
+  if (file.name.endsWith('.txt') || file.name.endsWith('.docx') || file.name.endsWith('.pdf')) {
+    return {
+      success: true,
+      message: "Successfully extracted recipe information from the file.",
+      data: {
+        title: "Chocolate Chip Cookies",
+        description: "Classic homemade chocolate chip cookies that are soft in the middle and crispy on the edges.",
+        prepTime: "15",
+        cookTime: "10",
+        servings: "24",
+        difficulty: "easy",
+        ingredients: "2 1/4 cups all-purpose flour\n1 tsp baking soda\n1 tsp salt\n1 cup unsalted butter, softened\n3/4 cup granulated sugar\n3/4 cup packed brown sugar\n2 large eggs\n2 tsp vanilla extract\n2 cups chocolate chips",
+        instructions: "1. Preheat oven to 375°F (190°C).\n2. Combine flour, baking soda, and salt in a small bowl.\n3. Beat butter, granulated sugar, and brown sugar in a large mixer bowl.\n4. Add eggs one at a time, beating well after each addition. Stir in vanilla extract.\n5. Gradually beat in flour mixture. Stir in chocolate chips.\n6. Drop by rounded tablespoon onto ungreased baking sheets.\n7. Bake for 9 to 11 minutes or until golden brown.\n8. Let stand for 2 minutes; remove to wire racks to cool completely."
+      }
+    };
+  } else {
+    return {
+      success: false,
+      message: "Unable to parse the file format. Please try a different file."
+    };
+  }
+};
 
 const NewRecipe = () => {
   const navigate = useNavigate();
@@ -25,6 +70,16 @@ const NewRecipe = () => {
     ingredients: '',
     instructions: ''
   });
+  
+  // New state variables for file uploads and AI parsing
+  const [recipeImage, setRecipeImage] = useState<File | null>(null);
+  const [isParsingDialogOpen, setIsParsingDialogOpen] = useState(false);
+  const [isParsing, setIsParsing] = useState(false);
+  const [parseResult, setParseResult] = useState<null | {
+    success: boolean;
+    message: string;
+    data?: typeof formData;
+  }>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -44,8 +99,40 @@ const NewRecipe = () => {
       });
       
       // In a real app, we would save the recipe to a database here
+      // If we had an image, we would upload it to storage
       navigate('/recipes');
     }, 1500);
+  };
+  
+  const handleFileSelect = async (file: File) => {
+    setIsParsingDialogOpen(true);
+    setIsParsing(true);
+    setParseResult(null);
+    
+    try {
+      // In a real app, this would be an API call to a backend service
+      const result = await simulateRecipeParsing(file);
+      setParseResult(result);
+    } catch (error) {
+      setParseResult({
+        success: false,
+        message: "An error occurred while parsing the file."
+      });
+    } finally {
+      setIsParsing(false);
+    }
+  };
+  
+  const applyParsedData = () => {
+    if (parseResult?.success && parseResult.data) {
+      setFormData(parseResult.data);
+      setIsParsingDialogOpen(false);
+      
+      toast({
+        title: "Recipe Data Applied",
+        description: "The recipe information has been filled in from your file.",
+      });
+    }
   };
 
   return (
@@ -72,8 +159,20 @@ const NewRecipe = () => {
             <CardHeader>
               <CardTitle>Recipe Details</CardTitle>
             </CardHeader>
+            
+            {/* Recipe File Upload for AI Parsing */}
+            <CardContent>
+              <RecipeFileUpload onFileSelect={handleFileSelect} />
+            </CardContent>
+            
             <form onSubmit={handleSubmit}>
               <CardContent className="space-y-6">
+                {/* Image Upload */}
+                <ImageUpload 
+                  onChange={setRecipeImage}
+                  value={recipeImage}
+                />
+                
                 {/* Basic Information */}
                 <div className="space-y-4">
                   <div>
@@ -224,6 +323,15 @@ const NewRecipe = () => {
           </Card>
         </div>
       </main>
+      
+      {/* Recipe Parser Dialog */}
+      <RecipeParserDialog
+        isOpen={isParsingDialogOpen}
+        onClose={() => setIsParsingDialogOpen(false)}
+        isParsing={isParsing}
+        parseResult={parseResult}
+        onApplyParsedData={applyParsedData}
+      />
       
       <Footer />
     </div>
