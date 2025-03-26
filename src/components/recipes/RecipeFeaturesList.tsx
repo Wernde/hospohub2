@@ -205,16 +205,17 @@ const RecipeFeaturesList = () => {
             
             {feature.available ? (
               feature.link ? (
-                <Badge 
-                  variant="success"
-                  className="bg-green-100 text-green-800 ml-auto hover:bg-green-200 transition-colors cursor-pointer"
-                  asChild
-                >
-                  <Link to={feature.link} className="flex items-center gap-1">
-                    Available
-                    <ExternalLink className="h-3 w-3 ml-0.5" />
-                  </Link>
-                </Badge>
+                <div className="ml-auto">
+                  <Badge 
+                    variant="success"
+                    className="bg-green-100 text-green-800 hover:bg-green-200 transition-colors cursor-pointer"
+                  >
+                    <Link to={feature.link} className="flex items-center gap-1">
+                      Available
+                      <ExternalLink className="h-3 w-3 ml-0.5" />
+                    </Link>
+                  </Badge>
+                </div>
               ) : (
                 <Badge 
                   variant="success"
