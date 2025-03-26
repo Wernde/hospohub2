@@ -17,6 +17,8 @@ import NotFound from "./pages/NotFound";
 import OrganizationCreate from "./pages/organization/OrganizationCreate";
 import OrganizationSettings from "./pages/organization/OrganizationSettings";
 import OrganizationMembers from "./pages/organization/OrganizationMembers";
+import RecipeIndex from "./pages/recipes/RecipeIndex";
+import NewRecipe from "./pages/recipes/NewRecipe";
 
 // Create a new QueryClient instance outside the component
 const queryClient = new QueryClient();
@@ -42,6 +44,8 @@ const App = () => (
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<Profile />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/recipes" element={<RecipeIndex />} />
+              <Route path="/recipes/new" element={<NewRecipe />} />
               <Route path="/organization/create" element={<OrganizationCreate />} />
               
               {/* Organization routes (requires org membership) */}
