@@ -3,11 +3,16 @@ import React from 'react';
 import { ShoppingBag } from 'lucide-react';
 import { usePantry } from '../PantryContext';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 
-const ShoppingList = () => {
+interface ShoppingListProps {
+  standalone?: boolean;
+}
+
+const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
   const { shoppingList } = usePantry();
   
-  return (
+  const content = (
     <div>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Shopping List</h2>
@@ -53,6 +58,18 @@ const ShoppingList = () => {
       )}
     </div>
   );
+  
+  if (standalone) {
+    return (
+      <Card>
+        <CardContent className="pt-6">
+          {content}
+        </CardContent>
+      </Card>
+    );
+  }
+  
+  return content;
 };
 
 export default ShoppingList;
