@@ -24,6 +24,7 @@ import RecipeIndex from "./pages/recipes/RecipeIndex";
 import NewRecipe from "./pages/recipes/NewRecipe";
 import RecipeTools from "./pages/recipes/RecipeTools";
 import IngredientCalculator from "./pages/calculator/IngredientCalculator";
+import AiChat from "./components/AiChat";
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster />
+        <AiChat />
       </AuthProvider>
     </BrowserRouter>
   );
