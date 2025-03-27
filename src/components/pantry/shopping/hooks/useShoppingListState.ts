@@ -1,5 +1,5 @@
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { usePantry } from '../../PantryContext';
 import { ViewMode, ShoppingItem } from './types';
 import { getStores } from './utils/storeData';
@@ -28,6 +28,11 @@ export const useShoppingListState = () => {
   
   // Get store data
   const stores = getStores();
+  
+  // Debug to check if we're getting the shopping list data
+  useEffect(() => {
+    console.log("Shopping list in useShoppingListState:", shoppingList);
+  }, [shoppingList]);
   
   // Aggregate items
   const aggregatedItems = useMemo(() => 

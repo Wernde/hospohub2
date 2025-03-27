@@ -15,6 +15,9 @@ import {
   updateItemStatusWithPantryChanges
 } from './pantryUtils';
 
+// Create a key for localStorage
+const SHOPPING_LIST_STORAGE_KEY = 'pantry-shopping-list';
+
 export const PantryProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // States
   const [pantryItems, setPantryItems] = useState<PantryItem[]>(initialPantryData);
@@ -23,7 +26,13 @@ export const PantryProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [expandedRecipes, setExpandedRecipes] = useState<Record<string, boolean>>({});
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState<'all' | 'low-stock' | 'expiring'>('all');
-  const [shoppingList, setShoppingList] = useState<ShoppingListItem[]>([]);
+  
+  // Load shopping list from localStorage if available
+  const [shoppingList, setShoppingList] = useState<ShoppingListItem[]>(() => {
+    const savedList = localStorage.getItem(SHOPPING_LIST_STORAGE_KEY);
+    return savedList ? JSON.parse(savedList) : [];
+  });
+  
   const [showAddItemForm, setShowAddItemForm] = useState(false);
   const [newItem, setNewItem] = useState<NewPantryItem>({
     ingredientName: '',
@@ -33,6 +42,11 @@ export const PantryProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     location: '',
     lowStockThreshold: 0.5
   });
+
+  // Save shopping list to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem(SHOPPING_LIST_STORAGE_KEY, JSON.stringify(shoppingList));
+  }, [shoppingList]);
 
   // Initialize expanded states
   useEffect(() => {

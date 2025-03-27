@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ShoppingBag, FileText, ExternalLink } from 'lucide-react';
 import { usePantry } from '../PantryContext';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,7 @@ import {
   TableRow 
 } from '@/components/ui/table';
 import { Link } from 'react-router-dom';
+import { useToast } from '@/hooks/use-toast';
 
 interface ShoppingListProps {
   standalone?: boolean;
@@ -20,6 +21,7 @@ interface ShoppingListProps {
 
 const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
   const { shoppingList } = usePantry();
+  const { toast } = useToast();
   
   // Calculate total quantities for each ingredient by combining across recipes
   const aggregatedItems = shoppingList.reduce((acc, item) => {
@@ -41,6 +43,11 @@ const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
   }, {} as Record<string, any>);
   
   const aggregatedList = Object.values(aggregatedItems);
+  
+  // Debug the shopping list when it changes
+  useEffect(() => {
+    console.log("Shopping list updated in ShoppingList component:", shoppingList);
+  }, [shoppingList]);
   
   const content = (
     <div>
