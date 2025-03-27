@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ShoppingBag, FileText } from 'lucide-react';
+import { ShoppingBag, FileText, ExternalLink } from 'lucide-react';
 import { usePantry } from '../PantryContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -12,6 +12,7 @@ import {
   TableHeader, 
   TableRow 
 } from '@/components/ui/table';
+import { Link } from 'react-router-dom';
 
 interface ShoppingListProps {
   standalone?: boolean;
@@ -50,6 +51,12 @@ const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
             <FileText className="h-4 w-4 mr-1" />
             <span>Export</span>
           </Button>
+          <Link to="/shopping">
+            <Button className="flex items-center px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700">
+              <ExternalLink className="h-4 w-4 mr-1" />
+              <span>Full View</span>
+            </Button>
+          </Link>
         </div>
       </div>
       

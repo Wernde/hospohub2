@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 import QuickActionCard from './QuickActionCard';
-import { Plus, Calendar, Calculator } from 'lucide-react';
+import { Plus, Calendar, Calculator, ShoppingBasket } from 'lucide-react';
 
 // Quick actions
 const quickActions = [
@@ -29,6 +29,14 @@ const quickActions = [
     icon: <Calculator className="h-6 w-6 text-white" />,
     iconBg: 'bg-yellow-500',
     href: '/calculator'
+  },
+  {
+    id: 4,
+    title: 'Pantry Management',
+    description: 'Manage your pantry inventory and create shopping lists.',
+    icon: <ShoppingBasket className="h-6 w-6 text-white" />,
+    iconBg: 'bg-purple-500',
+    href: '/pantry'
   }
 ];
 
@@ -39,7 +47,7 @@ const QuickActions = () => {
         <CardTitle className="text-lg text-blue-900">Quick Actions</CardTitle>
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {quickActions.map((action) => (
             <QuickActionCard 
               key={action.id}
