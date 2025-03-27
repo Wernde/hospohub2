@@ -18,6 +18,12 @@ import PantrySettingsPage from './pages/pantry/PantrySettingsPage';
 import OrdersPage from './pages/pantry/OrdersPage';
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
+import ClassesIndex from "./pages/classes/ClassesIndex";
+import ScheduleClass from "./pages/classes/ScheduleClass";
+import RecipeIndex from "./pages/recipes/RecipeIndex";
+import NewRecipe from "./pages/recipes/NewRecipe";
+import RecipeTools from "./pages/recipes/RecipeTools";
+import IngredientCalculator from "./pages/calculator/IngredientCalculator";
 
 function App() {
   return (
@@ -33,6 +39,15 @@ function App() {
           <Route path="/shopping" element={<ShoppingPage />} />
           <Route path="/pantry/settings" element={<PantrySettingsPage />} />
           <Route path="/orders" element={<OrdersPage />} />
+          
+          {/* Added missing routes */}
+          <Route path="/classes" element={<ProtectedRoute><ClassesIndex /></ProtectedRoute>} />
+          <Route path="/classes/schedule" element={<ProtectedRoute><ScheduleClass /></ProtectedRoute>} />
+          <Route path="/recipes" element={<ProtectedRoute><RecipeIndex /></ProtectedRoute>} />
+          <Route path="/recipes/new" element={<ProtectedRoute><NewRecipe /></ProtectedRoute>} />
+          <Route path="/recipes/tools" element={<ProtectedRoute><RecipeTools /></ProtectedRoute>} />
+          <Route path="/calculator" element={<ProtectedRoute><IngredientCalculator /></ProtectedRoute>} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster />
