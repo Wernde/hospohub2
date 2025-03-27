@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { PlusCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Dialog } from '@/components/ui/dialog';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { StoreWithLocations } from '../shopping/hooks/types/storeTypes';
 import { useToast } from '@/hooks/use-toast';
 import { StoreCard } from './StoreCard';
@@ -10,6 +11,7 @@ import { EmptyStoreState } from './EmptyStoreState';
 import { AddStoreDialog } from './AddStoreDialog';
 import { AddLocationDialog } from './AddLocationDialog';
 import { StoreDialogProvider, useStoreDialog } from './hooks/useStoreDialog';
+import StoreAccountsSettings from './StoreAccountsSettings';
 
 interface StoreSettingsProps {
   stores: StoreWithLocations[];
@@ -36,6 +38,7 @@ const StoreSettingsContent = ({
   const [newStoreColor, setNewStoreColor] = useState('#4CAF50');
   const [newLocationName, setNewLocationName] = useState('');
   const [newLocationAddress, setNewLocationAddress] = useState('');
+  const [activeTab, setActiveTab] = useState("stores");
 
   const handleAddStore = () => {
     if (!newStoreName.trim()) {
@@ -190,34 +193,49 @@ const StoreSettingsContent = ({
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Store Settings</h2>
           <p className="text-muted-foreground">
-            Manage your preferred stores and locations for shopping.
+            Manage your preferred stores, locations, and connected accounts.
           </p>
         </div>
-        <Button onClick={() => setShowAddStore(true)}>
-          <PlusCircle className="mr-2 h-4 w-4" />
-          Add Store
-        </Button>
+        {activeTab === "stores" && (
+          <Button onClick={() => setShowAddStore(true)}>
+            <PlusCircle className="mr-2 h-4 w-4" />
+            Add Store
+          </Button>
+        )}
       </div>
 
-      {stores.length === 0 ? (
-        <EmptyStoreState />
-      ) : (
-        <div className="grid gap-6 md:grid-cols-2">
-          {stores.map(store => (
-            <StoreCard
-              key={store.id}
-              store={store}
-              isDefault={store.id === defaultStoreId}
-              onRemoveStore={handleRemoveStore}
-              onAddLocation={(storeId) => setShowAddLocation(storeId)}
-              onRemoveLocation={handleRemoveLocation}
-              onTogglePreferred={togglePreferredLocation}
-              onSetDefault={onSetDefaultStore}
-              onConnectAccount={connectStoreAccount}
-            />
-          ))}
-        </div>
-      )}
+      <Tabs defaultValue="stores" value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid w-full max-w-md grid-cols-2">
+          <TabsTrigger value="stores">Stores & Locations</TabsTrigger>
+          <TabsTrigger value="accounts">Store Accounts</TabsTrigger>
+        </TabsList>
+        
+        <TabsContent value="stores" className="mt-6">
+          {stores.length === 0 ? (
+            <EmptyStoreState />
+          ) : (
+            <div className="grid gap-6 md:grid-cols-2">
+              {stores.map(store => (
+                <StoreCard
+                  key={store.id}
+                  store={store}
+                  isDefault={store.id === defaultStoreId}
+                  onRemoveStore={handleRemoveStore}
+                  onAddLocation={(storeId) => setShowAddLocation(storeId)}
+                  onRemoveLocation={handleRemoveLocation}
+                  onTogglePreferred={togglePreferredLocation}
+                  onSetDefault={onSetDefaultStore}
+                  onConnectAccount={connectStoreAccount}
+                />
+              ))}
+            </div>
+          )}
+        </TabsContent>
+        
+        <TabsContent value="accounts" className="mt-6">
+          <StoreAccountsSettings />
+        </TabsContent>
+      </Tabs>
 
       {/* Add Store Dialog */}
       <Dialog open={showAddStore} onOpenChange={setShowAddStore}>

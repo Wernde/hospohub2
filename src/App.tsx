@@ -15,6 +15,7 @@ import NotFound from "./pages/NotFound";
 import PantryPage from './pages/pantry/PantryPage';
 import ShoppingPage from './pages/pantry/ShoppingPage';
 import PantrySettingsPage from './pages/pantry/PantrySettingsPage';
+import OrdersPage from './pages/pantry/OrdersPage';
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <Route path="/pantry" element={<PantryPage />} />
         <Route path="/shopping" element={<ShoppingPage />} />
         <Route path="/pantry/settings" element={<PantrySettingsPage />} />
+        <Route path="/orders" element={<OrdersPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Toaster />
