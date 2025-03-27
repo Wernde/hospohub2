@@ -1,15 +1,14 @@
 
 import React from 'react';
-import { ShoppingCart, CheckCircle2, FileText } from 'lucide-react';
+import { ShoppingCart, CheckCircle2, FileText, List, Calendar, Tag, Store, BarChart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { List, Calendar, Tag } from 'lucide-react';
 import StoreSelector from './StoreSelector';
-import { Store, ViewMode } from './hooks/useShoppingListState';
+import { Store as StoreType, ViewMode } from './hooks/useShoppingListState';
 
 interface ShoppingListHeaderProps {
-  stores: Store[];
+  stores: StoreType[];
   selectedStore: string;
   viewMode: ViewMode;
   totalCost: string;
@@ -72,7 +71,7 @@ const ShoppingListHeader = ({
           onValueChange={(value) => onViewModeChange(value as ViewMode)}
           className="w-full"
         >
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="list" className="flex items-center gap-1">
               <List className="h-4 w-4" />
               <span>List View</span>
@@ -84,6 +83,10 @@ const ShoppingListHeader = ({
             <TabsTrigger value="byCategory" className="flex items-center gap-1">
               <Tag className="h-4 w-4" />
               <span>By Category</span>
+            </TabsTrigger>
+            <TabsTrigger value="byStore" className="flex items-center gap-1">
+              <Store className="h-4 w-4" />
+              <span>By Store</span>
             </TabsTrigger>
           </TabsList>
         </Tabs>

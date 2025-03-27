@@ -10,11 +10,12 @@ import {
   createExportText 
 } from '../utils/shoppingListUtils';
 
-export type ViewMode = 'list' | 'byRecipe' | 'byCategory';
+export type ViewMode = 'list' | 'byRecipe' | 'byCategory' | 'byStore';
 
 export interface Store {
   id: string;
   name: string;
+  color?: string;
 }
 
 export const useShoppingListState = () => {
@@ -26,12 +27,12 @@ export const useShoppingListState = () => {
   const [selectedStore, setSelectedStore] = useState<string>('local-market');
   const { toast } = useToast();
   
-  // Sample store data
+  // Sample store data with colors for visual differentiation
   const stores: Store[] = [
-    { id: 'local-market', name: 'Local Market' },
-    { id: 'fresh-foods', name: 'Fresh Foods' },
-    { id: 'super-store', name: 'Super Store' },
-    { id: 'bulk-buy', name: 'Bulk Buy' }
+    { id: 'local-market', name: 'Local Market', color: '#4CAF50' },
+    { id: 'fresh-foods', name: 'Fresh Foods', color: '#2196F3' },
+    { id: 'super-store', name: 'Super Store', color: '#FF9800' },
+    { id: 'bulk-buy', name: 'Bulk Buy', color: '#9C27B0' }
   ];
   
   // Aggregate items
@@ -60,6 +61,27 @@ export const useShoppingListState = () => {
     
     return costs;
   }, [itemsByRecipe, selectedStore]);
+  
+  // Calculate cost per store for comparison
+  const storeCosts = useMemo(() => {
+    const costs: Record<string, number> = {};
+    
+    stores.forEach(store => {
+      costs[store.id] = +calculateTotalCost(aggregatedList, store.id);
+    });
+    
+    return costs;
+  }, [aggregatedList, stores]);
+  
+  // Find best value store
+  const bestValueStore = useMemo(() => {
+    if (!aggregatedList.length) return null;
+    
+    const storeIds = stores.map(s => s.id);
+    const sorted = storeIds.sort((a, b) => +storeCosts[a] - +storeCosts[b]);
+    
+    return sorted[0];
+  }, [storeCosts, stores, aggregatedList]);
   
   // Event handlers
   const togglePurchased = (itemId: string) => {
@@ -213,6 +235,8 @@ export const useShoppingListState = () => {
     itemsByCategory,
     totalCost,
     recipeCosts,
+    storeCosts,
+    bestValueStore,
     
     // Methods
     setEditedQuantity,

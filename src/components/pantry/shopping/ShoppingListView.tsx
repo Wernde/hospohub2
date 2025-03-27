@@ -9,6 +9,7 @@ import { useShoppingListState } from './hooks/useShoppingListState';
 import StandardTableView from './views/StandardTableView';
 import RecipeView from './views/RecipeView';
 import CategoryView from './views/CategoryView';
+import StoreView from './views/StoreView';
 import EmptyShoppingList from './EmptyShoppingList';
 import ShoppingListHeader from './ShoppingListHeader';
 
@@ -68,6 +69,22 @@ const ShoppingListView = () => {
         return (
           <CategoryView
             itemsByCategory={itemsByCategory}
+            purchasedItems={purchasedItems}
+            editingItem={editingItem}
+            editedQuantity={editedQuantity}
+            selectedStore={selectedStore}
+            togglePurchased={togglePurchased}
+            startEditing={startEditing}
+            setEditedQuantity={setEditedQuantity}
+            saveEditedQuantity={saveEditedQuantity}
+            removeItem={removeItem}
+          />
+        );
+      case 'byStore':
+        return (
+          <StoreView
+            stores={stores}
+            aggregatedList={aggregatedList}
             purchasedItems={purchasedItems}
             editingItem={editingItem}
             editedQuantity={editedQuantity}
