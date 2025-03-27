@@ -15,24 +15,32 @@ import {
   calculateStoreCosts,
   findBestValueStore
 } from './utils/shoppingListCalcs';
+import { useStoreSettings } from './useStoreSettings';
 
 export type { ViewMode, Store } from './types';
 
 export const useShoppingListState = () => {
   const { shoppingList, setShoppingList } = usePantry();
+  const { stores, defaultStoreId, defaultLocationId } = useStoreSettings();
+  
   const [purchasedItems, setPurchasedItems] = useState<Record<string, boolean>>({});
   const [editingItem, setEditingItem] = useState<string | null>(null);
   const [editedQuantity, setEditedQuantity] = useState<number>(0);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
-  const [selectedStore, setSelectedStore] = useState<string>('local-market');
+  const [selectedStore, setSelectedStore] = useState<string>(defaultStoreId || 'local-market');
   
-  // Get store data
-  const stores = getStores();
+  // Update selected store when default changes
+  useEffect(() => {
+    if (defaultStoreId) {
+      setSelectedStore(defaultStoreId);
+    }
+  }, [defaultStoreId]);
   
   // Debug to check if we're getting the shopping list data
   useEffect(() => {
     console.log("Shopping list in useShoppingListState:", shoppingList);
-  }, [shoppingList]);
+    console.log("Store settings:", { stores, defaultStoreId, defaultLocationId });
+  }, [shoppingList, stores, defaultStoreId, defaultLocationId]);
   
   // Aggregate items
   const aggregatedItems = useMemo(() => 

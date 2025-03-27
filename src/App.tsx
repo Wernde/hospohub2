@@ -1,92 +1,63 @@
-
-import React from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AuthProvider, useAuth } from "@/contexts/AuthContext";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import AiChat from "@/components/AiChat";
+import React from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import { Toaster } from "@/components/ui/toaster"
 import Index from "./pages/Index";
-import Auth from "./pages/Auth";
-import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import Profile from "./pages/Profile";
+import Auth from "./pages/Auth";
+import ClassesIndex from "./pages/ClassesIndex";
+import ScheduleClass from "./pages/ScheduleClass";
+import OrganizationCreate from "./pages/OrganizationCreate";
+import OrganizationMembers from "./pages/OrganizationMembers";
+import OrganizationSettings from "./pages/OrganizationSettings";
 import NotFound from "./pages/NotFound";
-import OrganizationCreate from "./pages/organization/OrganizationCreate";
-import OrganizationSettings from "./pages/organization/OrganizationSettings";
-import OrganizationMembers from "./pages/organization/OrganizationMembers";
-import RecipeIndex from "./pages/recipes/RecipeIndex";
-import NewRecipe from "./pages/recipes/NewRecipe";
-import RecipeTools from "./pages/recipes/RecipeTools";
-import ClassesIndex from "./pages/classes/ClassesIndex";
-import ScheduleClass from "./pages/classes/ScheduleClass";
-import IngredientCalculator from "./pages/calculator/IngredientCalculator";
-import PantryPage from "./pages/pantry/PantryPage";
-import ShoppingPage from "./pages/pantry/ShoppingPage";
+import RecipeIndex from "./pages/RecipeIndex";
+import NewRecipe from "./pages/NewRecipe";
+import RecipeTools from "./pages/RecipeTools";
+import IngredientCalculator from "./pages/IngredientCalculator";
+import PantryPage from './pages/pantry/PantryPage';
+import ShoppingPage from './pages/pantry/ShoppingPage';
+import PantrySettingsPage from './pages/pantry/PantrySettingsPage';
 
-// Create a new QueryClient instance outside the component
-const queryClient = new QueryClient();
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/classes" element={<ProtectedRoute><ClassesIndex /></ProtectedRoute>} />
+        <Route path="/classes/schedule" element={<ProtectedRoute><ScheduleClass /></ProtectedRoute>} />
+        <Route path="/organization/create" element={<ProtectedRoute><OrganizationCreate /></ProtectedRoute>} />
+        <Route path="/organization/members" element={<ProtectedRoute><OrganizationMembers /></ProtectedRoute>} />
+        <Route path="/organization/settings" element={<ProtectedRoute><OrganizationSettings /></ProtectedRoute>} />
+        <Route path="/pantry" element={<PantryPage />} />
+        <Route path="/shopping" element={<ShoppingPage />} />
+        <Route path="/pantry/settings" element={<PantrySettingsPage />} />
+        <Route path="/recipes" element={<ProtectedRoute><RecipeIndex /></ProtectedRoute>} />
+        <Route path="/recipes/new" element={<ProtectedRoute><NewRecipe /></ProtectedRoute>} />
+        <Route path="/recipes/tools" element={<ProtectedRoute><RecipeTools /></ProtectedRoute>} />
+        <Route path="/calculator" element={<ProtectedRoute><IngredientCalculator /></ProtectedRoute>} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <Toaster />
+    </BrowserRouter>
+  );
+}
 
-// Component to render the AI assistant only when user is authenticated
-const AuthenticatedAIAssistant = () => {
-  const { user } = useAuth();
-  return user ? <AiChat /> : null;
-};
+export function ProtectedRoute({ children }: { children: JSX.Element }) {
+  if (!localStorage.getItem("sb-access-token")) {
+    window.location.href = "/auth";
+  }
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
-            
-            {/* Protected routes (requires any authenticated user) */}
-            <Route element={<ProtectedRoute />}>
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/recipes" element={<RecipeIndex />} />
-              <Route path="/recipes/new" element={<NewRecipe />} />
-              <Route path="/recipes/tools" element={<RecipeTools />} />
-              <Route path="/classes" element={<ClassesIndex />} />
-              <Route path="/classes/schedule" element={<ScheduleClass />} />
-              <Route path="/calculator" element={<IngredientCalculator />} />
-              <Route path="/pantry" element={<PantryPage />} />
-              <Route path="/shopping" element={<ShoppingPage />} />
-              <Route path="/organization/create" element={<OrganizationCreate />} />
-              
-              {/* Organization routes (requires org membership) */}
-              <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={1} />}>
-                {/* Organization admin routes */}
-                <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={3} />}>
-                  <Route path="/organization/settings" element={<OrganizationSettings />} />
-                </Route>
-                
-                {/* Organization manager routes */}
-                <Route element={<ProtectedRoute requireOrgAccess={true} requiredOrgAccessLevel={2} />}>
-                  <Route path="/organization/members" element={<OrganizationMembers />} />
-                </Route>
-              </Route>
-            </Route>
-            
-            {/* Protected admin routes (requires admin role) */}
-            <Route element={<ProtectedRoute requireAdmin={true} />}>
-              <Route path="/admin" element={<AdminDashboard />} />
-            </Route>
-            
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-          <AuthenticatedAIAssistant />
-        </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-);
+  return children;
+}
 
 export default App;

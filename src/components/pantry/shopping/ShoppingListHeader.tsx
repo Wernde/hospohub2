@@ -1,14 +1,14 @@
 
 import React from 'react';
-import { ShoppingCart, CheckCircle2, FileText, List, Calendar, Tag, Store, BarChart } from 'lucide-react';
+import { ShoppingCart, CheckCircle2, FileText, List, Calendar, Tag, Store, BarChart, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import StoreSelector from './StoreSelector';
 import { Store as StoreType, ViewMode } from './hooks/types';
+import { Link } from 'react-router-dom';
 
 interface ShoppingListHeaderProps {
-  stores: StoreType[];
   selectedStore: string;
   viewMode: ViewMode;
   totalCost: string;
@@ -20,7 +20,6 @@ interface ShoppingListHeaderProps {
 }
 
 const ShoppingListHeader = ({
-  stores,
   selectedStore,
   viewMode,
   totalCost,
@@ -40,7 +39,6 @@ const ShoppingListHeader = ({
         
         <div className="flex flex-col sm:flex-row gap-3">
           <StoreSelector 
-            stores={stores} 
             selectedStore={selectedStore} 
             onStoreChange={onStoreChange} 
           />
@@ -61,6 +59,12 @@ const ShoppingListHeader = ({
               <FileText className="h-4 w-4 mr-1" />
               <span>Export</span>
             </Button>
+            <Link to="/pantry/settings">
+              <Button variant="outline" className="flex items-center">
+                <Settings className="h-4 w-4 mr-1" />
+                <span>Store Settings</span>
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
