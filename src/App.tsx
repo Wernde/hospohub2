@@ -27,8 +27,8 @@ import IngredientCalculator from "./pages/calculator/IngredientCalculator";
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
@@ -51,8 +51,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Toaster />
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
