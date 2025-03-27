@@ -8,6 +8,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import StoreViewItem from './store/StoreViewItem';
+import { useStoreData } from '../hooks/useStoreData';
 
 interface StoreViewProps {
   stores: any[];
@@ -40,34 +41,11 @@ const StoreView = ({
   setItemPreferredStore,
   itemPreferredStores = {},
 }: StoreViewProps) => {
-  // Get all store prices for comparison
-  const getStorePrices = (item: any) => {
-    return stores.map(store => {
-      // Simulate different stock statuses for demonstration
-      let stockStatus = 'in-stock';
-      const random = Math.random();
-      if (random < 0.1) stockStatus = 'out-of-stock';
-      else if (random < 0.3) stockStatus = 'limited';
-      
-      return {
-        storeId: store.id,
-        storeName: store.name,
-        price: item.prices?.[store.id] || 0,
-        color: store.color,
-        stockStatus
-      };
-    });
-  };
-
-  // Get best price store for an item
-  const getBestPriceStore = (item: any) => {
-    const prices = stores.map(store => ({
-      storeId: store.id,
-      price: item.prices?.[store.id] || 0,
-    }));
-    
-    return prices.sort((a, b) => a.price - b.price)[0]?.storeId;
-  };
+  // Use our hook to get store data for all items
+  const { 
+    getItemStoreData, 
+    getBestPriceStore 
+  } = useStoreData(aggregatedList, stores);
 
   return (
     <div className="w-full">
@@ -87,8 +65,8 @@ const StoreView = ({
           {aggregatedList.map((item) => {
             const isPurchased = purchasedItems[item.id];
             const isEditing = editingItem === item.id;
-            const bestPriceStore = getBestPriceStore(item);
-            const storePrices = getStorePrices(item);
+            const bestPriceStore = getBestPriceStore(item.id);
+            const storePrices = getItemStoreData(item.id);
             const preferredStore = itemPreferredStores[item.id] || bestPriceStore;
             
             return (

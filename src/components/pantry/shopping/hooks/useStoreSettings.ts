@@ -1,111 +1,83 @@
 
 import { useState, useEffect } from 'react';
-import { StoreWithLocations, StoreSettings } from './types/storeTypes';
-import { getStores } from './utils/storeData';
-
-// Create a key for localStorage
-const STORE_SETTINGS_KEY = 'pantry-store-settings';
-
-// Convert the basic stores to the enhanced type with locations
-const convertToStoreWithLocations = (): StoreWithLocations[] => {
-  const basicStores = getStores();
-  return basicStores.map(store => ({
-    ...store,
-    locations: [],
-    accountConnected: false
-  }));
-};
-
-// Initialize with default settings
-const getInitialSettings = (): StoreSettings => {
-  const savedSettings = localStorage.getItem(STORE_SETTINGS_KEY);
-  if (savedSettings) {
-    return JSON.parse(savedSettings);
-  }
-  
-  const initialStores = convertToStoreWithLocations();
-  return {
-    preferredStores: initialStores,
-    defaultStoreId: initialStores.length > 0 ? initialStores[0].id : '',
-    defaultLocationId: '' // No locations by default
-  };
-};
+import { StoreWithLocations } from './types/storeTypes';
+import { getStoresWithLocations } from './utils/storeData';
 
 export const useStoreSettings = () => {
-  const [settings, setSettings] = useState<StoreSettings>(getInitialSettings);
-  
-  // Save settings to localStorage whenever they change
+  const [stores, setStores] = useState<StoreWithLocations[]>([]);
+  const [defaultStoreId, setDefaultStoreId] = useState<string>('aldi');
+  const [defaultLocationId, setDefaultLocationId] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  // Load stores on component mount
   useEffect(() => {
-    localStorage.setItem(STORE_SETTINGS_KEY, JSON.stringify(settings));
-  }, [settings]);
-  
-  // Update the stores list
-  const updateStores = (newStores: StoreWithLocations[]) => {
-    setSettings(prev => ({
-      ...prev,
-      preferredStores: newStores
-    }));
-  };
-  
-  // Set the default store and location
-  const setDefaultStore = (storeId: string, locationId: string) => {
-    setSettings(prev => ({
-      ...prev,
-      defaultStoreId: storeId,
-      defaultLocationId: locationId
-    }));
-  };
-  
-  // Add a new store
-  const addStore = (store: StoreWithLocations) => {
-    setSettings(prev => ({
-      ...prev,
-      preferredStores: [...prev.preferredStores, store]
-    }));
-  };
-  
-  // Remove a store
-  const removeStore = (storeId: string) => {
-    setSettings(prev => {
-      const updatedStores = prev.preferredStores.filter(s => s.id !== storeId);
-      // If we're removing the default store, set a new default
-      let newDefaultId = prev.defaultStoreId;
-      let newLocationId = prev.defaultLocationId;
-      
-      if (storeId === prev.defaultStoreId && updatedStores.length > 0) {
-        newDefaultId = updatedStores[0].id;
-        const defaultStore = updatedStores[0];
-        newLocationId = defaultStore.locations.length > 0 ? defaultStore.locations[0].id : '';
+    const loadStores = async () => {
+      try {
+        setIsLoading(true);
+        // In a real app, this would be an API call to your backend
+        const storeData = getStoresWithLocations();
+        setStores(storeData);
+        
+        // Set default location if not already set
+        if (!defaultLocationId && storeData.length > 0) {
+          const defaultStore = storeData.find(store => store.id === defaultStoreId) || storeData[0];
+          const preferredLocation = defaultStore.locations.find(loc => loc.isPreferred);
+          
+          if (preferredLocation) {
+            setDefaultLocationId(preferredLocation.id);
+          } else if (defaultStore.locations.length > 0) {
+            setDefaultLocationId(defaultStore.locations[0].id);
+          }
+        }
+        
+        setIsLoading(false);
+      } catch (err) {
+        console.error('Failed to load store settings:', err);
+        setError('Failed to load store settings');
+        setIsLoading(false);
       }
-      
-      return {
-        ...prev,
-        preferredStores: updatedStores,
-        defaultStoreId: newDefaultId,
-        defaultLocationId: newLocationId
-      };
-    });
+    };
+
+    loadStores();
+  }, [defaultStoreId, defaultLocationId]);
+
+  // Update store settings
+  const updateStores = async (updatedStores: StoreWithLocations[]) => {
+    try {
+      // In a real app, this would save to a database
+      console.log('Saving store settings:', updatedStores);
+      setStores(updatedStores);
+      return true;
+    } catch (err) {
+      console.error('Failed to update store settings:', err);
+      setError('Failed to save store settings');
+      return false;
+    }
   };
-  
-  // Get a store by ID
-  const getStore = (storeId: string) => {
-    return settings.preferredStores.find(s => s.id === storeId);
+
+  // Set default store
+  const setDefaultStore = (storeId: string, locationId?: string) => {
+    setDefaultStoreId(storeId);
+    if (locationId) {
+      setDefaultLocationId(locationId);
+    } else {
+      // Find first location for this store
+      const store = stores.find(s => s.id === storeId);
+      if (store && store.locations.length > 0) {
+        const preferredLocation = store.locations.find(loc => loc.isPreferred);
+        setDefaultLocationId(preferredLocation?.id || store.locations[0].id);
+      }
+    }
   };
-  
-  // Get all stores
-  const getAllStores = () => {
-    return settings.preferredStores;
-  };
-  
+
   return {
-    stores: settings.preferredStores,
-    defaultStoreId: settings.defaultStoreId,
-    defaultLocationId: settings.defaultLocationId,
+    stores,
+    defaultStoreId,
+    defaultLocationId,
     updateStores,
     setDefaultStore,
-    addStore,
-    removeStore,
-    getStore,
-    getAllStores
+    isLoading,
+    error
   };
 };

@@ -1,11 +1,19 @@
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
 import { TableRow, TableCell } from '@/components/ui/table';
+import { Info } from 'lucide-react';
 import PreferredStoreDisplay from './PreferredStoreDisplay';
 import QuantityEditor from './QuantityEditor';
 import StoreOptionsList from './StoreOptionsList';
+import { fetchProductDetails } from '../../hooks/utils/storeData';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 
 interface StoreViewItemProps {
   item: any;
@@ -39,6 +47,24 @@ const StoreViewItem = ({
   setItemPreferredStore
 }: StoreViewItemProps) => {
   const preferredStoreObj = stores.find(s => s.id === preferredStore);
+  const [productDetails, setProductDetails] = useState<any>(null);
+  const [isLoadingDetails, setIsLoadingDetails] = useState(false);
+
+  // Fetch product details when preferred store changes
+  useEffect(() => {
+    if (preferredStore) {
+      setIsLoadingDetails(true);
+      fetchProductDetails(item.id, preferredStore)
+        .then(details => {
+          setProductDetails(details);
+          setIsLoadingDetails(false);
+        })
+        .catch(err => {
+          console.error('Error fetching product details:', err);
+          setIsLoadingDetails(false);
+        });
+    }
+  }, [item.id, preferredStore]);
   
   return (
     <TableRow 
@@ -56,6 +82,43 @@ const StoreViewItem = ({
         <div className="text-xs text-muted-foreground">
           Category: {item.category}
         </div>
+        {productDetails && (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="flex items-center mt-1 text-xs text-blue-500 cursor-help">
+                  <Info className="h-3 w-3 mr-1" />
+                  {productDetails.brandName} - {productDetails.size}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent className="w-80">
+                <div className="space-y-2">
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Brand:</span>
+                    <span>{productDetails.brandName}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Size:</span>
+                    <span>{productDetails.size}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="font-semibold">Store Product ID:</span>
+                    <span className="text-xs">{productDetails.storeProductId}</span>
+                  </div>
+                  <div className="pt-1 border-t">
+                    <span className="font-semibold">Nutrition per 100g:</span>
+                    <div className="grid grid-cols-2 gap-x-4 gap-y-1 mt-1">
+                      <div>Calories: {productDetails.nutritionInfo.calories}kcal</div>
+                      <div>Protein: {productDetails.nutritionInfo.protein}g</div>
+                      <div>Carbs: {productDetails.nutritionInfo.carbs}g</div>
+                      <div>Fat: {productDetails.nutritionInfo.fat}g</div>
+                    </div>
+                  </div>
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
       </TableCell>
       
       <TableCell className={isPurchased ? "line-through text-muted-foreground" : ""}>
