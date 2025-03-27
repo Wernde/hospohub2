@@ -8,14 +8,10 @@ import {
   SelectContent,
   SelectItem
 } from '@/components/ui/select';
-
-export interface Store {
-  id: string;
-  name: string;
-}
+import { Store as StoreType } from './hooks/useShoppingListState';
 
 interface StoreSelectorProps {
-  stores: Store[];
+  stores: StoreType[];
   selectedStore: string;
   onStoreChange: (storeId: string) => void;
 }

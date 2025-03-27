@@ -5,16 +5,17 @@ import { Button } from '@/components/ui/button';
 import { CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { List, Calendar, Tag } from 'lucide-react';
-import StoreSelector, { Store } from './StoreSelector';
+import StoreSelector from './StoreSelector';
+import { Store, ViewMode } from './hooks/useShoppingListState';
 
 interface ShoppingListHeaderProps {
   stores: Store[];
   selectedStore: string;
-  viewMode: 'list' | 'byRecipe' | 'byCategory';
+  viewMode: ViewMode;
   totalCost: string;
   totalItems: number;
   onStoreChange: (storeId: string) => void;
-  onViewModeChange: (mode: 'list' | 'byRecipe' | 'byCategory') => void;
+  onViewModeChange: (mode: ViewMode) => void;
   onClearPurchased: () => void;
   onExport: () => void;
 }
@@ -68,7 +69,7 @@ const ShoppingListHeader = ({
       <div className="flex justify-between items-center mt-4">
         <Tabs 
           value={viewMode} 
-          onValueChange={(value) => onViewModeChange(value as 'list' | 'byRecipe' | 'byCategory')}
+          onValueChange={(value) => onViewModeChange(value as ViewMode)}
           className="w-full"
         >
           <TabsList className="grid w-full grid-cols-3">
