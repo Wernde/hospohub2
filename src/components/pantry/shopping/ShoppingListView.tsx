@@ -12,6 +12,7 @@ import CategoryView from './views/CategoryView';
 import StoreView from './views/StoreView';
 import EmptyShoppingList from './EmptyShoppingList';
 import ShoppingListHeader from './ShoppingListHeader';
+import ShoppingListSummary from './ShoppingListSummary';
 import { usePantry } from '../context/usePantry';
 
 const ShoppingListView = () => {
@@ -140,6 +141,15 @@ const ShoppingListView = () => {
         <div className="bg-white rounded-lg shadow-sm border overflow-hidden">
           {renderContent()}
         </div>
+        
+        {aggregatedList.length > 0 && (
+          <ShoppingListSummary
+            totalCost={totalCost}
+            totalItems={aggregatedList.length}
+            itemsByCategory={itemsByCategory}
+            itemsByRecipe={itemsByRecipe}
+          />
+        )}
       </CardContent>
     </Card>
   );
