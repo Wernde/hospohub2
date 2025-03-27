@@ -1,6 +1,6 @@
 
 import { useState, useMemo, useEffect } from 'react';
-import { usePantry } from '../../PantryContext';
+import { usePantry } from '../../context/usePantry';
 import { ViewMode, ShoppingItem } from './types';
 import { StoreWithLocations } from './types/storeTypes';
 import { useShoppingListActions } from './utils/shoppingListActions';

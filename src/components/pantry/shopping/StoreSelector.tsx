@@ -16,7 +16,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { StoreWithLocations } from './hooks/types/storeTypes';
 import { useStoreSettings } from './hooks/useStoreSettings';
 
 interface StoreSelectorProps {

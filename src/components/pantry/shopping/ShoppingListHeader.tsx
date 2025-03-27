@@ -1,16 +1,14 @@
 
 import React from 'react';
-import { ShoppingCart, CheckCircle2, FileText, List, Calendar, Tag, Store, BarChart, Settings } from 'lucide-react';
+import { ShoppingCart, CheckCircle2, FileText, List, Calendar, Tag, Store, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import StoreSelector from './StoreSelector';
-import { Store as StoreType, ViewMode } from './hooks/types';
-import { StoreWithLocations } from './hooks/types/storeTypes';
+import { ViewMode } from './hooks/types';
 import { Link } from 'react-router-dom';
 
 interface ShoppingListHeaderProps {
-  stores: StoreWithLocations[];
   selectedStore: string;
   viewMode: ViewMode;
   totalCost: string;
@@ -22,7 +20,6 @@ interface ShoppingListHeaderProps {
 }
 
 const ShoppingListHeader = ({
-  stores,
   selectedStore,
   viewMode,
   totalCost,

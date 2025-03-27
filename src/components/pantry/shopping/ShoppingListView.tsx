@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
@@ -11,7 +12,7 @@ import CategoryView from './views/CategoryView';
 import StoreView from './views/StoreView';
 import EmptyShoppingList from './EmptyShoppingList';
 import ShoppingListHeader from './ShoppingListHeader';
-import { usePantry } from '../PantryContext';
+import { usePantry } from '../context/usePantry';
 
 const ShoppingListView = () => {
   const { shoppingList } = usePantry();
@@ -125,7 +126,6 @@ const ShoppingListView = () => {
     <Card className="w-full">
       <CardHeader>
         <ShoppingListHeader
-          stores={stores}
           selectedStore={selectedStore}
           viewMode={viewMode}
           totalCost={totalCost}
