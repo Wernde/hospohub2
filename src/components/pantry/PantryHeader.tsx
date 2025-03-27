@@ -1,10 +1,11 @@
+
 import React from 'react';
 import { ShoppingCart, CheckCircle2, FileText, List, Calendar, Tag, Store, BarChart, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import StoreSelector from './StoreSelector';
-import { Store as StoreType, ViewMode } from './hooks/types';
+import StoreSelector from './shopping/StoreSelector';
+import { ViewMode } from './shopping/hooks/types';
 import { Link } from 'react-router-dom';
 
 interface ShoppingListHeaderProps {

@@ -6,6 +6,12 @@ export interface StoreLocation {
   isPreferred: boolean;
 }
 
+export interface Store {
+  id: string;
+  name: string;
+  color?: string;
+}
+
 export interface StoreWithLocations extends Store {
   locations: StoreLocation[];
   accountConnected: boolean;

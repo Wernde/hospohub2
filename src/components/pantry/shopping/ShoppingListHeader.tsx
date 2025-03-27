@@ -6,9 +6,11 @@ import { CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import StoreSelector from './StoreSelector';
 import { Store as StoreType, ViewMode } from './hooks/types';
+import { StoreWithLocations } from './hooks/types/storeTypes';
 import { Link } from 'react-router-dom';
 
 interface ShoppingListHeaderProps {
+  stores: StoreWithLocations[];
   selectedStore: string;
   viewMode: ViewMode;
   totalCost: string;
@@ -20,6 +22,7 @@ interface ShoppingListHeaderProps {
 }
 
 const ShoppingListHeader = ({
+  stores,
   selectedStore,
   viewMode,
   totalCost,

@@ -2,7 +2,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import { usePantry } from '../../PantryContext';
 import { ViewMode, ShoppingItem } from './types';
-import { getStores } from './utils/storeData';
+import { StoreWithLocations } from './types/storeTypes';
 import { useShoppingListActions } from './utils/shoppingListActions';
 import { 
   aggregateShoppingItems, 
@@ -17,7 +17,7 @@ import {
 } from './utils/shoppingListCalcs';
 import { useStoreSettings } from './useStoreSettings';
 
-export type { ViewMode, Store } from './types';
+export type { ViewMode } from './types';
 
 export const useShoppingListState = () => {
   const { shoppingList, setShoppingList } = usePantry();
@@ -64,16 +64,26 @@ export const useShoppingListState = () => {
     [itemsByRecipe, selectedStore]
   );
   
+  // Convert StoreWithLocations to the simple Store type for calculations
+  const simpleStores = useMemo(() => 
+    stores.map(store => ({
+      id: store.id,
+      name: store.name,
+      color: store.color
+    })),
+    [stores]
+  );
+  
   // Calculate cost per store for comparison
   const storeCosts = useMemo(() => 
-    calculateStoreCosts(aggregatedList, stores),
-    [aggregatedList, stores]
+    calculateStoreCosts(aggregatedList, simpleStores),
+    [aggregatedList, simpleStores]
   );
   
   // Find best value store
   const bestValueStore = useMemo(() => 
-    findBestValueStore(aggregatedList, stores, storeCosts),
-    [storeCosts, stores, aggregatedList]
+    findBestValueStore(aggregatedList, simpleStores, storeCosts),
+    [storeCosts, simpleStores, aggregatedList]
   );
   
   // Get action handlers
@@ -95,7 +105,7 @@ export const useShoppingListState = () => {
     setEditedQuantity,
     aggregatedList,
     selectedStore,
-    stores
+    simpleStores
   );
   
   // Provide the calculator function to the components
