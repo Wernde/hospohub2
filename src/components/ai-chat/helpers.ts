@@ -12,10 +12,39 @@ export const searchWeb = async (query: string): Promise<string> => {
         return resolve("I found several relevant cooking resources on the web. The latest cooking trends include fermentation, plant-based alternatives, and sustainable cooking practices. Would you like me to explain any of these in more detail?");
       } else if (query.toLowerCase().includes('ingredient') || query.toLowerCase().includes('substitute')) {
         return resolve("According to culinary sources, you can substitute eggs in baking with applesauce (¼ cup per egg), mashed banana (¼ cup per egg), or ground flaxseed mixed with water (1 tbsp flax + 3 tbsp water per egg).");
+      } else if (query.toLowerCase().includes('price') || query.toLowerCase().includes('cost') || query.toLowerCase().includes('store') || query.toLowerCase().includes('shop')) {
+        return resolve("I've searched for current prices at major stores. For example, organic eggs range from $5.50 at Aldi to $7.99 at Woolworths. Fresh vegetables are generally cheapest at local markets, with Aldi offering competitive pricing. Would you like me to search for a specific item?");
       } else {
         return resolve("I've searched for information about your query but couldn't find specific details. Could you ask me something more specific about cooking, recipes, or kitchen management?");
       }
     }, 2000);
+  });
+};
+
+// Search for store pricing data
+export const searchStoreData = async (item: string): Promise<string> => {
+  console.log('Searching for store data for:', item);
+  
+  // In a real implementation, this would call an API or web scraper
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Create realistic price variations between stores
+      const storeData = {
+        'Aldi': { price: (Math.random() * 3 + 2).toFixed(2), stock: Math.random() > 0.2 ? 'In Stock' : 'Limited Stock' },
+        'Woolworths': { price: (Math.random() * 3 + 3).toFixed(2), stock: Math.random() > 0.1 ? 'In Stock' : 'Out of Stock' },
+        'Coles': { price: (Math.random() * 3 + 2.5).toFixed(2), stock: 'In Stock' },
+        'IGA': { price: (Math.random() * 3 + 3.5).toFixed(2), stock: Math.random() > 0.25 ? 'In Stock' : 'Limited Stock' }
+      };
+      
+      const response = `I found current pricing for ${item}:\n\n` +
+        `• Aldi: $${storeData['Aldi'].price} (${storeData['Aldi'].stock})\n` +
+        `• Woolworths: $${storeData['Woolworths'].price} (${storeData['Woolworths'].stock})\n` +
+        `• Coles: $${storeData['Coles'].price} (${storeData['Coles'].stock})\n` +
+        `• IGA: $${storeData['IGA'].price} (${storeData['IGA'].stock})\n\n` +
+        `The best price appears to be at Aldi ($${storeData['Aldi'].price}). Would you like me to search for another item?`;
+      
+      resolve(response);
+    }, 1500);
   });
 };
 

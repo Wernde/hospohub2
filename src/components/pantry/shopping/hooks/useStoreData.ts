@@ -56,6 +56,20 @@ export const useStoreData = (items: ShoppingItem[], stores: any[]) => {
     loadAllItemData();
   }, [loadAllItemData]);
   
+  // Helper function to update a single item's price from AI assistant data
+  const updateItemPriceFromAI = useCallback((itemId: string, storeId: string, price: number) => {
+    setItemPrices(prev => ({
+      ...prev,
+      [itemId]: {
+        ...(prev[itemId] || {}),
+        [storeId]: price
+      }
+    }));
+    
+    // Set last updated to now
+    setLastUpdated(new Date());
+  }, []);
+  
   // Apply prices to items
   const itemsWithPrices = useCallback(() => {
     return items.map(item => ({
@@ -85,8 +99,9 @@ export const useStoreData = (items: ShoppingItem[], stores: any[]) => {
     const prices = stores.map(store => ({
       storeId: store.id,
       price: itemPrices[itemId]?.[store.id] || 0,
-    }));
+    })).filter(item => item.price > 0);
     
+    if (prices.length === 0) return stores[0]?.id;
     return prices.sort((a, b) => a.price - b.price)[0]?.storeId;
   }, [stores, itemPrices]);
   
@@ -102,6 +117,7 @@ export const useStoreData = (items: ShoppingItem[], stores: any[]) => {
     getStockStatus,
     getItemStoreData,
     getBestPriceStore,
-    refreshData
+    refreshData,
+    updateItemPriceFromAI
   };
 };

@@ -8,7 +8,8 @@ import ChatModal from './ai-chat/ChatModal';
 import { 
   searchWeb, 
   generateRecipeResponse, 
-  getContextAwareResponse 
+  getContextAwareResponse,
+  searchStoreData
 } from './ai-chat/helpers';
 
 const AiChat = () => {
@@ -16,7 +17,7 @@ const AiChat = () => {
   const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([
     { 
       role: 'assistant', 
-      content: 'Hello! I\'m your HospoHub assistant. I can help with recipes, ingredient calculations, and answer questions about cooking techniques. What can I help you with today?' 
+      content: 'Hello! I\'m your HospoHub assistant. I can help with recipes, ingredient calculations, shopping list prices, and answer questions about cooking techniques. What can I help you with today?' 
     }
   ]);
   const [isLoading, setIsLoading] = useState(false);
@@ -45,6 +46,44 @@ const AiChat = () => {
         aiResponse = await searchWeb(message);
         setIsSearching(false);
       } 
+      // Check if asking for store pricing data
+      else if (message.toLowerCase().includes('price') || 
+               message.toLowerCase().includes('cost') || 
+               message.toLowerCase().includes('store') ||
+               message.toLowerCase().includes('shop') ||
+               message.toLowerCase().includes('how much') ||
+               message.toLowerCase().includes('where can i buy')) {
+        
+        // Try to extract the item name from the message
+        let itemName = "";
+        const priceOfRegex = /price of ([\w\s]+)(?:at|in|from|$)/i;
+        const costOfRegex = /cost of ([\w\s]+)(?:at|in|from|$)/i;
+        const whereCanIBuyRegex = /where can i buy ([\w\s]+)(?:\?|$)/i;
+        const howMuchIsRegex = /how much is ([\w\s]+)(?:at|in|from|\?|$)/i;
+        
+        const priceMatch = message.match(priceOfRegex);
+        const costMatch = message.match(costOfRegex);
+        const whereMatch = message.match(whereCanIBuyRegex);
+        const howMuchMatch = message.match(howMuchIsRegex);
+        
+        if (priceMatch && priceMatch[1]) {
+          itemName = priceMatch[1].trim();
+        } else if (costMatch && costMatch[1]) {
+          itemName = costMatch[1].trim();
+        } else if (whereMatch && whereMatch[1]) {
+          itemName = whereMatch[1].trim();
+        } else if (howMuchMatch && howMuchMatch[1]) {
+          itemName = howMuchMatch[1].trim();
+        }
+        
+        if (itemName) {
+          setIsSearching(true);
+          aiResponse = await searchStoreData(itemName);
+          setIsSearching(false);
+        } else {
+          aiResponse = "I'd be happy to check store prices for you. What specific item are you looking for?";
+        }
+      }
       // Recipe-related queries
       else if (message.toLowerCase().includes('recipe') || 
                message.toLowerCase().includes('cook') || 
@@ -59,10 +98,10 @@ const AiChat = () => {
       // General responses
       else {
         const generalResponses = [
-          "I can help you with recipe management, ingredient substitutions, or cooking techniques. What specifically are you looking for?",
-          "Would you like me to suggest recipes based on ingredients you have available?",
-          "I can assist with meal planning, scaling recipes for different class sizes, or cooking techniques. What would you like to know?",
-          "I'm your culinary assistant. I can help with recipes, techniques, or ingredient questions. How can I help today?"
+          "I can help you with recipe management, ingredient substitutions, price comparisons, or cooking techniques. What specifically are you looking for?",
+          "Would you like me to suggest recipes based on ingredients you have available or check prices at local stores?",
+          "I can assist with meal planning, scaling recipes, finding the best prices, or cooking techniques. What would you like to know?",
+          "I'm your culinary assistant. I can help with recipes, techniques, price comparisons, or ingredient questions. How can I help today?"
         ];
         
         aiResponse = generalResponses[Math.floor(Math.random() * generalResponses.length)];
