@@ -1,19 +1,27 @@
 
 import React from 'react';
-import { DollarSign, ShoppingCart, Tag, Calendar } from 'lucide-react';
+import { DollarSign, ShoppingCart, Tag, Calendar, Store } from 'lucide-react';
 
 interface ShoppingListSummaryProps {
   totalCost: string;
   totalItems: number;
   itemsByCategory: Record<string, any[]>;
   itemsByRecipe: Record<string, any[]>;
+  storeCosts?: Record<string, number>;
+  stores?: any[];
+  selectedStoreTotal?: string;
+  itemPreferredStoresTotalCost?: string;
 }
 
 const ShoppingListSummary = ({
   totalCost,
   totalItems,
   itemsByCategory,
-  itemsByRecipe
+  itemsByRecipe,
+  storeCosts = {},
+  stores = [],
+  selectedStoreTotal,
+  itemPreferredStoresTotalCost
 }: ShoppingListSummaryProps) => {
   // Count number of categories and recipes
   const categoryCount = Object.keys(itemsByCategory).length;
@@ -56,6 +64,50 @@ const ShoppingListSummary = ({
           </div>
         </div>
       </div>
+
+      {stores.length > 0 && (
+        <div className="mt-6">
+          <h4 className="text-md font-semibold mb-3">Store Cost Comparison</h4>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {stores.map(store => (
+              <div 
+                key={store.id} 
+                className="flex flex-col p-3 rounded-lg border"
+                style={{ borderLeftColor: store.color, borderLeftWidth: '4px' }}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <Store className="h-4 w-4" style={{ color: store.color }} />
+                  <span className="font-medium">All from {store.name}</span>
+                </div>
+                <p className="text-lg font-bold">
+                  ${storeCosts[store.id]?.toFixed(2) || '0.00'}
+                </p>
+              </div>
+            ))}
+            
+            {itemPreferredStoresTotalCost && (
+              <div 
+                className="flex flex-col p-3 rounded-lg border border-primary"
+                style={{ borderLeftWidth: '4px' }}
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <Store className="h-4 w-4 text-primary" />
+                  <span className="font-medium">Your Selection</span>
+                </div>
+                <p className="text-lg font-bold text-primary">
+                  ${itemPreferredStoresTotalCost}
+                </p>
+              </div>
+            )}
+          </div>
+          
+          <p className="text-sm text-muted-foreground mt-3">
+            Selecting the cheapest option for each item could save you up to 
+            ${Math.max(0, parseFloat(selectedStoreTotal || '0') - parseFloat(itemPreferredStoresTotalCost || '0')).toFixed(2)} 
+            compared to shopping at a single store.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

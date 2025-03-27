@@ -13,7 +13,8 @@ import {
   calculateTotalCost, 
   calculateRecipeCosts, 
   calculateStoreCosts,
-  findBestValueStore
+  findBestValueStore,
+  calculatePreferredStoresTotalCost
 } from './utils/shoppingListCalcs';
 import { useStoreSettings } from './useStoreSettings';
 
@@ -28,6 +29,7 @@ export const useShoppingListState = () => {
   const [editedQuantity, setEditedQuantity] = useState<number>(0);
   const [viewMode, setViewMode] = useState<ViewMode>('list');
   const [selectedStore, setSelectedStore] = useState<string>(defaultStoreId || 'local-market');
+  const [itemPreferredStores, setItemPreferredStores] = useState<Record<string, string>>({});
   
   // Update selected store when default changes
   useEffect(() => {
@@ -86,6 +88,20 @@ export const useShoppingListState = () => {
     [storeCosts, simpleStores, aggregatedList]
   );
   
+  // Calculate total cost based on preferred stores
+  const itemPreferredStoresTotalCost = useMemo(() => 
+    calculatePreferredStoresTotalCost(aggregatedList, itemPreferredStores, selectedStore),
+    [aggregatedList, itemPreferredStores, selectedStore]
+  );
+  
+  // Handle setting a preferred store for a specific item
+  const setItemPreferredStore = (itemId: string, storeId: string) => {
+    setItemPreferredStores(prev => ({
+      ...prev,
+      [itemId]: storeId
+    }));
+  };
+  
   // Get action handlers
   const { 
     togglePurchased,
@@ -119,6 +135,7 @@ export const useShoppingListState = () => {
     viewMode,
     selectedStore,
     stores,
+    itemPreferredStores,
     
     // Computed values
     aggregatedList,
@@ -128,11 +145,13 @@ export const useShoppingListState = () => {
     recipeCosts,
     storeCosts,
     bestValueStore,
+    itemPreferredStoresTotalCost,
     
     // Methods
     setEditedQuantity,
     setViewMode,
     setSelectedStore,
+    setItemPreferredStore,
     togglePurchased,
     startEditing,
     saveEditedQuantity,

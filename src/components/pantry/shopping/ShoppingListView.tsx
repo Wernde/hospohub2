@@ -31,17 +31,21 @@ const ShoppingListView = () => {
     viewMode,
     selectedStore,
     stores,
+    itemPreferredStores,
     
     // Computed values
     aggregatedList,
     itemsByRecipe,
     itemsByCategory,
     totalCost,
+    storeCosts,
+    itemPreferredStoresTotalCost,
     
     // Methods
     setEditedQuantity,
     setViewMode,
     setSelectedStore,
+    setItemPreferredStore,
     togglePurchased,
     startEditing,
     saveEditedQuantity,
@@ -103,6 +107,8 @@ const ShoppingListView = () => {
             setEditedQuantity={setEditedQuantity}
             saveEditedQuantity={saveEditedQuantity}
             removeItem={removeItem}
+            setItemPreferredStore={setItemPreferredStore}
+            itemPreferredStores={itemPreferredStores}
           />
         );
       default:
@@ -148,6 +154,10 @@ const ShoppingListView = () => {
             totalItems={aggregatedList.length}
             itemsByCategory={itemsByCategory}
             itemsByRecipe={itemsByRecipe}
+            storeCosts={storeCosts}
+            stores={stores}
+            selectedStoreTotal={totalCost}
+            itemPreferredStoresTotalCost={itemPreferredStoresTotalCost}
           />
         )}
       </CardContent>

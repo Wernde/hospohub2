@@ -50,6 +50,18 @@ export const findBestValueStore = (
   return sorted[0];
 };
 
+// Calculate total cost based on preferred stores for each item
+export const calculatePreferredStoresTotalCost = (
+  items: ShoppingItem[],
+  itemPreferredStores: Record<string, string>,
+  defaultStore: string
+): string => {
+  return items.reduce((total, item) => {
+    const storeId = itemPreferredStores[item.id] || defaultStore;
+    return total + (item.prices?.[storeId] || 0) * item.quantity;
+  }, 0).toFixed(2);
+};
+
 // Create a text representation of the shopping list for export
 export const createExportText = (
   aggregatedList: ShoppingItem[], 

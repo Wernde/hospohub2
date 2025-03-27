@@ -3,8 +3,8 @@ import { Store } from '../types';
 
 // Sample store data with colors for visual differentiation
 export const getStores = (): Store[] => [
-  { id: 'local-market', name: 'Local Market', color: '#4CAF50' },
-  { id: 'fresh-foods', name: 'Fresh Foods', color: '#2196F3' },
-  { id: 'super-store', name: 'Super Store', color: '#FF9800' },
-  { id: 'bulk-buy', name: 'Bulk Buy', color: '#9C27B0' }
+  { id: 'aldi', name: 'Aldi', color: '#9b87f5' },   // Purple
+  { id: 'woolworths', name: 'Woolworths', color: '#ea384c' },  // Red
+  { id: 'coles', name: 'Coles', color: '#0EA5E9' },  // Teal
+  { id: 'iga', name: 'IGA', color: '#EAB308' }  // Gold
 ];

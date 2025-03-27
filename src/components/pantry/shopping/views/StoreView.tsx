@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Store, PackageCheck, AlertCircle } from 'lucide-react';
+import { Store, PackageCheck, AlertCircle, Truck } from 'lucide-react';
 import {
   Tooltip,
   TooltipContent,
@@ -18,6 +18,8 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Label } from '@/components/ui/label';
 
 interface StoreViewProps {
   stores: any[];
@@ -31,6 +33,8 @@ interface StoreViewProps {
   setEditedQuantity: (quantity: number) => void;
   saveEditedQuantity: (item: any) => void;
   removeItem: (item: any) => void;
+  setItemPreferredStore?: (itemId: string, storeId: string) => void;
+  itemPreferredStores?: Record<string, string>;
 }
 
 const StoreView = ({
@@ -45,16 +49,26 @@ const StoreView = ({
   setEditedQuantity,
   saveEditedQuantity,
   removeItem,
+  setItemPreferredStore,
+  itemPreferredStores = {},
 }: StoreViewProps) => {
   // Get all store prices for comparison
   const getStorePrices = (item: any) => {
-    return stores.map(store => ({
-      storeId: store.id,
-      storeName: store.name,
-      price: item.prices?.[store.id] || 0,
-      color: store.color,
-      inStock: Math.random() > 0.2, // Simulated in-stock status for demo
-    }));
+    return stores.map(store => {
+      // Simulate different stock statuses for demonstration
+      let stockStatus = 'in-stock';
+      const random = Math.random();
+      if (random < 0.1) stockStatus = 'out-of-stock';
+      else if (random < 0.3) stockStatus = 'limited';
+      
+      return {
+        storeId: store.id,
+        storeName: store.name,
+        price: item.prices?.[store.id] || 0,
+        color: store.color,
+        stockStatus
+      };
+    });
   };
 
   // Get best price store for an item
@@ -67,6 +81,34 @@ const StoreView = ({
     return prices.sort((a, b) => a.price - b.price)[0]?.storeId;
   };
 
+  // Get stock status icon
+  const getStockStatusIcon = (status: string) => {
+    switch (status) {
+      case 'in-stock':
+        return <PackageCheck className="h-3 w-3 text-green-500" />;
+      case 'limited':
+        return <AlertCircle className="h-3 w-3 text-amber-500" />;
+      case 'out-of-stock':
+        return <AlertCircle className="h-3 w-3 text-red-500" />;
+      default:
+        return <PackageCheck className="h-3 w-3 text-green-500" />;
+    }
+  };
+
+  // Get stock status text
+  const getStockStatusText = (status: string) => {
+    switch (status) {
+      case 'in-stock':
+        return 'In Stock';
+      case 'limited':
+        return 'Limited Stock';
+      case 'out-of-stock':
+        return 'Out of Stock';
+      default:
+        return 'In Stock';
+    }
+  };
+
   return (
     <div className="w-full">
       <Table>
@@ -76,8 +118,8 @@ const StoreView = ({
             <TableHead>Item</TableHead>
             <TableHead>Recipe(s)</TableHead>
             <TableHead>Quantity</TableHead>
-            <TableHead>Best Price At</TableHead>
-            <TableHead>Price Comparison</TableHead>
+            <TableHead>Preferred Store</TableHead>
+            <TableHead>Store Options</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
@@ -87,6 +129,7 @@ const StoreView = ({
             const isEditing = editingItem === item.id;
             const bestPriceStore = getBestPriceStore(item);
             const storePrices = getStorePrices(item);
+            const preferredStore = itemPreferredStores[item.id] || bestPriceStore;
             
             return (
               <TableRow 
@@ -148,51 +191,53 @@ const StoreView = ({
                 </TableCell>
                 
                 <TableCell>
-                  {bestPriceStore && (
+                  {preferredStore && (
                     <div className="flex items-center gap-1">
                       <div 
                         className="w-3 h-3 rounded-full" 
                         style={{ 
-                          backgroundColor: stores.find(s => s.id === bestPriceStore)?.color || '#888' 
+                          backgroundColor: stores.find(s => s.id === preferredStore)?.color || '#888' 
                         }}
                       />
-                      <span>{stores.find(s => s.id === bestPriceStore)?.name}</span>
+                      <span className="font-medium">{stores.find(s => s.id === preferredStore)?.name}</span>
                     </div>
                   )}
                 </TableCell>
                 
                 <TableCell>
-                  <div className="flex space-x-2">
+                  <RadioGroup 
+                    value={preferredStore}
+                    onValueChange={(value) => setItemPreferredStore && setItemPreferredStore(item.id, value)}
+                    className="flex flex-col space-y-1"
+                  >
                     {storePrices.map(storePrice => (
-                      <TooltipProvider key={storePrice.storeId}>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
+                      <div key={storePrice.storeId} className="flex items-center space-x-2">
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem 
+                            value={storePrice.storeId} 
+                            id={`${item.id}-${storePrice.storeId}`}
+                            className="border-2"
+                            style={{ borderColor: storePrice.color }}
+                          />
+                          <Label 
+                            htmlFor={`${item.id}-${storePrice.storeId}`}
+                            className="flex items-center gap-2 cursor-pointer text-sm"
+                          >
                             <div 
-                              className={`px-2 py-1 rounded text-xs flex items-center gap-1 ${
-                                storePrice.storeId === selectedStore 
-                                  ? 'bg-primary/20 font-medium' 
-                                  : 'bg-muted'
-                              }`}
-                              style={{ borderLeft: `3px solid ${storePrice.color || '#888'}` }}
-                            >
-                              ${(storePrice.price * item.quantity).toFixed(2)}
-                              {storePrice.inStock ? (
-                                <PackageCheck className="h-3 w-3 text-green-500" />
-                              ) : (
-                                <AlertCircle className="h-3 w-3 text-amber-500" />
-                              )}
-                            </div>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>{storePrice.storeName}: ${storePrice.price.toFixed(2)} per {item.unit}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {storePrice.inStock ? 'In stock' : 'Limited stock'}
-                            </p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                              className="w-2 h-2 rounded-full" 
+                              style={{ backgroundColor: storePrice.color }}
+                            ></div>
+                            <span className="w-24">{storePrice.storeName}</span>
+                            <span className="font-semibold">${storePrice.price.toFixed(2)}/{item.unit}</span>
+                            <span className="flex items-center gap-1 text-xs">
+                              {getStockStatusIcon(storePrice.stockStatus)}
+                              {getStockStatusText(storePrice.stockStatus)}
+                            </span>
+                          </Label>
+                        </div>
+                      </div>
                     ))}
-                  </div>
+                  </RadioGroup>
                 </TableCell>
                 
                 <TableCell className="text-right">
