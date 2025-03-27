@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Store, RefreshCw } from 'lucide-react';
 import {
@@ -14,7 +13,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
-import { Store as StoreType } from './hooks/useShoppingListState';
+import { Store as StoreType } from './hooks/types';
 
 interface StoreSelectorProps {
   stores: StoreType[];

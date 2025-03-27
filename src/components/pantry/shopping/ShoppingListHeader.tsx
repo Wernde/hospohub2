@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { CardTitle } from '@/components/ui/card';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import StoreSelector from './StoreSelector';
-import { Store as StoreType, ViewMode } from './hooks/useShoppingListState';
+import { Store as StoreType, ViewMode } from './hooks/types';
 
 interface ShoppingListHeaderProps {
   stores: StoreType[];
