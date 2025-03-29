@@ -1,240 +1,215 @@
 
 import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import { ensureSharePointFolder, saveExcelToSharePoint, isSharePointConnected } from './sharePointIntegration';
 
-// Generic export function that takes an array of data and exports it to Excel
-export function exportToExcel<T>(
-  data: T[],
-  fileName: string = 'export',
-  sheetName: string = 'Sheet1', 
-  options?: {
-    headers?: Record<keyof T, string>;
-    customHeaderOrder?: (keyof T)[];
-    transformData?: (item: T) => Record<string, any>;
-  }
-) {
-  // If there's no data, alert the user and return
-  if (!data.length) {
-    alert('No data to export');
-    return;
-  }
+type ClassData = {
+  id: string;
+  className: string;
+  instructor: string;
+  location: string;
+  date: Date;
+  startTime: string;
+  endTime: string;
+  description: string;
+  studentCount: number;
+};
 
-  // Create transformed data if a transformer is provided
-  const transformedData = options?.transformData 
-    ? data.map(options.transformData)
-    : data;
+type ShoppingItem = {
+  id: string;
+  name: string;
+  quantity: string;
+  unit: string;
+  category: string;
+  recipeName: string;
+};
 
-  // Create workbook and worksheet
-  const workbook = XLSX.utils.book_new();
-  
-  // Convert data to worksheet
-  let worksheet: XLSX.WorkSheet;
-  
-  // If headers are provided, use them
-  if (options?.headers) {
-    // If custom header order is provided, use it
-    const headerRow = options.customHeaderOrder 
-      ? options.customHeaderOrder.map(key => options.headers?.[key] || String(key))
-      : Object.values(options.headers);
+type RecipeData = {
+  id: string;
+  name: string;
+  difficulty: string;
+  prepTime: number | string;
+  cookTime: number | string;
+  servings: number | string;
+  ingredients: string;
+  instructions: string;
+};
+
+/**
+ * Create and download an Excel file with class data
+ */
+export const exportClasses = async (classes: ClassData[], filename: string = 'classes') => {
+  try {
+    const worksheet = XLSX.utils.json_to_sheet(
+      classes.map(cls => ({
+        id: cls.id,
+        'Class Name': cls.className,
+        Instructor: cls.instructor,
+        Location: cls.location,
+        Date: cls.date.toLocaleDateString(),
+        'Start Time': cls.startTime,
+        'End Time': cls.endTime,
+        Description: cls.description,
+        'Student Count': cls.studentCount,
+      }))
+    );
+
+    // Set column widths
+    const columnWidths = [
+      { wch: 5 },  // id
+      { wch: 25 }, // Class Name
+      { wch: 20 }, // Instructor
+      { wch: 20 }, // Location
+      { wch: 15 }, // Date
+      { wch: 15 }, // Start Time
+      { wch: 15 }, // End Time
+      { wch: 40 }, // Description
+      { wch: 15 }, // Student Count
+    ];
+    worksheet['!cols'] = columnWidths;
+
+    // Create workbook
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Classes');
+
+    // If SharePoint is connected, save to SharePoint
+    if (isSharePointConnected()) {
+      // Create an Excel file
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
       
-    const rows = transformedData.map(item => {
-      if (options.customHeaderOrder) {
-        return options.customHeaderOrder.map(key => item[key as string]);
-      }
-      return Object.keys(options.headers as Record<string, string>).map(key => item[key as keyof typeof item]);
-    });
-    
-    // Create worksheet from rows with headers
-    worksheet = XLSX.utils.aoa_to_sheet([headerRow, ...rows]);
-  } else {
-    // Create worksheet directly from JSON
-    worksheet = XLSX.utils.json_to_sheet(transformedData);
+      // Ensure the folder exists in SharePoint
+      await ensureSharePointFolder('Classes');
+      
+      // Save to SharePoint
+      await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Classes');
+    } else {
+      // Standard download if SharePoint not connected
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+      saveAs(blob, `${filename}.xlsx`);
+    }
+  } catch (error) {
+    console.error('Error exporting classes:', error);
   }
-  
-  // Add the worksheet to the workbook
-  XLSX.utils.book_append_sheet(workbook, worksheet, sheetName);
-  
-  // Auto-size columns
-  const columnWidths = estimateColumnWidths(transformedData);
-  worksheet['!cols'] = Object.keys(columnWidths).map(key => ({ wch: columnWidths[key] }));
-  
-  // Write to file and trigger download
-  XLSX.writeFile(workbook, `${fileName}.xlsx`);
-}
+};
 
-// Function to estimate column widths based on data
-function estimateColumnWidths<T>(data: T[]): Record<string, number> {
-  const columnWidths: Record<string, number> = {};
-  
-  if (!data.length) return columnWidths;
-  
-  // Get all unique keys from data
-  const allKeys = new Set<string>();
-  data.forEach(item => {
-    Object.keys(item as Record<string, any>).forEach(key => allKeys.add(key));
-  });
-  
-  // Estimate width for each column
-  allKeys.forEach((key, index) => {
-    // Default min width (header)
-    let maxWidth = String(key).length;
-    
-    // Check data for wider content
-    data.forEach(item => {
-      const value = (item as Record<string, any>)[key];
-      if (value !== undefined && value !== null) {
-        const valueStr = String(value);
-        maxWidth = Math.max(maxWidth, valueStr.length);
-      }
-    });
-    
-    // Add some padding
-    columnWidths[index] = Math.min(Math.max(maxWidth + 2, 10), 50);
-  });
-  
-  return columnWidths;
-}
+/**
+ * Create and download an Excel file with shopping list data
+ */
+export const exportShoppingList = async (items: ShoppingItem[], filename: string = 'shopping-list') => {
+  try {
+    // Create array of objects for Excel
+    const data = items.map(item => ({
+      id: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      unit: item.unit,
+      category: item.category,
+      recipeName: item.recipeName
+    }));
 
-// Specific export functions for different data types
+    // Define headers in specific order
+    const headers = ['id', 'name', 'quantity', 'unit', 'category', 'recipeName'] as (keyof ShoppingItem)[];
 
-// For shopping list
-export function exportShoppingList(
-  items: Array<{
-    id: string;
-    name: string;
-    quantity: number;
-    unit: string;
-    category?: string;
-    recipeName?: string;
-  }>,
-  fileName: string = 'shopping-list'
-) {
-  const headers = {
-    name: 'Item',
-    quantity: 'Quantity',
-    unit: 'Unit',
-    category: 'Category',
-    recipeName: 'Recipe'
-  };
-  
-  const customHeaderOrder = ['name', 'quantity', 'unit', 'category', 'recipeName'];
-  
-  exportToExcel(items, fileName, 'Shopping List', { 
-    headers, 
-    customHeaderOrder 
-  });
-}
+    // Create worksheet with ordered columns
+    const worksheet = XLSX.utils.json_to_sheet(data, { header: headers });
 
-// For recipes
-export function exportRecipes(
-  recipes: Array<{
-    id: string;
-    name: string;
-    difficulty: string;
-    prepTime: number;
-    cookTime: number;
-    servings: number;
-    ingredients?: string;
-    instructions?: string;
-  }>,
-  fileName: string = 'recipes'
-) {
-  const headers = {
-    name: 'Recipe Name',
-    difficulty: 'Difficulty',
-    prepTime: 'Prep Time (min)',
-    cookTime: 'Cook Time (min)',
-    servings: 'Servings',
-    ingredients: 'Ingredients',
-    instructions: 'Instructions'
-  };
-  
-  const customHeaderOrder = ['name', 'difficulty', 'prepTime', 'cookTime', 'servings', 'ingredients', 'instructions'];
-  
-  exportToExcel(recipes, fileName, 'Recipes', { 
-    headers, 
-    customHeaderOrder 
-  });
-}
+    // Set column widths
+    const columnWidths = [
+      { wch: 5 },  // id
+      { wch: 30 }, // name
+      { wch: 10 }, // quantity
+      { wch: 10 }, // unit
+      { wch: 15 }, // category
+      { wch: 30 }, // recipeName
+    ];
+    worksheet['!cols'] = columnWidths;
 
-// For classes
-export function exportClasses(
-  classes: Array<{
-    id?: string;
-    className: string;
-    instructor: string;
-    location: string;
-    date: Date;
-    startTime: string;
-    endTime: string;
-    description?: string;
-    studentCount?: number;
-  }>,
-  fileName: string = 'classes'
-) {
-  const headers = {
-    className: 'Class Name',
-    instructor: 'Instructor',
-    location: 'Location',
-    date: 'Date',
-    startTime: 'Start Time',
-    endTime: 'End Time',
-    description: 'Description',
-    studentCount: 'Number of Students'
-  };
-  
-  const customHeaderOrder = ['className', 'instructor', 'location', 'date', 'startTime', 'endTime', 'description', 'studentCount'];
-  
-  // Transform the dates to readable format
-  const transformData = (item: any) => {
-    return {
-      ...item,
-      date: item.date instanceof Date 
-        ? item.date.toLocaleDateString() 
-        : item.date
-    };
-  };
-  
-  exportToExcel(classes, fileName, 'Classes', { 
-    headers, 
-    customHeaderOrder,
-    transformData
-  });
-}
+    // Create workbook and append worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Shopping List');
 
-// For students
-export function exportStudents(
-  students: Array<{
-    id: string;
-    name: string;
-    email: string;
-    dietaryRequirements: string[];
-    allergies: string[];
-    notes?: string;
-  }>,
-  fileName: string = 'students'
-) {
-  const headers = {
-    name: 'Student Name',
-    email: 'Email',
-    dietaryRequirements: 'Dietary Requirements',
-    allergies: 'Allergies',
-    notes: 'Notes'
-  };
-  
-  const customHeaderOrder = ['name', 'email', 'dietaryRequirements', 'allergies', 'notes'];
-  
-  // Join arrays for readable export
-  const transformData = (student: any) => {
-    return {
-      ...student,
-      dietaryRequirements: student.dietaryRequirements.join(', '),
-      allergies: student.allergies.join(', ')
-    };
-  };
-  
-  exportToExcel(students, fileName, 'Students', { 
-    headers, 
-    customHeaderOrder,
-    transformData
-  });
-}
+    // If SharePoint is connected, save to SharePoint
+    if (isSharePointConnected()) {
+      // Create an Excel file
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+      
+      // Ensure the folder exists in SharePoint
+      await ensureSharePointFolder('Shopping');
+      
+      // Save to SharePoint
+      await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Shopping');
+    } else {
+      // Standard download
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+      saveAs(blob, `${filename}.xlsx`);
+    }
+  } catch (error) {
+    console.error('Error exporting shopping list:', error);
+  }
+};
+
+/**
+ * Create and download an Excel file with recipe data
+ */
+export const exportRecipes = async (recipes: RecipeData[], filename: string = 'recipes') => {
+  try {
+    // Create array of objects for Excel
+    const data = recipes.map(recipe => ({
+      id: recipe.id,
+      name: recipe.name,
+      difficulty: recipe.difficulty,
+      prepTime: String(recipe.prepTime),
+      cookTime: String(recipe.cookTime),
+      servings: String(recipe.servings),
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions
+    }));
+
+    // Define headers in specific order
+    const headers = ['id', 'name', 'difficulty', 'prepTime', 'cookTime', 'servings', 'ingredients', 'instructions'] as (keyof RecipeData)[];
+
+    // Create worksheet with ordered columns
+    const worksheet = XLSX.utils.json_to_sheet(data, { header: headers });
+
+    // Set column widths
+    const columnWidths = [
+      { wch: 5 },  // id
+      { wch: 30 }, // name
+      { wch: 15 }, // difficulty
+      { wch: 10 }, // prepTime
+      { wch: 10 }, // cookTime
+      { wch: 10 }, // servings
+      { wch: 50 }, // ingredients
+      { wch: 50 }, // instructions
+    ];
+    worksheet['!cols'] = columnWidths;
+
+    // Create workbook and append worksheet
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Recipes');
+
+    // If SharePoint is connected, save to SharePoint
+    if (isSharePointConnected()) {
+      // Create an Excel file
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+      
+      // Ensure the folder exists in SharePoint
+      await ensureSharePointFolder('Recipes');
+      
+      // Save to SharePoint
+      await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Recipes');
+    } else {
+      // Standard download
+      const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+      const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+      saveAs(blob, `${filename}.xlsx`);
+    }
+  } catch (error) {
+    console.error('Error exporting recipes:', error);
+  }
+};

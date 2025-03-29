@@ -7,6 +7,7 @@ import PantryLayout from '@/components/pantry/PantryLayout';
 import ShoppingListView from '@/components/pantry/shopping/ShoppingListView';
 import { usePantry } from '@/components/pantry/context/usePantry';
 import { exportShoppingList } from '@/utils/excelExport';
+import ExportButton from '@/components/ui/export-button';
 
 const ShoppingPage = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const ShoppingPage = () => {
       name: item.name,
       quantity: item.quantity,
       unit: item.unit || '',
+      // Use optional chaining for properties that might not exist
       category: item.category || '',
       recipeName: item.recipe?.name || ''
     }));
@@ -31,15 +33,10 @@ const ShoppingPage = () => {
       title="Shopping List"
       description="Manage your grocery shopping list"
       actions={
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={handleExportToExcel}
-          className="flex items-center gap-1"
-        >
-          <Download className="h-4 w-4" />
-          Export Excel
-        </Button>
+        <ExportButton 
+          onExport={handleExportToExcel}
+          label="Export Excel"
+        />
       }
     >
       <ShoppingListView />

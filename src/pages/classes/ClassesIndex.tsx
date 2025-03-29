@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GraduationCap, Plus, Loader2, Download } from 'lucide-react';
@@ -7,16 +6,16 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import Calendar from '@/components/ui/calendar';
+import { Calendar } from '@/components/ui/calendar';
 import { useAuth } from '@/contexts/AuthContext';
 import { exportClasses } from '@/utils/excelExport';
+import ExportButton from '@/components/ui/export-button';
 
 const ClassesIndex = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
   const [isPageLoading, setIsPageLoading] = useState(true);
 
-  // Redirect unauthenticated users to dashboard
   useEffect(() => {
     if (user && !isPageLoading) {
       navigate('/dashboard');
@@ -24,7 +23,6 @@ const ClassesIndex = () => {
   }, [user, isPageLoading, navigate]);
 
   useEffect(() => {
-    // Simulate page content loading
     const timer = setTimeout(() => {
       setIsPageLoading(false);
     }, 800);
@@ -32,7 +30,6 @@ const ClassesIndex = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Mock classes data for export feature
   const mockClasses = [
     {
       id: '1',
@@ -66,7 +63,6 @@ const ClassesIndex = () => {
     <div className="flex flex-col min-h-screen">
       <Navbar />
       
-      {/* Main content */}
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
         <div className="max-w-7xl mx-auto">
           {isPageLoading ? (

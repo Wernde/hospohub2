@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
@@ -9,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { BookOpen, Plus, Download } from 'lucide-react';
 import RecipeFeaturesListContainer from '@/components/recipes/features/RecipeFeaturesListContainer';
 import { exportRecipes } from '@/utils/excelExport';
+import ExportButton from '@/components/ui/export-button';
 
 const RecipeIndex = () => {
   const { user } = useAuth();
@@ -55,14 +55,10 @@ const RecipeIndex = () => {
             </div>
             
             <div className="flex gap-2">
-              <Button 
-                variant="outline" 
-                onClick={handleExportRecipes}
-                className="flex items-center gap-1"
-              >
-                <Download className="h-4 w-4" />
-                Export
-              </Button>
+              <ExportButton 
+                onExport={handleExportRecipes} 
+                label="Export"
+              />
               <Button asChild>
                 <Link to="/recipes/new" className="flex items-center gap-2">
                   <Plus className="h-4 w-4" />
