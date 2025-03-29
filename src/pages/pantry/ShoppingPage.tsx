@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Download } from 'lucide-react';
@@ -8,19 +8,24 @@ import ShoppingListView from '@/components/pantry/shopping/ShoppingListView';
 import { usePantry } from '@/components/pantry/context/usePantry';
 import { exportShoppingList } from '@/utils/excelExport';
 import ExportButton from '@/components/ui/export-button';
+import { Toaster } from '@/components/ui/toaster';
+import { useToast } from '@/components/ui/use-toast';
+import { ConnectToSharePointDialog } from '@/components/pantry/settings/ConnectSharePointDialog';
 
 const ShoppingPage = () => {
   const navigate = useNavigate();
   const { shoppingList } = usePantry();
+  const { toast } = useToast();
+  const [isSharePointDialogOpen, setIsSharePointDialogOpen] = useState(false);
   
-  const handleExportToExcel = () => {
+  const handleExportToExcel = async () => {
     // Convert shopping list to format needed for export
     const itemsForExport = shoppingList.map(item => ({
       id: item.id,
       name: item.name,
       quantity: item.quantity,
       unit: item.unit || '',
-      // Use optional chaining for properties that might not exist
+      // Add category and recipe info if available
       category: item.category || '',
       recipeName: item.recipes && item.recipes.length > 0 ? item.recipes[0] : ''
     }));
@@ -31,7 +36,22 @@ const ShoppingPage = () => {
       quantity: item.quantity.toString()
     }));
     
-    exportShoppingList(formattedItems, 'shopping-list');
+    try {
+      const result = await exportShoppingList(formattedItems, 'shopping-list');
+      if (result?.success) {
+        toast({
+          title: "Export successful",
+          description: result.message,
+        });
+      }
+    } catch (error) {
+      console.error("Export error:", error);
+      toast({
+        title: "Export failed",
+        description: "Could not export shopping list",
+        variant: "destructive"
+      });
+    }
   };
   
   return (
@@ -41,12 +61,26 @@ const ShoppingPage = () => {
           <h1 className="text-2xl font-bold">Shopping List</h1>
           <p className="text-muted-foreground">Manage your grocery shopping list</p>
         </div>
-        <ExportButton 
-          onExport={handleExportToExcel}
-          label="Export Excel"
-        />
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => setIsSharePointDialogOpen(true)}
+          >
+            Connect to SharePoint
+          </Button>
+          <ExportButton 
+            onExport={handleExportToExcel}
+            label="Export Excel"
+          />
+        </div>
       </div>
       <ShoppingListView />
+      <ConnectToSharePointDialog
+        open={isSharePointDialogOpen}
+        onOpenChange={setIsSharePointDialogOpen}
+      />
+      <Toaster />
     </div>
   );
 };

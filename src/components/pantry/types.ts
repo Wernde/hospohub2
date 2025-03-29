@@ -57,4 +57,5 @@ export interface ShoppingListItem {
   recipes: string[];
   recipeId: string;
   className: string;
+  category?: string; // Add category field
 }

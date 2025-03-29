@@ -1,7 +1,12 @@
 
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
-import { ensureSharePointFolder, saveExcelToSharePoint, isSharePointConnected } from './sharePointIntegration';
+import { 
+  ensureSharePointFolder, 
+  saveExcelToSharePoint, 
+  isSharePointConnected,
+  getSharePointConnectionInfo
+} from './sharePointIntegration';
 
 type ClassData = {
   id: string;
@@ -82,15 +87,17 @@ export const exportClasses = async (classes: ClassData[], filename: string = 'cl
       await ensureSharePointFolder('Classes');
       
       // Save to SharePoint
-      await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Classes');
+      return await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Classes');
     } else {
       // Standard download if SharePoint not connected
       const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
       const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
       saveAs(blob, `${filename}.xlsx`);
+      return { success: true, message: "File downloaded successfully" };
     }
   } catch (error) {
     console.error('Error exporting classes:', error);
+    return { success: false, message: "Failed to export classes" };
   }
 };
 
@@ -140,15 +147,17 @@ export const exportShoppingList = async (items: ShoppingItem[], filename: string
       await ensureSharePointFolder('Shopping');
       
       // Save to SharePoint
-      await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Shopping');
+      return await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Shopping');
     } else {
       // Standard download
       const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
       const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
       saveAs(blob, `${filename}.xlsx`);
+      return { success: true, message: "File downloaded successfully" };
     }
   } catch (error) {
     console.error('Error exporting shopping list:', error);
+    return { success: false, message: "Failed to export shopping list" };
   }
 };
 
@@ -202,14 +211,16 @@ export const exportRecipes = async (recipes: RecipeData[], filename: string = 'r
       await ensureSharePointFolder('Recipes');
       
       // Save to SharePoint
-      await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Recipes');
+      return await saveExcelToSharePoint(blob, `${filename}.xlsx`, 'Recipes');
     } else {
       // Standard download
       const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
       const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
       saveAs(blob, `${filename}.xlsx`);
+      return { success: true, message: "File downloaded successfully" };
     }
   } catch (error) {
     console.error('Error exporting recipes:', error);
+    return { success: false, message: "Failed to export recipes" };
   }
 };
