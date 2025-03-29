@@ -97,7 +97,7 @@ export async function saveExcelToSharePoint(
   return {
     success: true,
     message: `File ${fileName} has been saved to ${folderPath} successfully.`,
-    fileUrl: `${config.site}/Shared%20Documents/${folderPath}/${fileName}`
+    fileUrl: `${config.siteUrl}/Shared%20Documents/${folderPath}/${fileName}`
   };
 }
 
