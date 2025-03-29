@@ -36,14 +36,18 @@ function App() {
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/auth" element={<Auth />} />
-          <Route path="/pantry" element={<PantryPage />} />
-          <Route path="/shopping" element={<ShoppingPage />} />
-          <Route path="/pantry/settings" element={<PantrySettingsPage />} />
-          <Route path="/orders" element={<OrdersPage />} />
           
-          {/* Added missing routes */}
+          {/* Pantry routes */}
+          <Route path="/pantry" element={<ProtectedRoute><PantryPage /></ProtectedRoute>} />
+          <Route path="/shopping" element={<ProtectedRoute><ShoppingPage /></ProtectedRoute>} />
+          <Route path="/pantry/settings" element={<ProtectedRoute><PantrySettingsPage /></ProtectedRoute>} />
+          <Route path="/orders" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} />
+          
+          {/* Classes routes */}
           <Route path="/classes" element={<ProtectedRoute><ClassesIndex /></ProtectedRoute>} />
           <Route path="/classes/schedule" element={<ProtectedRoute><ScheduleClass /></ProtectedRoute>} />
+          
+          {/* Recipe routes */}
           <Route path="/recipes" element={<ProtectedRoute><RecipeIndex /></ProtectedRoute>} />
           <Route path="/recipes/new" element={<ProtectedRoute><NewRecipe /></ProtectedRoute>} />
           <Route path="/recipes/tools" element={<ProtectedRoute><RecipeTools /></ProtectedRoute>} />
