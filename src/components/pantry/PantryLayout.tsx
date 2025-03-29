@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart } from 'lucide-react';
 import PantryInventory from './inventory/PantryInventory';
@@ -8,12 +8,44 @@ import ShoppingList from './recipe-needs/ShoppingList';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 
-const PantryLayout = () => {
-  const [activeTab, setActiveTab] = useState('combined');
+interface PantryLayoutProps {
+  children?: ReactNode;
+  title?: string;
+  description?: string;
+  actions?: ReactNode;
+}
+
+const PantryLayout: React.FC<PantryLayoutProps> = ({ 
+  children, 
+  title = "Pantry", 
+  description = "Manage your pantry inventory",
+  actions 
+}) => {
+  const [activeTab, setActiveTab] = React.useState('combined');
 
   return (
     <div className="container mx-auto flex flex-col gap-4 p-4 pt-24">
-      <div className="flex justify-between items-center mb-2">
+      {title && (
+        <div className="flex justify-between items-center mb-2">
+          <div>
+            <h1 className="text-2xl font-bold">{title}</h1>
+            {description && <p className="text-muted-foreground">{description}</p>}
+          </div>
+          <div className="flex items-center gap-2">
+            {actions}
+            <Link to="/shopping" className="ml-2">
+              <Button variant="outline" className="flex items-center">
+                <ShoppingCart className="mr-2 h-4 w-4" />
+                Shopping List
+              </Button>
+            </Link>
+          </div>
+        </div>
+      )}
+      
+      {children ? (
+        children
+      ) : (
         <Tabs defaultValue={activeTab} value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex justify-between items-center">
             <TabsList className="grid w-full grid-cols-3">
@@ -21,12 +53,6 @@ const PantryLayout = () => {
               <TabsTrigger value="inventory">Pantry Inventory</TabsTrigger>
               <TabsTrigger value="recipes">Recipe Needs</TabsTrigger>
             </TabsList>
-            <Link to="/shopping" className="ml-4">
-              <Button variant="outline" className="flex items-center">
-                <ShoppingCart className="mr-2 h-4 w-4" />
-                Shopping List
-              </Button>
-            </Link>
           </div>
           
           <TabsContent value="combined" className="mt-6">
@@ -67,7 +93,7 @@ const PantryLayout = () => {
             </div>
           </TabsContent>
         </Tabs>
-      </div>
+      )}
     </div>
   );
 };

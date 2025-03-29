@@ -22,25 +22,32 @@ const ShoppingPage = () => {
       unit: item.unit || '',
       // Use optional chaining for properties that might not exist
       category: item.category || '',
-      recipeName: item.recipe?.name || ''
+      recipeName: item.recipes && item.recipes.length > 0 ? item.recipes[0] : ''
     }));
     
-    exportShoppingList(itemsForExport, 'shopping-list');
+    // Convert all quantities to strings for Excel export
+    const formattedItems = itemsForExport.map(item => ({
+      ...item,
+      quantity: item.quantity.toString()
+    }));
+    
+    exportShoppingList(formattedItems, 'shopping-list');
   };
   
   return (
-    <PantryLayout 
-      title="Shopping List"
-      description="Manage your grocery shopping list"
-      actions={
+    <div className="container mx-auto flex flex-col gap-4 p-4 pt-24">
+      <div className="flex justify-between items-center mb-4">
+        <div>
+          <h1 className="text-2xl font-bold">Shopping List</h1>
+          <p className="text-muted-foreground">Manage your grocery shopping list</p>
+        </div>
         <ExportButton 
           onExport={handleExportToExcel}
           label="Export Excel"
         />
-      }
-    >
+      </div>
       <ShoppingListView />
-    </PantryLayout>
+    </div>
   );
 };
 

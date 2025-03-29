@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GraduationCap, Plus, Loader2, Download } from 'lucide-react';
@@ -6,7 +7,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar as CalendarIcon } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { exportClasses } from '@/utils/excelExport';
 import ExportButton from '@/components/ui/export-button';
@@ -81,14 +82,10 @@ const ClassesIndex = () => {
                 </div>
                 
                 <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    onClick={handleExportClasses}
-                    className="flex items-center gap-1"
-                  >
-                    <Download className="h-4 w-4" />
-                    Export
-                  </Button>
+                  <ExportButton 
+                    onExport={handleExportClasses}
+                    label="Export"
+                  />
                   <Button asChild>
                     <Link to="/classes/schedule" className="flex items-center gap-2">
                       <Plus className="h-4 w-4" />
@@ -105,7 +102,7 @@ const ClassesIndex = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-8">
-                    <Calendar className="w-12 h-12 mx-auto text-blue-400 mb-4" />
+                    <CalendarIcon className="w-12 h-12 mx-auto text-blue-400 mb-4" />
                     <h3 className="text-lg font-medium mb-2">No Classes Scheduled</h3>
                     <p className="text-gray-500 mb-4">Get started by scheduling your first cooking class</p>
                     <Button asChild>
