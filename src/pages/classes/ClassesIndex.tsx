@@ -1,25 +1,66 @@
 
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { GraduationCap, Plus, Loader2, Download } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
-import { GraduationCap, Plus, Calendar, Loader2 } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import Calendar from '@/components/ui/calendar';
+import { useAuth } from '@/contexts/AuthContext';
+import { exportClasses } from '@/utils/excelExport';
 
 const ClassesIndex = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [isPageLoading, setIsPageLoading] = useState(true);
 
-  // Simulate page content loading
+  // Redirect unauthenticated users to dashboard
   useEffect(() => {
+    if (user && !isPageLoading) {
+      navigate('/dashboard');
+    }
+  }, [user, isPageLoading, navigate]);
+
+  useEffect(() => {
+    // Simulate page content loading
     const timer = setTimeout(() => {
       setIsPageLoading(false);
     }, 800);
     
     return () => clearTimeout(timer);
   }, []);
+
+  // Mock classes data for export feature
+  const mockClasses = [
+    {
+      id: '1',
+      className: 'Italian Pasta Making',
+      instructor: 'Chef Maria',
+      location: 'Main Kitchen',
+      date: new Date(2023, 6, 15),
+      startTime: '10:00 AM',
+      endTime: '12:30 PM',
+      description: 'Learn to make authentic Italian pasta from scratch',
+      studentCount: 12
+    },
+    {
+      id: '2',
+      className: 'French Pastry Basics',
+      instructor: 'Chef Jean',
+      location: 'Pastry Kitchen',
+      date: new Date(2023, 6, 22),
+      startTime: '2:00 PM',
+      endTime: '5:00 PM',
+      description: 'Master the art of French pastry making',
+      studentCount: 8
+    }
+  ];
+
+  const handleExportClasses = () => {
+    exportClasses(mockClasses, 'cooking-classes');
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -43,12 +84,22 @@ const ClassesIndex = () => {
                   <h1 className="text-2xl font-bold text-blue-900">Cooking Classes</h1>
                 </div>
                 
-                <Button asChild>
-                  <Link to="/classes/schedule" className="flex items-center gap-2">
-                    <Plus className="h-4 w-4" />
-                    <span>Schedule New Class</span>
-                  </Link>
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    onClick={handleExportClasses}
+                    className="flex items-center gap-1"
+                  >
+                    <Download className="h-4 w-4" />
+                    Export
+                  </Button>
+                  <Button asChild>
+                    <Link to="/classes/schedule" className="flex items-center gap-2">
+                      <Plus className="h-4 w-4" />
+                      <span>Schedule New Class</span>
+                    </Link>
+                  </Button>
+                </div>
               </div>
               
               <Card className="mb-8">

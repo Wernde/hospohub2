@@ -6,11 +6,40 @@ import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { BookOpen, Plus } from 'lucide-react';
+import { BookOpen, Plus, Download } from 'lucide-react';
 import RecipeFeaturesListContainer from '@/components/recipes/features/RecipeFeaturesListContainer';
+import { exportRecipes } from '@/utils/excelExport';
 
 const RecipeIndex = () => {
   const { user } = useAuth();
+  
+  // Mock recipes for export functionality
+  const mockRecipes = [
+    {
+      id: '1',
+      name: 'Classic Chocolate Cake',
+      difficulty: 'Medium',
+      prepTime: 30,
+      cookTime: 45,
+      servings: 12,
+      ingredients: '2 cups flour, 2 cups sugar, 3/4 cup cocoa powder, 2 tsp baking soda, 1 tsp salt, 2 eggs, 1 cup buttermilk, 1/2 cup vegetable oil, 2 tsp vanilla extract, 1 cup hot coffee',
+      instructions: '1. Preheat oven to 350°F. 2. Mix dry ingredients. 3. Add wet ingredients and mix well. 4. Pour into pans and bake for 35 minutes.'
+    },
+    {
+      id: '2',
+      name: 'Vegetable Stir Fry',
+      difficulty: 'Easy',
+      prepTime: 15,
+      cookTime: 10,
+      servings: 4,
+      ingredients: '2 tbsp oil, 1 onion, 2 carrots, 1 bell pepper, 2 cups broccoli, 3 cloves garlic, 2 tbsp soy sauce, 1 tbsp rice vinegar',
+      instructions: '1. Heat oil in a wok. 2. Add vegetables and stir fry for 5-7 minutes. 3. Add sauce and cook for another 2 minutes.'
+    }
+  ];
+  
+  const handleExportRecipes = () => {
+    exportRecipes(mockRecipes, 'my-recipes');
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -25,12 +54,22 @@ const RecipeIndex = () => {
               <h1 className="text-2xl font-bold text-blue-900">Recipe Collection</h1>
             </div>
             
-            <Button asChild>
-              <Link to="/recipes/new" className="flex items-center gap-2">
-                <Plus className="h-4 w-4" />
-                <span>Add New Recipe</span>
-              </Link>
-            </Button>
+            <div className="flex gap-2">
+              <Button 
+                variant="outline" 
+                onClick={handleExportRecipes}
+                className="flex items-center gap-1"
+              >
+                <Download className="h-4 w-4" />
+                Export
+              </Button>
+              <Button asChild>
+                <Link to="/recipes/new" className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  <span>Add New Recipe</span>
+                </Link>
+              </Button>
+            </div>
           </div>
           
           <Card className="mb-8">

@@ -1,32 +1,49 @@
 
 import React from 'react';
-import { Toaster } from '@/components/ui/toaster';
-import { PantryProvider } from '@/components/pantry/PantryContext';
-import Navbar from '@/components/Navbar';
-import ShoppingListView from '@/components/pantry/shopping/ShoppingListView';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { Download } from 'lucide-react';
+import PantryLayout from '@/components/pantry/PantryLayout';
+import ShoppingListView from '@/components/pantry/shopping/ShoppingListView';
+import { usePantry } from '@/components/pantry/context/usePantry';
+import { exportShoppingList } from '@/utils/excelExport';
 
 const ShoppingPage = () => {
+  const navigate = useNavigate();
+  const { shoppingList } = usePantry();
+  
+  const handleExportToExcel = () => {
+    // Convert shopping list to format needed for export
+    const itemsForExport = shoppingList.map(item => ({
+      id: item.id,
+      name: item.name,
+      quantity: item.quantity,
+      unit: item.unit || '',
+      category: item.category || '',
+      recipeName: item.recipe?.name || ''
+    }));
+    
+    exportShoppingList(itemsForExport, 'shopping-list');
+  };
+  
   return (
-    <PantryProvider>
-      <div className="flex flex-col w-full min-h-screen bg-background">
-        <Navbar />
-        <div className="container mx-auto flex flex-col gap-4 p-4 pt-24">
-          <div className="flex justify-between items-center mb-4">
-            <Link to="/pantry">
-              <Button variant="outline" className="flex items-center">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Pantry
-              </Button>
-            </Link>
-          </div>
-          <ShoppingListView />
-        </div>
-        <Toaster />
-      </div>
-    </PantryProvider>
+    <PantryLayout 
+      title="Shopping List"
+      description="Manage your grocery shopping list"
+      actions={
+        <Button 
+          variant="outline" 
+          size="sm" 
+          onClick={handleExportToExcel}
+          className="flex items-center gap-1"
+        >
+          <Download className="h-4 w-4" />
+          Export Excel
+        </Button>
+      }
+    >
+      <ShoppingListView />
+    </PantryLayout>
   );
 };
 
