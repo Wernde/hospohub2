@@ -11,8 +11,10 @@ import ExportButton from '@/components/ui/export-button';
 import { Toaster } from '@/components/ui/toaster';
 import { useToast } from '@/components/ui/use-toast';
 import { ConnectToSharePointDialog } from '@/components/pantry/settings/ConnectSharePointDialog';
+import { PantryProvider } from '@/components/pantry/context/PantryProvider';
+import Navbar from '@/components/Navbar';
 
-const ShoppingPage = () => {
+const ShoppingPageContent = () => {
   const navigate = useNavigate();
   const { shoppingList } = usePantry();
   const { toast } = useToast();
@@ -82,6 +84,18 @@ const ShoppingPage = () => {
       />
       <Toaster />
     </div>
+  );
+};
+
+// Wrapper component that provides the PantryProvider
+const ShoppingPage = () => {
+  return (
+    <PantryProvider>
+      <div className="flex flex-col w-full min-h-screen bg-background">
+        <Navbar />
+        <ShoppingPageContent />
+      </div>
+    </PantryProvider>
   );
 };
 
