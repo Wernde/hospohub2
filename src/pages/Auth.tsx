@@ -81,6 +81,17 @@ const Auth = () => {
           }
         }
 
+        @keyframes logoBreathing {
+          0%, 100% { 
+            transform: scale(1); 
+            opacity: 1;
+          }
+          50% { 
+            transform: scale(1.05); 
+            opacity: 0.9;
+          }
+        }
+
         @keyframes backgroundFade {
           from { opacity: 0; }
           to { opacity: 1; }
@@ -112,6 +123,10 @@ const Auth = () => {
           animation: smoothSlideOut 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
+        .logo-breathing {
+          animation: logoBreathing 3s ease-in-out infinite;
+        }
+
         .tab-button {
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -139,15 +154,24 @@ const Auth = () => {
           {/* Left Panel - Image */}
           <div className="hidden lg:flex lg:w-1/2 items-center justify-center relative overflow-hidden">
             <img 
-              src="/lovable-uploads/36efcaa2-e85a-45c9-82a1-ac8c261d5c23.png" 
+              src="/lovable-uploads/66f72905-457b-404a-b251-f5bcaf1a998d.png" 
               alt="Fresh Ingredients" 
               className="w-full h-full object-cover"
             />
           </div>
 
           {/* Right Panel - Form */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-10 lg:p-20">
-            <div className={`form-box w-full max-w-lg bg-white p-12 lg:p-16 rounded-lg shadow-lg z-10 ${isExiting ? 'exiting' : ''}`}>
+          <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-10 lg:p-20 relative">
+            {/* Logo with breathing animation */}
+            <div className="absolute top-8 left-1/2 transform -translate-x-1/2">
+              <img 
+                src="/lovable-uploads/8611b175-f69b-4ea2-9a4e-91037d929617.png" 
+                alt="HospoHUB Logo" 
+                className="logo-breathing h-16 w-auto"
+              />
+            </div>
+            
+            <div className={`form-box w-full max-w-lg bg-white p-12 lg:p-16 rounded-lg shadow-lg z-10 mt-16 ${isExiting ? 'exiting' : ''}`}>
               <h2 className="text-2xl lg:text-3xl font-semibold mb-3 text-[#2c2c2c]">Welcome</h2>
               <p className="text-sm mb-6 text-[#555]">Choose an option below to get started</p>
 
