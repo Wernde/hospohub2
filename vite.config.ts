@@ -4,9 +4,8 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
-  // 🎯 Tell Vite that the published site lives under "/hospohub2/"
-  base: "/hospohub2/",
+export default defineConfig({
+  base: '/hospohub2/',
 
   server: {
     host: "::",
