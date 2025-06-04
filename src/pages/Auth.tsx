@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -151,27 +150,26 @@ const Auth = () => {
         className={`auth-container min-h-screen w-full ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}`}
       >
         <div className="flex h-screen w-full">
-          {/* Left Panel - Image */}
+          {/* Left Panel - Image with Logo */}
           <div className="hidden lg:flex lg:w-1/2 items-center justify-center relative overflow-hidden">
             <img 
               src="/lovable-uploads/66f72905-457b-404a-b251-f5bcaf1a998d.png" 
               alt="Fresh Ingredients" 
               className="w-full h-full object-cover"
             />
+            {/* Logo centered on image */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/8611b175-f69b-4ea2-9a4e-91037d929617.png" 
+                alt="HospoHUB Logo" 
+                className="logo-breathing h-32 w-auto"
+              />
+            </div>
           </div>
 
           {/* Right Panel - Form */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-10 lg:p-20 relative">
-            {/* Logo with breathing animation */}
-            <div className="absolute top-8 left-1/2 transform -translate-x-1/2">
-              <img 
-                src="/lovable-uploads/8611b175-f69b-4ea2-9a4e-91037d929617.png" 
-                alt="HospoHUB Logo" 
-                className="logo-breathing h-16 w-auto"
-              />
-            </div>
-            
-            <div className={`form-box w-full max-w-lg bg-white p-12 lg:p-16 rounded-lg shadow-lg z-10 mt-16 ${isExiting ? 'exiting' : ''}`}>
+            <div className={`form-box w-full max-w-lg bg-white p-12 lg:p-16 rounded-lg shadow-lg z-10 ${isExiting ? 'exiting' : ''}`}>
               <h2 className="text-2xl lg:text-3xl font-semibold mb-3 text-[#2c2c2c]">Welcome</h2>
               <p className="text-sm mb-6 text-[#555]">Choose an option below to get started</p>
 
