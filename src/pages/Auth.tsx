@@ -42,7 +42,7 @@ const Auth = () => {
     setIsExiting(true);
     setTimeout(() => {
       navigate(path, { replace: true });
-    }, 800);
+    }, 1000);
   };
 
   if (isLoading) {
@@ -81,9 +81,9 @@ const Auth = () => {
           }
         }
 
-        @keyframes logoBreathing {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); }
-          50% { transform: translate(-50%, -50%) scale(1.02); }
+        @keyframes imageBreathing {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.02); }
         }
 
         @keyframes backgroundFade {
@@ -95,7 +95,7 @@ const Auth = () => {
           font-family: 'Georgia', serif;
           opacity: 0;
           animation: backgroundFade 1.2s ease forwards;
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .auth-container.visible {
@@ -113,11 +113,11 @@ const Auth = () => {
         }
 
         .form-box.exiting {
-          animation: smoothSlideOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          animation: smoothSlideOut 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        .logo-breathing {
-          animation: logoBreathing 4s ease-in-out infinite;
+        .image-breathing {
+          animation: imageBreathing 4s ease-in-out infinite;
         }
 
         .tab-button {
@@ -151,9 +151,9 @@ const Auth = () => {
           {/* Left Panel */}
           <div className="hidden lg:flex lg:w-1/2 items-center justify-center relative overflow-hidden">
             <img 
-              src="/HospoHUB (1).png" 
-              alt="HospoHub Logo" 
-              className="logo-breathing absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[180%] transition-all duration-700 ease-out"
+              src="/lovable-uploads/dcef8cef-d894-4465-a725-cf6da8c5e372.png" 
+              alt="Fresh Ingredients" 
+              className="image-breathing w-full h-full object-cover transition-all duration-700 ease-out"
             />
           </div>
 
