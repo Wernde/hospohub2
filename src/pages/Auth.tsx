@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
@@ -163,7 +162,7 @@ const Auth = () => {
               <img 
                 src="/lovable-uploads/8611b175-f69b-4ea2-9a4e-91037d929617.png" 
                 alt="HospoHUB Logo" 
-                className="logo-breathing h-58 w-auto"
+                className="logo-breathing h-70 w-auto"
               />
             </div>
           </div>
