@@ -1,15 +1,13 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/contexts/AuthContext';
 import SignInForm from '@/components/auth/SignInForm';
 import SignUpForm from '@/components/auth/SignUpForm';
-import Navbar from '@/components/Navbar';
 
 const Auth = () => {
   const [activeTab, setActiveTab] = useState('signin');
+  const [fadeOut, setFadeOut] = useState(false);
   const { user, isLoading } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,6 +29,13 @@ const Auth = () => {
     }
   }, [user, isLoading, navigate, location]);
 
+  const navigateWithFade = (path: string) => {
+    setFadeOut(true);
+    setTimeout(() => {
+      navigate(path);
+    }, 1000);
+  };
+
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -40,33 +45,117 @@ const Auth = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <Navbar />
-      <div className="container flex items-center justify-center py-20">
-        <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">Welcome</CardTitle>
-            <CardDescription>
-              Choose an option below to get started
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-2 mb-8">
-                <TabsTrigger value="signin">Sign In</TabsTrigger>
-                <TabsTrigger value="signup">Sign Up</TabsTrigger>
-              </TabsList>
-              <TabsContent value="signin">
-                <SignInForm />
-              </TabsContent>
-              <TabsContent value="signup">
-                <SignUpForm />
-              </TabsContent>
-            </Tabs>
-          </CardContent>
-        </Card>
+    <>
+      <style>{`
+        @keyframes slideIn {
+          from { transform: translateY(30px); opacity: 0; }
+          to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes breathing {
+          0% { transform: translate(-50%, -50%) scale(1); }
+          50% { transform: translate(-50%, -50%) scale(1.05); }
+          100% { transform: translate(-50%, -50%) scale(1); }
+        }
+
+        @keyframes fadeInScreen {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes fadeOutScreen {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+
+        .auth-container {
+          font-family: 'Georgia', serif;
+          opacity: 0;
+          animation: fadeInScreen 1s ease forwards;
+          transition: opacity 1s ease;
+        }
+
+        .auth-container.fade-out {
+          animation: fadeOutScreen 1s ease forwards;
+        }
+
+        .form-box {
+          animation: slideIn 1s ease;
+        }
+
+        .logo-breathing {
+          animation: breathing 4s ease-in-out infinite;
+        }
+
+        .tab-button {
+          transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .tab-button.active {
+          background: #4a4a4a;
+          color: white;
+          font-weight: bold;
+        }
+      `}</style>
+      
+      <div 
+        className={`auth-container min-h-screen w-full ${fadeOut ? 'fade-out' : ''}`}
+        style={{
+          background: "url('/HospoHUB.png') no-repeat center center fixed",
+          backgroundSize: "cover"
+        }}
+      >
+        <div className="flex h-screen w-full flex-wrap">
+          {/* Left Panel */}
+          <div className="hidden lg:flex lg:w-1/2 items-center justify-center relative">
+            <img 
+              src="/HospoHUB (1).png" 
+              alt="HospoHub Logo" 
+              className="logo-breathing absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[180%]"
+            />
+          </div>
+
+          {/* Right Panel */}
+          <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-10 lg:p-20">
+            <div className="form-box w-full max-w-lg bg-[#fffdf8] p-12 lg:p-16 rounded-lg shadow-lg z-10">
+              <h2 className="text-2xl lg:text-3xl font-semibold mb-3 text-[#2c2c2c]">Welcome</h2>
+              <p className="text-sm mb-6 text-[#555]">Choose an option below to get started</p>
+
+              {/* Tabs */}
+              <div className="flex mb-6 gap-2">
+                <button
+                  onClick={() => setActiveTab('signin')}
+                  className={`tab-button flex-1 py-3 px-4 border-none cursor-pointer text-[#333] ${
+                    activeTab === 'signin' ? 'active' : 'bg-[#f5f2ea]'
+                  }`}
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => setActiveTab('signup')}
+                  className={`tab-button flex-1 py-3 px-4 border-none cursor-pointer text-[#333] ${
+                    activeTab === 'signup' ? 'active' : 'bg-[#f5f2ea]'
+                  }`}
+                >
+                  Sign Up
+                </button>
+              </div>
+
+              {/* Forms */}
+              {activeTab === 'signin' ? <SignInForm /> : <SignUpForm />}
+            </div>
+          </div>
+        </div>
+
+        {/* Back Button */}
+        <button
+          onClick={() => navigateWithFade('/')}
+          className="fixed bottom-5 right-5 text-3xl text-white bg-none border-none cursor-pointer z-[1001] hover:text-gray-300 transition-colors"
+        >
+          ←
+        </button>
       </div>
-    </div>
+    </>
   );
 };
 
