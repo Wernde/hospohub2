@@ -47,7 +47,7 @@ const Auth = () => {
 
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#f5f2ea' }}>
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-400 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
@@ -81,11 +81,6 @@ const Auth = () => {
           }
         }
 
-        @keyframes imageBreathing {
-          0%, 100% { transform: scale(1); }
-          50% { transform: scale(1.02); }
-        }
-
         @keyframes backgroundFade {
           from { opacity: 0; }
           to { opacity: 1; }
@@ -96,6 +91,7 @@ const Auth = () => {
           opacity: 0;
           animation: backgroundFade 1.2s ease forwards;
           transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+          background-color: #f5f2ea;
         }
 
         .auth-container.visible {
@@ -116,10 +112,6 @@ const Auth = () => {
           animation: smoothSlideOut 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
 
-        .image-breathing {
-          animation: imageBreathing 4s ease-in-out infinite;
-        }
-
         .tab-button {
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -136,30 +128,26 @@ const Auth = () => {
 
         .back-button:hover {
           transform: translateX(-3px);
-          color: #e0e0e0;
+          color: #666;
         }
       `}</style>
       
       <div 
         className={`auth-container min-h-screen w-full ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}`}
-        style={{
-          background: "url('/HospoHUB.png') no-repeat center center fixed",
-          backgroundSize: "cover"
-        }}
       >
-        <div className="flex h-screen w-full flex-wrap">
-          {/* Left Panel */}
+        <div className="flex h-screen w-full">
+          {/* Left Panel - Image */}
           <div className="hidden lg:flex lg:w-1/2 items-center justify-center relative overflow-hidden">
             <img 
-              src="/lovable-uploads/dcef8cef-d894-4465-a725-cf6da8c5e372.png" 
+              src="/lovable-uploads/36efcaa2-e85a-45c9-82a1-ac8c261d5c23.png" 
               alt="Fresh Ingredients" 
-              className="image-breathing w-full h-full object-cover transition-all duration-700 ease-out"
+              className="w-full h-full object-cover"
             />
           </div>
 
-          {/* Right Panel */}
+          {/* Right Panel - Form */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-10 lg:p-20">
-            <div className={`form-box w-full max-w-lg bg-[#fffdf8] p-12 lg:p-16 rounded-lg shadow-2xl z-10 ${isExiting ? 'exiting' : ''}`}>
+            <div className={`form-box w-full max-w-lg bg-white p-12 lg:p-16 rounded-lg shadow-lg z-10 ${isExiting ? 'exiting' : ''}`}>
               <h2 className="text-2xl lg:text-3xl font-semibold mb-3 text-[#2c2c2c]">Welcome</h2>
               <p className="text-sm mb-6 text-[#555]">Choose an option below to get started</p>
 
@@ -167,7 +155,7 @@ const Auth = () => {
               <div className="flex mb-6 gap-2">
                 <button
                   onClick={() => setActiveTab('signin')}
-                  className={`tab-button flex-1 py-3 px-4 border-none cursor-pointer text-[#333] ${
+                  className={`tab-button flex-1 py-3 px-4 border-none cursor-pointer text-[#333] rounded ${
                     activeTab === 'signin' ? 'active' : 'bg-[#f5f2ea]'
                   }`}
                 >
@@ -175,7 +163,7 @@ const Auth = () => {
                 </button>
                 <button
                   onClick={() => setActiveTab('signup')}
-                  className={`tab-button flex-1 py-3 px-4 border-none cursor-pointer text-[#333] ${
+                  className={`tab-button flex-1 py-3 px-4 border-none cursor-pointer text-[#333] rounded ${
                     activeTab === 'signup' ? 'active' : 'bg-[#f5f2ea]'
                   }`}
                 >
@@ -198,7 +186,7 @@ const Auth = () => {
         {/* Back Button */}
         <button
           onClick={() => smoothNavigate('/')}
-          className="back-button fixed bottom-5 right-5 text-3xl text-white bg-none border-none cursor-pointer z-[1001]"
+          className="back-button fixed bottom-5 right-5 text-3xl text-[#4a4a4a] bg-none border-none cursor-pointer z-[1001]"
         >
           ←
         </button>
