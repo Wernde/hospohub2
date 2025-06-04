@@ -10,15 +10,15 @@ const recentActivities = [
     id: 1,
     title: 'New recipe added: Chocolate Soufflé',
     time: 'Added by you - 2 hours ago',
-    icon: <BookOpen className="h-6 w-6 text-blue-600" />,
-    iconBg: 'bg-blue-100'
+    icon: <BookOpen className="h-6 w-6 text-orange-600" />,
+    iconBg: 'bg-orange-100'
   },
   {
     id: 2,
     title: 'New class scheduled: Bread Fundamentals',
     time: 'Scheduled by Admin - Yesterday',
-    icon: <Calendar className="h-6 w-6 text-green-600" />,
-    iconBg: 'bg-green-100'
+    icon: <Calendar className="h-6 w-6 text-amber-600" />,
+    iconBg: 'bg-amber-100'
   },
   {
     id: 3,
@@ -32,10 +32,10 @@ const recentActivities = [
 const RecentActivity = () => {
   return (
     <Card className="shadow overflow-hidden">
-      <CardHeader className="px-4 py-5 border-b border-blue-100 sm:px-6">
-        <CardTitle className="text-lg text-blue-900">Recent Activity</CardTitle>
+      <CardHeader className="px-4 py-5 border-b border-orange-100 sm:px-6">
+        <CardTitle className="text-lg text-orange-900">Recent Activity</CardTitle>
       </CardHeader>
-      <ul className="divide-y divide-blue-100">
+      <ul className="divide-y divide-orange-100">
         {recentActivities.map((activity) => (
           <ActivityItem 
             key={activity.id}

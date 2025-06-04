@@ -10,7 +10,7 @@ const statsCards = [
     value: '42',
     description: 'View all recipes',
     icon: <BookOpen className="h-6 w-6 text-white" />,
-    iconBg: 'bg-blue-500',
+    iconBg: 'bg-orange-500',
     href: '/recipes'
   },
   {
@@ -18,7 +18,7 @@ const statsCards = [
     value: '6',
     description: 'View all classes',
     icon: <GraduationCap className="h-6 w-6 text-white" />,
-    iconBg: 'bg-green-500',
+    iconBg: 'bg-amber-500',
     href: '/classes'
   },
   {
