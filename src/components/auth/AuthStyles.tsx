@@ -24,7 +24,7 @@ const AuthStyles = () => (
     }
 
     @keyframes logoBreathing {
-      0%, 100% { 
+      0%, 200% { 
         transform: scale(1); 
         opacity: 1;
       }
