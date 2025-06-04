@@ -28,7 +28,7 @@ const AuthStyles = () => (
         transform: scale(1); 
         opacity: 1;
       }
-      50% { 
+      90% { 
         transform: scale(1.05); 
         opacity: 0.9;
       }
