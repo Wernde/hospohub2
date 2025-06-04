@@ -44,7 +44,7 @@ const AuthStyles = () => (
       opacity: 0;
       animation: backgroundFade 1.2s ease forwards;
       transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
-      background-color: #f5f2ea;
+      background-color: #1a1410;
     }
 
     .auth-container.visible {
@@ -74,7 +74,7 @@ const AuthStyles = () => (
     }
 
     .tab-button.active {
-      background: #4a4a4a;
+      background: #7d4f1a;
       color: white;
       font-weight: bold;
     }
