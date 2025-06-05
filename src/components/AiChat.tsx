@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MessageSquare } from 'lucide-react';
@@ -126,10 +125,10 @@ const AiChat = () => {
 
   return (
     <>
-      {/* Chat button */}
+      {/* Chat button with new color */}
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 rounded-full w-14 h-14 p-0 bg-blue-600 hover:bg-blue-700 shadow-lg"
+        className="fixed bottom-6 right-6 rounded-full w-14 h-14 p-0 bg-purple-600 hover:bg-purple-700 shadow-lg"
         aria-label="Open AI Chat"
       >
         <MessageSquare className="h-6 w-6" />
