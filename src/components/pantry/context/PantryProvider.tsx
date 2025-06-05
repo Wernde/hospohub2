@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   PantryItem, 
@@ -12,7 +13,7 @@ import {
   toggleExpandedState, 
   addItemToShoppingList,
   updateItemStatusWithPantryChanges
-} from './utils';
+} from './pantryUtils';
 
 // Create a key for localStorage
 const SHOPPING_LIST_STORAGE_KEY = 'pantry-shopping-list';

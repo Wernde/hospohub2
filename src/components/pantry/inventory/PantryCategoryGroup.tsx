@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { ChevronDown, ChevronRight } from 'lucide-react';
-import { usePantry } from '../context/usePantry';
+import { usePantry } from '../PantryContext';
 import PantryItem from './PantryItem';
 import { PantryItem as PantryItemType } from '../types';
 

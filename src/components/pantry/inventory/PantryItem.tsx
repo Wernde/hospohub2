@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { AlertTriangle, CheckCircle, Trash2 } from 'lucide-react';
-import { usePantry } from '../context/usePantry';
+import { usePantry } from '../PantryContext';
 import { PantryItem as PantryItemType } from '../types';
 
 interface PantryItemProps {
