@@ -13,18 +13,18 @@ export const updateRecipeNeedsWithPantryStatus = (
       );
 
       if (!pantryItem) {
-        return { ...ingredient, status: 'order' as const };
+        return { ...ingredient, pantryStatus: 'order' as const };
       }
 
       const availableAmount = pantryItem.currentQuantity * (pantryItem.conversionFactor || 1);
-      const requiredAmount = ingredient.amount;
+      const requiredAmount = ingredient.storeQuantity;
 
       if (availableAmount >= requiredAmount) {
-        return { ...ingredient, status: 'in-pantry' as const };
+        return { ...ingredient, pantryStatus: 'in-pantry' as const };
       } else if (availableAmount > 0) {
-        return { ...ingredient, status: 'partial' as const };
+        return { ...ingredient, pantryStatus: 'partial' as const };
       } else {
-        return { ...ingredient, status: 'order' as const };
+        return { ...ingredient, pantryStatus: 'order' as const };
       }
     })
   }));

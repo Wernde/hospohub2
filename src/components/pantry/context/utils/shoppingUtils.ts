@@ -3,27 +3,26 @@ import { ShoppingListItem } from '../../types';
 
 export const addItemToShoppingList = (ingredient: any, recipe: any, currentList: ShoppingListItem[]): ShoppingListItem[] => {
   const existingItem = currentList.find(item => 
-    item.ingredientName === ingredient.name && item.recipeId === recipe.recipeId
+    item.name === ingredient.name && item.recipeId === recipe.recipeId
   );
 
   if (existingItem) {
     return currentList.map(item =>
-      item.ingredientName === ingredient.name && item.recipeId === recipe.recipeId
-        ? { ...item, quantity: item.quantity + ingredient.amount }
+      item.name === ingredient.name && item.recipeId === recipe.recipeId
+        ? { ...item, quantity: item.quantity + (ingredient.storeQuantity || ingredient.amount || 1) }
         : item
     );
   }
 
   const newItem: ShoppingListItem = {
     id: `shopping-${Date.now()}-${Math.random()}`,
-    ingredientName: ingredient.name,
-    quantity: ingredient.amount,
-    unit: ingredient.unit,
+    name: ingredient.name,
+    quantity: ingredient.storeQuantity || ingredient.amount || 1,
+    unit: ingredient.storeUnit || ingredient.unit || '',
+    recipes: [recipe.recipeTitle || recipe.recipeName || ''],
     recipeId: recipe.recipeId,
-    recipeName: recipe.recipeName,
-    category: ingredient.category || 'Other',
-    estimatedCost: 0,
-    isChecked: false
+    className: recipe.className || '',
+    category: ingredient.category || 'Other'
   };
 
   return [...currentList, newItem];
