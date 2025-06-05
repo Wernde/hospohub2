@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { usePantry } from '../PantryContext';
+import { usePantry } from '../context/usePantry';
 import PantryCategoryGroup from './PantryCategoryGroup';
 
 const PantryItemsList = () => {

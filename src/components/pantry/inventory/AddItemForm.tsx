@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { usePantry } from '../PantryContext';
+import { usePantry } from '../context/usePantry';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 

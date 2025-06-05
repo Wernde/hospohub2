@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Plus } from 'lucide-react';
-import { usePantry } from '../PantryContext';
+import { usePantry } from '../context/usePantry';
 import { Button } from '@/components/ui/button';
 
 const AddItemButton = () => {

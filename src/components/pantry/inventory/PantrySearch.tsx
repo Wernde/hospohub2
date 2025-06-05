@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Search } from 'lucide-react';
-import { usePantry } from '../PantryContext';
+import { usePantry } from '../context/usePantry';
 import { Input } from '@/components/ui/input';
 
 const PantrySearch = () => {

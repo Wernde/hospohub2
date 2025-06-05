@@ -1,6 +1,5 @@
-
 import React from 'react';
-import { usePantry } from '../PantryContext';
+import { usePantry } from '../context/usePantry';
 
 const PantryFilters = () => {
   const { filter, setFilter } = usePantry();
