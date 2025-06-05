@@ -10,7 +10,7 @@ const statsCards = [
     value: '42',
     description: 'View all recipes',
     icon: <BookOpen className="h-6 w-6 text-white" />,
-    iconBg: 'bg-amber-600',
+    iconBg: 'bg-orange-500',
     href: '/recipes'
   },
   {
@@ -18,7 +18,7 @@ const statsCards = [
     value: '6',
     description: 'View all classes',
     icon: <GraduationCap className="h-6 w-6 text-white" />,
-    iconBg: 'bg-amber-700',
+    iconBg: 'bg-amber-500',
     href: '/classes'
   },
   {
@@ -26,7 +26,7 @@ const statsCards = [
     value: '138',
     description: 'Manage students',
     icon: <Users className="h-6 w-6 text-white" />,
-    iconBg: 'bg-amber-800',
+    iconBg: 'bg-yellow-500',
     href: '/students'
   },
   {
@@ -34,7 +34,7 @@ const statsCards = [
     value: '204',
     description: 'View pantry',
     icon: <Package className="h-6 w-6 text-white" />,
-    iconBg: 'bg-amber-900',
+    iconBg: 'bg-red-500',
     href: '/pantry'
   }
 ];

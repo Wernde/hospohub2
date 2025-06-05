@@ -11,7 +11,7 @@ const quickActions = [
     title: 'Add New Recipe',
     description: 'Upload a new recipe with AI-assisted ingredient extraction.',
     icon: <Plus className="h-6 w-6 text-white" />,
-    iconBg: 'bg-amber-600',
+    iconBg: 'bg-orange-500',
     href: '/recipes/new'
   },
   {
@@ -19,7 +19,7 @@ const quickActions = [
     title: 'Schedule Class',
     description: 'Create a new class session and assign recipes to it.',
     icon: <Calendar className="h-6 w-6 text-white" />,
-    iconBg: 'bg-amber-700',
+    iconBg: 'bg-amber-500',
     href: '/classes/schedule'
   },
   {
@@ -27,7 +27,7 @@ const quickActions = [
     title: 'Ingredient Calculator',
     description: 'Calculate ingredient quantities for different class sizes.',
     icon: <Calculator className="h-6 w-6 text-white" />,
-    iconBg: 'bg-amber-800',
+    iconBg: 'bg-yellow-500',
     href: '/calculator'
   },
   {
@@ -35,16 +35,16 @@ const quickActions = [
     title: 'Pantry Management',
     description: 'Manage your pantry inventory and create shopping lists.',
     icon: <ShoppingBasket className="h-6 w-6 text-white" />,
-    iconBg: 'bg-amber-900',
+    iconBg: 'bg-amber-400',
     href: '/pantry'
   }
 ];
 
 const QuickActions = () => {
   return (
-    <Card className="shadow overflow-hidden mb-8 bg-white border-stone-200">
-      <CardHeader className="px-4 py-5 border-b border-stone-200 sm:px-6">
-        <CardTitle className="text-lg text-amber-900">Quick Actions</CardTitle>
+    <Card className="shadow overflow-hidden mb-8">
+      <CardHeader className="px-4 py-5 border-b border-orange-100 sm:px-6">
+        <CardTitle className="text-lg text-orange-900">Quick Actions</CardTitle>
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">

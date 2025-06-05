@@ -22,12 +22,12 @@ const ActivityItem = ({ id, title, time, icon, iconBg }: ActivityItemProps) => {
               </div>
             </div>
             <div className="min-w-0 flex-1 px-4">
-              <p className="text-sm font-medium text-amber-700 truncate">{title}</p>
-              <p className="mt-1 text-sm text-amber-600">{time}</p>
+              <p className="text-sm font-medium text-orange-600 truncate">{title}</p>
+              <p className="mt-1 text-sm text-orange-500">{time}</p>
             </div>
           </div>
           <div>
-            <Link to="#" className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-stone-300 text-sm leading-5 font-medium rounded-full text-amber-800 bg-white hover:bg-stone-50">
+            <Link to="#" className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-orange-300 text-sm leading-5 font-medium rounded-full text-orange-700 bg-white hover:bg-orange-50">
               View
             </Link>
           </div>
