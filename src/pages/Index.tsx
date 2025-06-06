@@ -31,19 +31,21 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Show spinner while auth is loading
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-400 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-400 mx-auto mb-4" />
           <p className="text-lg text-gray-600">Loading...</p>
         </div>
       </div>
     );
   }
 
+  // If user is already logged in, render nothing (redirect is happening)
   if (user) {
-    return null; // don't render landing while redirecting
+    return null;
   }
 
   return (
@@ -71,25 +73,19 @@ const Index = () => {
           animation: smoothFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
           transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
-        .landing-container.visible {
-          opacity: 1;
-        }
-
+        .landing-container.visible { opacity: 1; }
         .landing-container.exiting {
           animation: smoothFadeOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
-
         .logo-animation {
           opacity: 0;
-          animation: smoothFadeIn 1.5s ease-out 0.5s forwards, logoGlow 4s ease-in-out infinite 2s;
+          animation: smoothFadeIn 1.5s ease-out 0.5s forwards,
+                     logoGlow 4s ease-in-out infinite 2s;
         }
-
         .button-animation {
           opacity: 0;
           animation: buttonSlideUp 1s cubic-bezier(0.4, 0, 0.2, 1) 2.5s forwards;
         }
-
         .btn-smooth {
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           transform: translateY(0);
@@ -104,52 +100,36 @@ const Index = () => {
       `}</style>
 
       <div
-        className={`landing-container min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 ${
-          isVisible ? 'visible' : ''
-        } ${isExiting ? 'exiting' : ''}`}
+        className={`
+          landing-container
+          min-h-screen w-full flex flex-col justify-center items-center
+          relative text-center p-5 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}
+        `}
         style={{
-          background: `url('/Images/HospoHUB.png') no-repeat center center fixed`,
+          background: `url('/hospohub2/Images/HospoHUB.png') no-repeat center center fixed`,
           backgroundSize: 'cover',
         }}
       >
-        {/* Responsive Logo */}
         <img
-          src="/Images/HospoHUB.png"
+          src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHUB Logo"
-          className="logo-animation w-full max-w-4xl sm:max-w-6xl md:max-w-7xl h-auto"
+          className="logo-animation w-full max-w-6xl h-auto md:max-w-7xl"
         />
 
-        {/* Textboxes + Buttons */}
-        <div className="absolute bottom-8 w-full flex flex-col md:flex-row justify-center items-center px-4 lg:px-8 gap-6">
-          {/* Textboxes Container */}
-          <div className="w-full max-w-md">
-            <input
-              type="text"
-              placeholder="Username"
-              className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md bg-cream placeholder-gray-600"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md bg-cream placeholder-gray-600"
-            />
-          </div>
+        <div className="absolute bottom-8 w-full flex flex-col md:flex-row justify-between items-center px-8 gap-3 md:gap-0">
+          <button
+            onClick={() => smoothNavigate('/auth')}
+            className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-10 py-4 text-xl cursor-pointer w-full md:w-auto max-w-xs"
+          >
+            SIGN IN
+          </button>
 
-          {/* Buttons Container */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <button
-              onClick={() => smoothNavigate('/auth')}
-              className="button-animation btn-smooth border-2 border-white bg-cream text-white px-8 py-3 text-lg cursor-pointer w-full md:w-auto max-w-xs"
-            >
-              SIGN IN
-            </button>
-            <button
-              onClick={() => smoothNavigate('/dashboard')}
-              className="button-animation btn-smooth border-2 border-white bg-cream text-white px-8 py-3 text-lg cursor-pointer w-full md:w-auto max-w-xs"
-            >
-              HOSPOHOUSE
-            </button>
-          </div>
+          <button
+            onClick={() => smoothNavigate('/dashboard')}
+            className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-10 py-4 text-xl cursor-pointer w-full md:w-auto max-w-xs"
+          >
+            HOSPOHOUSE
+          </button>
         </div>
       </div>
     </>
