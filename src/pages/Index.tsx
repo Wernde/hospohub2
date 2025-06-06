@@ -11,9 +11,23 @@ const Index = () => {
   // Redirect authenticated users to dashboard
   useEffect(() => {
     if (user && !isLoading) {
-      smoothNavigate('/dashboard');
+      useCallback(
+        (path: string) => {
+          setIsExiting(true);
+          setTimeout(() => {
+            navigate(path);
+          }, 800);
+        },
+        [navigate])('/dashboard');
     }
-  }, [user, isLoading, smoothNavigate]);
+  }, [user, isLoading, (useCallback(
+      (path: string) => {
+        setIsExiting(true);
+        setTimeout(() => {
+          navigate(path);
+        }, 800);
+      },
+      [navigate]))]);
 
   // Smooth entrance animation
   useEffect(() => {
@@ -23,15 +37,7 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const smoothNavigate = useCallback(
-    (path: string) => {
-      setIsExiting(true);
-      setTimeout(() => {
-        navigate(path);
-      }, 800);
-    },
-    [navigate]
-  );
+  };
 
   // Only render content if user is not logged in
   if (isLoading) {
