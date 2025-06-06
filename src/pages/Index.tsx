@@ -99,14 +99,12 @@ const Index = () => {
         }
       `}</style>
 
-      <div
-        className={`
-          landing-container
-          min-h-screen w-full flex flex-col justify-center items-center
-          relative text-center p-5 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}
-        `}
+       <div
+        className={`landing-container min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 ${
+          isVisible ? 'visible' : ''
+        } ${isExiting ? 'exiting' : ''}`}
         style={{
-          background: `url('/hospohub2/Images/HospoHUB.png') no-repeat center center fixed`,
+          background: `url('/Images/HospoHUB.png') no-repeat center center fixed`,
           backgroundSize: 'cover',
         }}
       >
