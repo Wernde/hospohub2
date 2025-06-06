@@ -142,7 +142,7 @@ const Index = () => {
         }}
       >
         <img 
-          src="HospoHub Logo 4.png" 
+          src="/HospoHub-Logo-4.png" 
           alt="HospoHUB Logo" 
           className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl"
         />
