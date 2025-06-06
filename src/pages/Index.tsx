@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -13,7 +13,7 @@ const Index = () => {
     if (user && !isLoading) {
       smoothNavigate('/dashboard');
     }
-  }, [user, isLoading]);
+  }, [user, isLoading, smoothNavigate]);
 
   // Smooth entrance animation
   useEffect(() => {
@@ -23,11 +23,12 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const smoothNavigate = (path: string) => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(path);
-    }, 800);
+  const smoothNavigate = useCallback(
+    (path: string) => {
+      setIsExiting(true);
+      setTimeout(() => {
+        navigate(path);
+      }, 800);
   };
 
   // Only render content if user is not logged in
@@ -137,12 +138,12 @@ const Index = () => {
           isVisible ? 'visible' : ''
         } ${isExiting ? 'exiting' : ''}`}
         style={{
-          background: "url('/HospoHUB.png') no-repeat center center fixed",
+          background: `url('${import.meta.env.BASE_URL}/public/Images/HospoHub.png') no-repeat center center fixed`,
           backgroundSize: "cover"
         }}
       >
         <img 
-          src="/Logo-HospoHub4.png" 
+           src={`${import.meta.env.BASE_URL}/public/Images/HospoHub.png`}
           alt="HospoHUB Logo" 
           className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl"
         />
