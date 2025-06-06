@@ -9,12 +9,15 @@ const Index = () => {
   const [isExiting, setIsExiting] = useState(false);
 
   // Smooth navigate function with exit animation
-  const smoothNavigate = useCallback((path: string) => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(path);
-    }, 800);
-  }, [navigate]);
+  const smoothNavigate = useCallback(
+    (path: string) => {
+      setIsExiting(true);
+      setTimeout(() => {
+        navigate(path);
+      }, 800);
+    },
+    [navigate]
+  );
 
   // Redirect authenticated users to dashboard
   useEffect(() => {
@@ -31,7 +34,7 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Only render content if user is not logged in
+  // Render loading spinner while auth is loading
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
@@ -43,69 +46,44 @@ const Index = () => {
     );
   }
 
+  // If user is authenticated, don’t show landing page
   if (user) {
-    return null; // Don't render anything while redirecting
+    return null;
   }
 
   return (
     <>
       <style>{`
         @keyframes smoothFadeIn {
-          0% { 
-            opacity: 0; 
-            transform: scale(0.98) translateY(10px); 
-          }
-          100% { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-          }
+          0% { opacity: 0; transform: scale(0.98) translateY(10px); }
+          100% { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         @keyframes smoothFadeOut {
-          0% { 
-            opacity: 1; 
-            transform: scale(1) translateY(0); 
-          }
-          100% { 
-            opacity: 0; 
-            transform: scale(0.98) translateY(-10px); 
-          }
+          0% { opacity: 1; transform: scale(1) translateY(0); }
+          100% { opacity: 0; transform: scale(0.98) translateY(-10px); }
         }
 
         @keyframes logoGlow {
-          0%, 100% { 
-            transform: scale(1);
-            filter: brightness(1);
-          }
-          50% { 
-            transform: scale(1.02);
-            filter: brightness(1.05);
-          }
+          0%, 100% { transform: scale(1); filter: brightness(1); }
+          50% { transform: scale(1.02); filter: brightness(1.05); }
         }
 
         @keyframes buttonSlideUp {
-          0% { 
-            opacity: 0; 
-            transform: translateY(30px); 
-          }
-          100% { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
+          0% { opacity: 0; transform: translateY(30px); }
+          100% { opacity: 1; transform: translateY(0); }
         }
 
         .landing-container {
           opacity: 0;
-          animation: smoothFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+          animation: smoothFadeIn 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
+          transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
         }
 
-        .landing-container.visible {
-          opacity: 1;
-        }
+        .landing-container.visible { opacity: 1; }
 
         .landing-container.exiting {
-          animation: smoothFadeOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          animation: smoothFadeOut 0.8s cubic-bezier(0.4,0,0.2,1) forwards;
         }
 
         .logo-animation {
@@ -115,39 +93,38 @@ const Index = () => {
 
         .button-animation {
           opacity: 0;
-          animation: buttonSlideUp 1s cubic-bezier(0.4, 0, 0.2, 1) 2.5s forwards;
+          animation: buttonSlideUp 1s cubic-bezier(0.4,0,0.2,1) 2.5s forwards;
         }
 
         .btn-smooth {
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
           transform: translateY(0);
         }
 
         .btn-smooth:hover {
           transform: translateY(-2px) scale(1.02);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
-        .btn-smooth:active {
-          transform: translateY(0) scale(0.98);
-        }
+        .btn-smooth:active { transform: translateY(0) scale(0.98); }
       `}</style>
-      
-      <div 
-        className={`landing-container min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 ${
-          isVisible ? 'visible' : ''
-        } ${isExiting ? 'exiting' : ''}`}
+
+      <div
+        className={
+          `landing-container min-h-screen w-full flex flex-col justify-center items-center ` +
+          `relative text-center p-5 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}`
+        }
         style={{
           background: `url('/Images/HospoHUB.png') no-repeat center center fixed`,
-          backgroundSize: "cover"
+          backgroundSize: 'cover',
         }}
       >
-        <img 
-           src="/Images/HospoHUB.png"
-          alt="HospoHUB Logo" 
+        <img
+          src="/Images/HospoHUB.png"
+          alt="HospoHUB Logo"
           className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl"
         />
-        
+
         <div className="absolute bottom-8 w-full flex flex-col md:flex-row justify-between items-center px-8 gap-3 md:gap-0">
           <button
             onClick={() => smoothNavigate('/auth')}
@@ -155,7 +132,7 @@ const Index = () => {
           >
             SIGN IN
           </button>
-          
+
           <button
             onClick={() => smoothNavigate('/dashboard')}
             className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-10 py-4 text-xl cursor-pointer w-full md:w-auto max-w-xs"

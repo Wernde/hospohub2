@@ -6,16 +6,25 @@
     <title>Welcome to HospoHub</title>
     <meta name="description" content="HospoHub Hospitality Department Management" />
     <meta name="author" content="HospoHub Team" />
+    
+    <!-- Favicon: File must be exactly `Logo-HospoHub4.png` in `public/Images` -->
     <link rel="icon" href="/Images/Logo-HospoHub4.png" />
 
-    <!-- Optional: For Progressive Web App look -->
+    <!-- Optional: PWA theme color -->
     <meta name="theme-color" content="#000000" />
   </head>
 
-  <body style="margin:0; background: url('/Images/HospoHUB.png') no-repeat center center fixed; background-size: cover;">
+  <!-- Body background: Must be exactly `HospoHUB.png` in `public/Images` -->
+  <body
+    style="
+      margin:0;
+      background: url('/Images/HospoHUB.png') no-repeat center center fixed;
+      background-size: cover;
+    "
+  >
     <div id="root"></div>
 
-    <!-- Main React App -->
+    <!-- Main React App entrypoint -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
