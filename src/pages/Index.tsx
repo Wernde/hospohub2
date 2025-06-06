@@ -138,12 +138,12 @@ const Index = () => {
           isVisible ? 'visible' : ''
         } ${isExiting ? 'exiting' : ''}`}
         style={{
-          background: `url('${import.meta.env.BASE_URL}/Images/HospoHub.png') no-repeat center center fixed`,
+          background: `url('/Images/HospoHUB.png') no-repeat center center fixed`,
           backgroundSize: "cover"
         }}
       >
         <img 
-           src={`${import.meta.env.BASE_URL}/Images/HospoHub.png`}
+           src="/Images/HospoHUB.png"
           alt="HospoHUB Logo" 
           className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl"
         />
