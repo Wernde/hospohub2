@@ -5,7 +5,7 @@ const AuthImagePanel = () => (
       alt="Fresh Ingredients" 
       className="w-full h-full object-cover"
     />
-    {/* Logo centered on image - made much bigger */}
+    {/* Logo centered on image - enlarged */}
     <div className="absolute inset-0 flex items-center justify-center">
       <img 
         src="/Images/Auth-Image-Panel.png" 

@@ -9,15 +9,12 @@ const Index = () => {
   const [isExiting, setIsExiting] = useState(false);
 
   // Smooth navigate function with exit animation
-  const smoothNavigate = useCallback(
-    (path: string) => {
-      setIsExiting(true);
-      setTimeout(() => {
-        navigate(path);
-      }, 800);
-    },
-    [navigate]
-  );
+  const smoothNavigate = useCallback((path: string) => {
+    setIsExiting(true);
+    setTimeout(() => {
+      navigate(path);
+    }, 800);
+  }, [navigate]);
 
   // Redirect authenticated users to dashboard
   useEffect(() => {
@@ -34,19 +31,19 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Render loading spinner while auth is loading
+  // Show spinner while auth is loading
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-400 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-400 mx-auto mb-4" />
           <p className="text-lg text-gray-600">Loading...</p>
         </div>
       </div>
     );
   }
 
-  // If user is authenticated, don’t show landing page
+  // If user is already logged in, render nothing (redirect is happening)
   if (user) {
     return null;
   }
@@ -58,17 +55,14 @@ const Index = () => {
           0% { opacity: 0; transform: scale(0.98) translateY(10px); }
           100% { opacity: 1; transform: scale(1) translateY(0); }
         }
-
         @keyframes smoothFadeOut {
           0% { opacity: 1; transform: scale(1) translateY(0); }
           100% { opacity: 0; transform: scale(0.98) translateY(-10px); }
         }
-
         @keyframes logoGlow {
           0%, 100% { transform: scale(1); filter: brightness(1); }
           50% { transform: scale(1.02); filter: brightness(1.05); }
         }
-
         @keyframes buttonSlideUp {
           0% { opacity: 0; transform: translateY(30px); }
           100% { opacity: 1; transform: translateY(0); }
@@ -76,44 +70,41 @@ const Index = () => {
 
         .landing-container {
           opacity: 0;
-          animation: smoothFadeIn 1.2s cubic-bezier(0.4,0,0.2,1) forwards;
-          transition: all 0.8s cubic-bezier(0.4,0,0.2,1);
+          animation: smoothFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
-
         .landing-container.visible { opacity: 1; }
-
         .landing-container.exiting {
-          animation: smoothFadeOut 0.8s cubic-bezier(0.4,0,0.2,1) forwards;
+          animation: smoothFadeOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
         }
-
         .logo-animation {
           opacity: 0;
-          animation: smoothFadeIn 1.5s ease-out 0.5s forwards, logoGlow 4s ease-in-out infinite 2s;
+          animation: smoothFadeIn 1.5s ease-out 0.5s forwards,
+                     logoGlow 4s ease-in-out infinite 2s;
         }
-
         .button-animation {
           opacity: 0;
-          animation: buttonSlideUp 1s cubic-bezier(0.4,0,0.2,1) 2.5s forwards;
+          animation: buttonSlideUp 1s cubic-bezier(0.4, 0, 0.2, 1) 2.5s forwards;
         }
-
         .btn-smooth {
-          transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
           transform: translateY(0);
         }
-
         .btn-smooth:hover {
           transform: translateY(-2px) scale(1.02);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
-
-        .btn-smooth:active { transform: translateY(0) scale(0.98); }
+        .btn-smooth:active {
+          transform: translateY(0) scale(0.98);
+        }
       `}</style>
 
       <div
-        className={
-          `landing-container min-h-screen w-full flex flex-col justify-center items-center ` +
-          `relative text-center p-5 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}`
-        }
+        className={`
+          landing-container
+          min-h-screen w-full flex flex-col justify-center items-center
+          relative text-center p-5 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}
+        `}
         style={{
           background: `url('/Images/HospoHUB.png') no-repeat center center fixed`,
           backgroundSize: 'cover',
