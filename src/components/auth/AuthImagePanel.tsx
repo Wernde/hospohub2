@@ -8,7 +8,7 @@ const AuthImagePanel = () => (
     {/* Logo centered on image - enlarged */}
     <div className="absolute inset-0 flex items-center justify-center">
       <img 
-        src="/hospohub2/Images/Auth-Image-Panel.png" 
+        src="/hospohub2/Images/Logo-HospoHub4.png" 
         alt="HospoHUB Logo" 
         className="logo-breathing h-150 w-auto"
       />
