@@ -106,12 +106,12 @@ const Index = () => {
           relative text-center p-5 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}
         `}
         style={{
-          background: `url('/Images/HospoHUB.png') no-repeat center center fixed`,
+          background: `url('/hospohub2/Images/HospoHUB.png') no-repeat center center fixed`,
           backgroundSize: 'cover',
         }}
       >
         <img
-          src="/Images/HospoHUB.png"
+          src="/hospohub2/Images/HospoHUB.png"
           alt="HospoHUB Logo"
           className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl"
         />
