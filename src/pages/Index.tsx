@@ -113,7 +113,7 @@ const Index = () => {
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHUB Logo"
-          className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl"
+          className="logo-animation w-full max-w-6xl h-auto md:max-w-7xl"
         />
 
         <div className="absolute bottom-8 w-full flex flex-col md:flex-row justify-between items-center px-8 gap-3 md:gap-0">

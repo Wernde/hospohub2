@@ -10,7 +10,7 @@ const AuthImagePanel = () => (
       <img 
         src="/hospohub2/Images/Logo-HospoHub4.png" 
         alt="HospoHUB Logo" 
-        className="logo-breathing h-150 w-auto"
+        className="logo-breathing h-300 w-auto"
       />
     </div>
   </div>
