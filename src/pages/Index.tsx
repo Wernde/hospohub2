@@ -29,8 +29,10 @@ const Index = () => {
       setTimeout(() => {
         navigate(path);
       }, 800);
-  };
-
+    };
+    [navigate]
+  );
+  
   // Only render content if user is not logged in
   if (isLoading) {
     return (
