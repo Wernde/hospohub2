@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '@/contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Index = () => {
   const navigate = useNavigate();
@@ -8,26 +8,20 @@ const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
+  // Smooth navigate function with exit animation
+  const smoothNavigate = useCallback((path: string) => {
+    setIsExiting(true);
+    setTimeout(() => {
+      navigate(path);
+    }, 800);
+  }, [navigate]);
+
   // Redirect authenticated users to dashboard
   useEffect(() => {
     if (user && !isLoading) {
-      useCallback(
-        (path: string) => {
-          setIsExiting(true);
-          setTimeout(() => {
-            navigate(path);
-          }, 800);
-        },
-        [navigate])('/dashboard');
+      smoothNavigate('/dashboard');
     }
-  }, [user, isLoading, (useCallback(
-      (path: string) => {
-        setIsExiting(true);
-        setTimeout(() => {
-          navigate(path);
-        }, 800);
-      },
-      [navigate]))]);
+  }, [user, isLoading, smoothNavigate]);
 
   // Smooth entrance animation
   useEffect(() => {
@@ -36,8 +30,6 @@ const Index = () => {
     }, 100);
     return () => clearTimeout(timer);
   }, []);
-
-  };
 
   // Only render content if user is not logged in
   if (isLoading) {
