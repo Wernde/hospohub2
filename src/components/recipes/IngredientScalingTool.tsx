@@ -96,7 +96,7 @@ const IngredientScalingTool = () => {
                 value={scaledIngredients}
                 readOnly
                 rows={5}
-                className="bg-blue-50"
+                className="bg-rgba(0, 0, 0, 0.12)-50"
               />
             </div>
           )}

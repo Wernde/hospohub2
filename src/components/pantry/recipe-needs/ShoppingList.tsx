@@ -54,7 +54,7 @@ const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-bold">Shopping List</h2>
         <div className="flex space-x-2">
-          <Button className="flex items-center px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+          <Button className="flex items-center px-3 py-1 bg-rgba(0, 0, 0, 0.12)-600 text-white rounded-lg hover:bg-rgba(0, 0, 0, 0.12)-700">
             <FileText className="h-4 w-4 mr-1" />
             <span>Export</span>
           </Button>

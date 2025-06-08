@@ -13,7 +13,7 @@ const ParticipantCard: React.FC<ParticipantCardProps> = ({
       <CardContent className="p-4 space-y-4">
         <div className="font-semibold text-lg">Participant Information</div>
         <div className="flex items-center gap-2">
-          <Users className="h-4 w-4 text-blue-600" />
+          <Users className="h-4 w-4 text-rgba(0, 0, 0, 0.12)-600" />
           <span className="text-sm">{studentCount} student{studentCount !== 1 ? 's' : ''} enrolled</span>
         </div>
         {studentCount > 0 && (

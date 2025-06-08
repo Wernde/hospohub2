@@ -80,7 +80,7 @@ const DietaryRestrictionsTracker = () => {
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Info className="h-3.5 w-3.5 text-blue-500 ml-1.5 cursor-help" />
+                          <Info className="h-3.5 w-3.5 text-rgba(0, 0, 0, 0.12)-500 ml-1.5 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="max-w-xs">{allergen.description}</p>
@@ -112,7 +112,7 @@ const DietaryRestrictionsTracker = () => {
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Info className="h-3.5 w-3.5 text-blue-500 ml-1.5 cursor-help" />
+                          <Info className="h-3.5 w-3.5 text-rgba(0, 0, 0, 0.12)-500 ml-1.5 cursor-help" />
                         </TooltipTrigger>
                         <TooltipContent>
                           <p className="max-w-xs">{diet.description}</p>

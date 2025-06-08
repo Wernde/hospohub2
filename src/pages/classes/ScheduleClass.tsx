@@ -95,8 +95,8 @@ const ScheduleClass = () => {
             
             <TabsContent value="details">
               <Card className="shadow-md">
-                <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b">
-                  <CardTitle className="text-xl text-blue-800">Class Details</CardTitle>
+                <CardHeader className="bg-gradient-to-r from-rgba(0, 0, 0, 0.12)-50 to-rgba(0, 0, 0, 0.12)-100 border-b">
+                  <CardTitle className="text-xl text-rgba(0, 0, 0, 0.12)-800">Class Details</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
                   <ClassDetailsForm 
@@ -112,8 +112,8 @@ const ScheduleClass = () => {
             
             <TabsContent value="recipes">
               <Card className="shadow-md mb-6">
-                <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b">
-                  <CardTitle className="text-xl text-blue-800">Recipe Selection</CardTitle>
+                <CardHeader className="bg-gradient-to-r from-rgba(0, 0, 0, 0.12)-50 to-rgba(0, 0, 0, 0.12)-100 border-b">
+                  <CardTitle className="text-xl text-rgba(0, 0, 0, 0.12)-800">Recipe Selection</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
                   <RecipeSelectionTab
@@ -129,8 +129,8 @@ const ScheduleClass = () => {
             
             <TabsContent value="students">
               <Card className="shadow-md mb-6">
-                <CardHeader className="bg-gradient-to-r from-blue-50 to-blue-100 border-b">
-                  <CardTitle className="text-xl text-blue-800">Students & Summary</CardTitle>
+                <CardHeader className="bg-gradient-to-r from-rgba(0, 0, 0, 0.12)-50 to-rgba(0, 0, 0, 0.12)-100 border-b">
+                  <CardTitle className="text-xl text-rgba(0, 0, 0, 0.12)-800">Students & Summary</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-6">
                   <StudentsTab

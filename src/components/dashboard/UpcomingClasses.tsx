@@ -31,10 +31,10 @@ const upcomingClasses = [
 const UpcomingClasses = () => {
   return (
     <Card className="shadow overflow-hidden">
-      <CardHeader className="px-4 py-5 border-b border-blue-100 sm:px-6">
-        <CardTitle className="text-lg text-blue-900">Upcoming Classes</CardTitle>
+      <CardHeader className="px-4 py-5 border-b border-rgba(0, 0, 0, 0.12)-100 sm:px-6">
+        <CardTitle className="text-lg text-rgba(0, 0, 0, 0.12)-900">Upcoming Classes</CardTitle>
       </CardHeader>
-      <ul className="divide-y divide-blue-100">
+      <ul className="divide-y divide-rgba(0, 0, 0, 0.12)-100">
         {upcomingClasses.map((cls) => (
           <UpcomingClassCard key={cls.id} cls={cls} />
         ))}

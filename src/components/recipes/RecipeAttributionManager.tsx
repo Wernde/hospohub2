@@ -33,7 +33,7 @@ const RecipeAttributionManager = () => {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="flex items-center gap-2">
-          <UserCircle className="h-5 w-5 text-blue-500" />
+          <UserCircle className="h-5 w-5 text-rgba(0, 0, 0, 0.12)-500" />
           Recipe Attribution
         </CardTitle>
         <Button 

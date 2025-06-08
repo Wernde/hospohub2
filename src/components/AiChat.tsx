@@ -16,7 +16,7 @@ const AiChat = () => {
   const [messages, setMessages] = useState<{ role: 'user' | 'assistant'; content: string }[]>([
     { 
       role: 'assistant', 
-      content: 'Hello! I\'m your HospoHub assistant. I can help with recipes, ingredient calculations, shopping list prices, and answer questions about cooking techniques. What can I help you with today?' 
+      content: 'Hello! I\'m your HospoHub Assistant. I can help with recipes, ingredient calculations, shopping list prices, and answer questions about cooking techniques. What can I help you with today?' 
     }
   ]);
   const [isLoading, setIsLoading] = useState(false);

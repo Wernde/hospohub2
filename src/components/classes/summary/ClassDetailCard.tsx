@@ -19,19 +19,19 @@ const ClassDetailCard: React.FC<ClassDetailCardProps> = ({
         <div className="font-semibold text-lg">Class Details</div>
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-blue-600" />
+            <Calendar className="h-4 w-4 text-rgba(0, 0, 0, 0.12)-600" />
             <span className="text-sm">{date ? format(date, 'PPPP') : 'No date selected'}</span>
           </div>
           <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-blue-600" />
+            <Clock className="h-4 w-4 text-rgba(0, 0, 0, 0.12)-600" />
             <span className="text-sm">{startTime} - {endTime}</span>
           </div>
           <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-blue-600" />
+            <MapPin className="h-4 w-4 text-rgba(0, 0, 0, 0.12)-600" />
             <span className="text-sm">{location}</span>
           </div>
           <div className="flex items-center gap-2">
-            <ChefHat className="h-4 w-4 text-blue-600" />
+            <ChefHat className="h-4 w-4 text-rgba(0, 0, 0, 0.12)-600" />
             <span className="text-sm">Instructor: {instructor}</span>
           </div>
         </div>

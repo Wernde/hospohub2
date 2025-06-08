@@ -46,8 +46,8 @@ const IngredientCalculator = () => {
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center mb-6">
-            <Calculator className="h-8 w-8 text-blue-600 mr-3" />
-            <h1 className="text-2xl font-bold text-blue-900">Ingredient Calculator</h1>
+            <Calculator className="h-8 w-8 text-rgba(0, 0, 0, 0.12)-600 mr-3" />
+            <h1 className="text-2xl font-bold text-rgba(0, 0, 0, 0.12)-900">Ingredient Calculator</h1>
           </div>
           
           <Card className="mb-8">
@@ -145,7 +145,7 @@ const IngredientCalculator = () => {
               {calculatedIngredients.length > 0 && (
                 <div className="mt-8">
                   <h3 className="font-medium mb-2">Calculated Ingredients</h3>
-                  <div className="bg-blue-50 p-4 rounded-md">
+                  <div className="bg-rgba(0, 0, 0, 0.12)-50 p-4 rounded-md">
                     {calculatedIngredients.map((ing, index) => (
                       <div key={index} className="mb-2 last:mb-0">
                         {ing.name}: <span className="font-semibold">{ing.calculatedQuantity} {ing.unit}</span>

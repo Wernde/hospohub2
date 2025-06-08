@@ -31,7 +31,7 @@ interface OrganizationMember {
 }
 
 const accessLevelLabels = {
-  1: { name: 'Member', icon: Shield, color: 'text-blue-500' },
+  1: { name: 'Member', icon: Shield, color: 'text-rgba(0, 0, 0, 0.12)-500' },
   2: { name: 'Manager', icon: ShieldCheck, color: 'text-green-500' },
   3: { name: 'Admin', icon: ShieldAlert, color: 'text-orange-500' },
 };

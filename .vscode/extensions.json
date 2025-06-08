@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "openai.chatgpt"
+        "openai.chatgpt",
+        "ikasann-self.vscode-chat-gpt"
     ]
 }

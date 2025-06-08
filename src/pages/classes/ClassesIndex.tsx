@@ -69,7 +69,7 @@ const ClassesIndex = () => {
           {isPageLoading ? (
             <div className="flex items-center justify-center py-20">
               <div className="text-center">
-                <Loader2 className="h-12 w-12 animate-spin text-blue-500 mx-auto mb-4" />
+                <Loader2 className="h-12 w-12 animate-spin text-rgba(0, 0, 0, 0.12)-500 mx-auto mb-4" />
                 <p className="text-gray-600">Loading classes...</p>
               </div>
             </div>
@@ -77,8 +77,8 @@ const ClassesIndex = () => {
             <>
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center">
-                  <GraduationCap className="h-8 w-8 text-blue-600 mr-3" />
-                  <h1 className="text-2xl font-bold text-blue-900">Cooking Classes</h1>
+                  <GraduationCap className="h-8 w-8 text-rgba(0, 0, 0, 0.12)-600 mr-3" />
+                  <h1 className="text-2xl font-bold text-rgba(0, 0, 0, 0.12)-900">Cooking Classes</h1>
                 </div>
                 
                 <div className="flex gap-2">
@@ -102,7 +102,7 @@ const ClassesIndex = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-8">
-                    <CalendarIcon className="w-12 h-12 mx-auto text-blue-400 mb-4" />
+                    <CalendarIcon className="w-12 h-12 mx-auto text-rgba(0, 0, 0, 0.12)-400 mb-4" />
                     <h3 className="text-lg font-medium mb-2">No Classes Scheduled</h3>
                     <p className="text-gray-500 mb-4">Get started by scheduling your first cooking class</p>
                     <Button asChild>

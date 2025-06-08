@@ -31,7 +31,7 @@ const RecipeFileUpload = ({ onFileSelect }: RecipeFileUploadProps) => {
         </div>
       </div>
       
-      <div className="p-4 bg-blue-50 text-blue-800 rounded-md flex items-start gap-3">
+      <div className="p-4 bg-rgba(0, 0, 0, 0.12)-50 text-rgba(0, 0, 0, 0.12)-800 rounded-md flex items-start gap-3">
         <AlertCircle className="h-5 w-5 flex-shrink-0 mt-0.5" />
         <div className="text-sm">
           Upload a recipe file to automatically extract recipe information. The AI will attempt to fill in the fields below based on the file content.

@@ -80,7 +80,7 @@ const AddItemForm = () => {
         />
       </div>
       <Button
-        className="w-full bg-blue-500 hover:bg-blue-600"
+        className="w-full bg-rgba(0, 0, 0, 0.12)-500 hover:bg-rgba(0, 0, 0, 0.12)-600"
         onClick={handleAddItem}
       >
         Add to Pantry

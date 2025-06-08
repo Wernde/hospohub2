@@ -68,7 +68,7 @@ const RecipeSelectionTab: React.FC<RecipeSelectionTabProps> = ({
               </DialogHeader>
               <div className="mt-4 space-y-4">
                 {mockRecipes.map((recipe) => (
-                  <div key={recipe.id} className="flex items-center justify-between p-3 bg-blue-50 rounded-md">
+                  <div key={recipe.id} className="flex items-center justify-between p-3 bg-rgba(0, 0, 0, 0.12)-50 rounded-md">
                     <div>
                       <h4 className="font-medium">{recipe.name}</h4>
                       <p className="text-sm text-gray-500">

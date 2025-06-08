@@ -25,7 +25,7 @@ const ClassSummary: React.FC<ClassSummaryProps> = ({
   return (
     <div className="space-y-6">
       <div className="space-y-1">
-        <h2 className="text-2xl font-bold text-blue-800">{className}</h2>
+        <h2 className="text-2xl font-bold text-rgba(0, 0, 0, 0.12)-800">{className}</h2>
         {description && <p className="text-muted-foreground">{description}</p>}
       </div>
 

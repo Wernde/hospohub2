@@ -8,7 +8,7 @@ const PantryFilters = () => {
   return (
     <div className="flex mb-4 space-x-2">
       <button
-        className={`px-3 py-1 rounded ${filter === 'all' ? 'bg-blue-600 text-white' : 'bg-gray-200'}`}
+        className={`px-3 py-1 rounded ${filter === 'all' ? 'bg-rgba(0, 0, 0, 0.12)-600 text-white' : 'bg-gray-200'}`}
         onClick={() => setFilter('all')}
       >
         All

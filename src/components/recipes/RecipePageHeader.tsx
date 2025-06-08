@@ -24,9 +24,9 @@ const RecipePageHeader: React.FC<RecipePageHeaderProps> = ({ title, description 
       </Button>
       
       <div className="flex items-center mb-6">
-        <BookOpen className="mr-3 h-8 w-8 text-blue-600" />
+        <BookOpen className="mr-3 h-8 w-8 text-rgba(0, 0, 0, 0.12)-600" />
         <div>
-          <h1 className="text-2xl font-semibold text-blue-900">{title}</h1>
+          <h1 className="text-2xl font-semibold text-rgba(0, 0, 0, 0.12)-900">{title}</h1>
           {description && <p className="text-gray-500 mt-1">{description}</p>}
         </div>
       </div>

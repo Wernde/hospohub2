@@ -20,7 +20,7 @@ const FeatureItem: React.FC<FeatureItemProps> = ({
   return (
     <div 
       className={`flex items-center gap-2 p-2 rounded-md transition-colors ${
-        feature.available ? 'bg-blue-100' : 'bg-gray-100 hover:bg-amber-50 cursor-pointer'
+        feature.available ? 'bg-rgba(0, 0, 0, 0.12)-100' : 'bg-gray-100 hover:bg-amber-50 cursor-pointer'
       }`}
       onClick={() => !feature.available && onClick(feature)}
     >

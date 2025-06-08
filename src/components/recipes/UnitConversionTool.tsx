@@ -85,7 +85,7 @@ const UnitConversionTool = () => {
           </div>
           
           <div className="flex justify-center items-center">
-            <ArrowRight className="h-5 w-5 text-blue-500" />
+            <ArrowRight className="h-5 w-5 text-rgba(0, 0, 0, 0.12)-500" />
           </div>
           
           <div className="space-y-2">
@@ -109,7 +109,7 @@ const UnitConversionTool = () => {
           </div>
           
           {result !== null && (
-            <div className="md:col-span-5 p-3 bg-blue-50 rounded-md mt-4">
+            <div className="md:col-span-5 p-3 bg-rgba(0, 0, 0, 0.12)-50 rounded-md mt-4">
               <p className="text-center">
                 <span className="font-semibold">{quantity} {fromUnit}</span>
                 {' = '}

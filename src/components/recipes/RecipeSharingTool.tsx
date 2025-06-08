@@ -67,7 +67,7 @@ const RecipeSharingTool = () => {
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <Users className="h-5 w-5 text-blue-500" />
+          <Users className="h-5 w-5 text-rgba(0, 0, 0, 0.12)-500" />
           Share Recipe with Colleagues
         </CardTitle>
       </CardHeader>
@@ -143,8 +143,8 @@ const RecipeSharingTool = () => {
           </Button>
           
           {shareLink && (
-            <div className="mt-4 p-3 bg-blue-50 rounded-md border border-blue-100">
-              <p className="text-sm font-medium text-blue-700 mb-2">Recipe shared successfully!</p>
+            <div className="mt-4 p-3 bg-rgba(0, 0, 0, 0.12)-50 rounded-md border border-rgba(0, 0, 0, 0.12)-100">
+              <p className="text-sm font-medium text-rgba(0, 0, 0, 0.12)-700 mb-2">Recipe shared successfully!</p>
               <div className="flex items-center gap-2">
                 <Input 
                   value={shareLink}

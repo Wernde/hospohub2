@@ -136,7 +136,7 @@ const RecipeIngredientsList: React.FC<RecipeIngredientsListProps> = ({ recipe })
                     />
                     <span className="text-xs">{ingredient.storeUnit}</span>
                     <button
-                      className="px-3 py-1 text-xs bg-blue-500 text-white rounded-full hover:bg-blue-600"
+                      className="px-3 py-1 text-xs bg-rgba(0, 0, 0, 0.12)-500 text-white rounded-full hover:bg-rgba(0, 0, 0, 0.12)-600"
                       onClick={() => handleAddToShoppingList(ingredient)}
                     >
                       Add to List

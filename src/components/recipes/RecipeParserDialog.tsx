@@ -37,7 +37,7 @@ const RecipeParserDialog = ({
         <div className="flex flex-col items-center justify-center py-4 space-y-4">
           {isParsing ? (
             <>
-              <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
+              <Loader2 className="h-8 w-8 animate-spin text-rgba(0, 0, 0, 0.12)-500" />
               <p className="text-center text-sm text-muted-foreground">
                 Analyzing your recipe file...
               </p>

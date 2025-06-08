@@ -57,8 +57,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-blue-900/90 backdrop-blur-md shadow-subtle py-2'
-          : 'bg-blue-900/80 backdrop-blur-sm py-3'
+          ? 'bg-rgba(0, 0, 0, 0.12)-900/90 backdrop-blur-md shadow-subtle py-2'
+          : 'bg-rgba(0, 0, 0, 0.12)-900/80 backdrop-blur-sm py-3'
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -67,7 +67,7 @@ const Navbar = () => {
             to="/" 
             className="flex items-center space-x-2 transition-transform duration-300 hover:scale-[1.02]"
           >
-            <ChefHat className="w-7 h-7 text-blue-300" />
+            <ChefHat className="w-7 h-7 text-rgba(0, 0, 0, 0.12)-300" />
             <span className="font-display text-xl font-semibold text-white">
               HospoHub
             </span>
@@ -79,8 +79,8 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`text-white/90 hover:text-blue-300 transition-colors duration-200 flex items-center gap-2 py-2 px-3 rounded-md ${
-                    location.pathname === link.href ? 'bg-blue-800/50 text-blue-300' : ''
+                  className={`text-white/90 hover:text-rgba(0, 0, 0, 0.12)-300 transition-colors duration-200 flex items-center gap-2 py-2 px-3 rounded-md ${
+                    location.pathname === link.href ? 'bg-rgba(0, 0, 0, 0.12)-800/50 text-rgba(0, 0, 0, 0.12)-300' : ''
                   }`}
                 >
                   {link.icon}
@@ -108,14 +108,14 @@ const Navbar = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-blue-900/95 backdrop-blur-lg shadow-subtle animate-fade-in">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-rgba(0, 0, 0, 0.12)-900/95 backdrop-blur-lg shadow-subtle animate-fade-in">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link 
                 key={link.name}
                 to={link.href} 
-                className={`px-4 py-2 text-white/90 hover:text-blue-300 hover:bg-blue-800/50 rounded-md transition-colors flex items-center gap-2 ${
-                  location.pathname === link.href ? 'bg-blue-800/70 text-blue-300' : ''
+                className={`px-4 py-2 text-white/90 hover:text-rgba(0, 0, 0, 0.12)-300 hover:bg-rgba(0, 0, 0, 0.12)-800/50 rounded-md transition-colors flex items-center gap-2 ${
+                  location.pathname === link.href ? 'bg-rgba(0, 0, 0, 0.12)-800/70 text-rgba(0, 0, 0, 0.12)-300' : ''
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -128,14 +128,14 @@ const Navbar = () => {
                 <>
                   <Button 
                     variant="outline" 
-                    className="w-full border-blue-300/30 text-blue-300 hover:bg-blue-800/50"
+                    className="w-full border-rgba(0, 0, 0, 0.12)-300/30 text-rgba(0, 0, 0, 0.12)-300 hover:bg-rgba(0, 0, 0, 0.12)-800/50"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
                     <Link to="/auth">Log in</Link>
                   </Button>
                   <Button 
-                    className="w-full bg-blue-500 hover:bg-blue-600"
+                    className="w-full bg-rgba(0, 0, 0, 0.12)-500 hover:bg-rgba(0, 0, 0, 0.12)-600"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >

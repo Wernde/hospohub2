@@ -96,7 +96,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(-45deg, #1e3a8a, #2563eb, #3b82f6, #60a5fa, #93c5fd);
+    background: linear-gradient(-45deg,rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.05),rgba(0, 0, 0, 0.03));
     background-size: 400% 400%;
     animation: gradient 18s ease infinite;
     z-index: -1;
@@ -126,7 +126,7 @@
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-800;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-cream-500 to-cream-800;
   }
 
   .animated-button {
@@ -143,7 +143,7 @@
   }
 
   .link-underline {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom-left after:scale-x-0 after:bg-blue-300 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100;
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-bottom-left after:scale-x-0 after:bg-rgba(0, 0, 0, 0.12)-300 after:transition-transform after:duration-300 hover:after:origin-bottom-left hover:after:scale-x-100;
   }
 
   /* Staggered animation delays for lists */

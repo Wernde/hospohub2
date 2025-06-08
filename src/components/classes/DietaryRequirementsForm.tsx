@@ -122,7 +122,7 @@ const DietaryRequirementsForm: React.FC<DietaryRequirementsFormProps> = ({ onAdd
         itemType="dietaryRequirements"
         commonItems={commonDietaryRequirements}
         itemLabel="Dietary Requirements"
-        itemColor="bg-blue-100 text-blue-800"
+        itemColor="bg-rgba(0, 0, 0, 0.12)-100 text-rgba(0, 0, 0, 0.12)-800"
       />
       
       <RequirementsSection

@@ -11,7 +11,7 @@ const quickActions = [
     title: 'Add New Recipe',
     description: 'Upload a new recipe with AI-assisted ingredient extraction.',
     icon: <Plus className="h-6 w-6 text-white" />,
-    iconBg: 'bg-blue-500',
+    iconBg: 'bg-rgba(0, 0, 0, 0.12)-500',
     href: '/recipes/new'
   },
   {
@@ -43,8 +43,8 @@ const quickActions = [
 const QuickActions = () => {
   return (
     <Card className="shadow overflow-hidden mb-8">
-      <CardHeader className="px-4 py-5 border-b border-blue-100 sm:px-6">
-        <CardTitle className="text-lg text-blue-900">Quick Actions</CardTitle>
+      <CardHeader className="px-4 py-5 border-b border-rgba(0, 0, 0, 0.12)-100 sm:px-6">
+        <CardTitle className="text-lg text-rgba(0, 0, 0, 0.12)-900">Quick Actions</CardTitle>
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
