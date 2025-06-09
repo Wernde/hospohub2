@@ -11,7 +11,7 @@ const quickActions = [
     title: 'Add New Recipe',
     description: 'Upload a new recipe with AI-assisted ingredient extraction.',
     icon: <Plus className="h-6 w-6 text-white" />,
-    iconBg: 'bg-rgba(0, 0, 0, 0.12)-500',
+    iconBg: 'bg-rgba(243, 138, 39, 0.8)-500',
     href: '/recipes/new'
   },
   {
@@ -19,7 +19,7 @@ const quickActions = [
     title: 'Schedule Class',
     description: 'Create a new class session and assign recipes to it.',
     icon: <Calendar className="h-6 w-6 text-white" />,
-    iconBg: 'bg-green-500',
+    iconBg: 'bg-rgba(39, 243, 46, 0.87)-500',
     href: '/classes/schedule'
   },
   {
@@ -27,7 +27,7 @@ const quickActions = [
     title: 'Ingredient Calculator',
     description: 'Calculate ingredient quantities for different class sizes.',
     icon: <Calculator className="h-6 w-6 text-white" />,
-    iconBg: 'bg-yellow-500',
+    iconBg: 'bg-rgb(241, 233, 2)-500',
     href: '/calculator'
   },
   {
@@ -35,7 +35,7 @@ const quickActions = [
     title: 'Pantry Management',
     description: 'Manage your pantry inventory and create shopping lists.',
     icon: <ShoppingBasket className="h-6 w-6 text-white" />,
-    iconBg: 'bg-purple-500',
+    iconBg: 'bg-rgba(148, 39, 243, 0.68)-500',
     href: '/pantry'
   }
 ];

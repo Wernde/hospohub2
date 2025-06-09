@@ -49,7 +49,7 @@ const Navbar = () => {
       href: '/', 
       icon: (
         <img 
-          src="/hospohub2/Images/Logo-HospoHub4.png" 
+          src="/Hospohub2/Images/Logo-HospoHub4.png" 
           alt="HospoHub" 
           className="w-5 h-5 object-contain"
         />
