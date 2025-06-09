@@ -126,7 +126,7 @@
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-cream-500 to-cream-800;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-blue-800;
   }
 
   .animated-button {
