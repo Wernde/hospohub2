@@ -33,16 +33,12 @@ const Auth = () => {
   // Redirect if user is already authenticated
   useEffect(() => {
     if (user && !isLoading) {
-      const from = location.state?.from?.pathname || '/dashboard';
-      smoothNavigate(from);
+      navigate('/dashboard', { replace: true });
     }
-  }, [user, isLoading, navigate, location]);
+  }, [user, isLoading, navigate]);
 
   const smoothNavigate = (path: string) => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(path, { replace: true });
-    }, 1000);
+    navigate(path, { replace: true });
   };
 
   if (isLoading) {

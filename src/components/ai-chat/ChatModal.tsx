@@ -2,7 +2,7 @@
 import React from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ChefHat, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import ChatMessages from './ChatMessages';
 import ChatInput from './ChatInput';
 
@@ -16,18 +16,22 @@ interface ChatModalProps {
 
 const ChatModal = ({ messages, isLoading, isSearching, onSubmit, onClose }: ChatModalProps) => {
   return (
-    <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-6">
-      <Card className="w-full max-w-md h-[600px] max-h-[90vh] flex flex-col">
-        <CardHeader className="border-b px-4 py-3 flex flex-row items-center justify-between space-y-0">
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 md:p-6">
+      <Card className="w-full max-w-md h-[600px] max-h-[90vh] flex flex-col bg-white">
+        <CardHeader className="border-b px-4 py-3 flex flex-row items-center justify-between space-y-0 bg-[#2c2c2c]">
           <div className="flex items-center gap-2">
-            <ChefHat className="h-5 w-5 text-blue-500" />
-            <CardTitle className="text-lg">HospoHub Assistant</CardTitle>
+            <img 
+              src="/Images/Logo-HospoHub4.png" 
+              alt="HospoHub" 
+              className="h-6 w-6 object-contain"
+            />
+            <CardTitle className="text-lg text-white">HospoHub Assistant</CardTitle>
           </div>
           <Button 
             variant="ghost" 
             size="icon" 
             onClick={onClose}
-            className="h-8 w-8"
+            className="h-8 w-8 text-white hover:bg-[#1a1a1a]"
           >
             <X className="h-4 w-4" />
           </Button>

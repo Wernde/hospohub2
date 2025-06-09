@@ -8,26 +8,26 @@ const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isExiting, setIsExiting] = useState(false);
 
-  // Smooth navigate function with exit animation
+  // Smooth navigate function with faster exit animation
   const smoothNavigate = useCallback((path: string) => {
     setIsExiting(true);
     setTimeout(() => {
       navigate(path);
-    }, 800);
+    }, 300);
   }, [navigate]);
 
   // Redirect authenticated users to dashboard
   useEffect(() => {
     if (user && !isLoading) {
-      smoothNavigate('/dashboard');
+      navigate('/dashboard');
     }
-  }, [user, isLoading, smoothNavigate]);
+  }, [user, isLoading, navigate]);
 
-  // Smooth entrance animation
+  // Faster entrance animation
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
-    }, 100);
+    }, 50);
     return () => clearTimeout(timer);
   }, []);
 
@@ -113,20 +113,20 @@ const Index = () => {
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHUB Logo"
-          className="logo-animation w-full max-w-6xl h-auto md:max-w-7xl"
+          className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl lg:max-w-6xl"
         />
 
-        <div className="absolute bottom-8 w-full flex flex-col md:flex-row justify-between items-center px-8 gap-3 md:gap-0">
+        <div className="absolute bottom-8 w-full flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 gap-4 md:gap-0">
           <button
             onClick={() => smoothNavigate('/auth')}
-            className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-10 py-4 text-xl cursor-pointer w-full md:w-auto max-w-xs"
+            className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-8 py-4 text-lg sm:text-xl cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-gray-800 active:scale-95"
           >
             SIGN IN
           </button>
 
           <button
             onClick={() => smoothNavigate('/dashboard')}
-            className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-10 py-4 text-xl cursor-pointer w-full md:w-auto max-w-xs"
+            className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-8 py-4 text-lg sm:text-xl cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-gray-800 active:scale-95"
           >
             HOSPOHOUSE
           </button>

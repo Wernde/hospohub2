@@ -1,8 +1,8 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import DashboardHeader from '@/components/dashboard/DashboardHeader';
 import StatsCards from '@/components/dashboard/StatsCards';
 import UpcomingClasses from '@/components/dashboard/UpcomingClasses';
@@ -13,9 +13,17 @@ import AdminCard from '@/components/dashboard/AdminCard';
 const Dashboard = () => {
   const { user, isAdmin } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  // Prevent navigation away from dashboard when logged in
+  useEffect(() => {
+    if (!user) {
+      navigate('/auth', { replace: true });
+    }
+  }, [user, navigate]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-[#f5f2ea]">
       <Navbar />
       
       {/* Main content */}
@@ -40,8 +48,6 @@ const Dashboard = () => {
           {isAdmin && <AdminCard />}
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

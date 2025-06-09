@@ -26,10 +26,10 @@ const UserMenu = () => {
   if (!user) {
     return (
       <div className="flex items-center space-x-3">
-        <Button variant="outline" asChild className="border-rgba(0, 0, 0, 0.12)-300/30 text-rgba(0, 0, 0, 0.12)-300 hover:bg-rgba(0, 0, 0, 0.12)-800/50">
+        <Button variant="outline" asChild className="border-[#f5f2ea]/30 text-[#f5f2ea] hover:bg-[#1a1a1a]/50">
           <Link to="/auth">Log in</Link>
         </Button>
-        <Button asChild className="bg-rgba(0, 0, 0, 0.12)-500 hover:bg-rgba(0, 0, 0, 0.12)-600 shadow-sm">
+        <Button asChild className="bg-[#f5f2ea] text-[#2c2c2c] hover:bg-[#ede8df] shadow-sm">
           <Link to="/auth?tab=signup">Sign up</Link>
         </Button>
       </div>
@@ -44,10 +44,10 @@ const UserMenu = () => {
         <DropdownMenuTrigger asChild>
           <Button
             variant="ghost"
-            className="relative h-9 w-9 rounded-full border border-rgba(0, 0, 0, 0.12)-300/30 hover:bg-rgba(0, 0, 0, 0.12)-800/50"
+            className="relative h-9 w-9 rounded-full border border-[#f5f2ea]/30 hover:bg-[#1a1a1a]/50 text-white"
           >
             <Avatar className="h-9 w-9">
-              <AvatarFallback className="bg-rgba(0, 0, 0, 0.12)-500 text-rgba(0, 0, 0, 0.12)-50">
+              <AvatarFallback className="bg-[#f5f2ea] text-[#2c2c2c]">
                 {user.email ? user.email[0].toUpperCase() : 'U'}
               </AvatarFallback>
             </Avatar>
@@ -57,7 +57,7 @@ const UserMenu = () => {
           <DropdownMenuItem className="cursor-default flex-col items-start gap-1 p-4">
             <p className="text-sm font-medium">{user.email}</p>
             {isAdmin && (
-              <span className="text-xs bg-rgba(0, 0, 0, 0.12)-100 text-rgba(0, 0, 0, 0.12)-800 px-2 py-0.5 rounded-full">
+              <span className="text-xs bg-[#f5f2ea] text-[#2c2c2c] px-2 py-0.5 rounded-full">
                 System Admin
               </span>
             )}

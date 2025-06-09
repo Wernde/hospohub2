@@ -33,6 +33,7 @@ const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
         type="submit" 
         size="icon" 
         disabled={isLoading || !message.trim()}
+        className="bg-[#2c2c2c] hover:bg-[#1a1a1a] text-white"
       >
         <ArrowUp className="h-4 w-4" />
       </Button>
