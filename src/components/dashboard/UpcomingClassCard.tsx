@@ -14,7 +14,7 @@ interface ClassItem {
 const UpcomingClassCard = ({ cls }: { cls: ClassItem }) => {
   return (
     <li>
-      <Link to="#" className="block hover:bg-rgba(0, 0, 0, 0.12)-50">
+      <Link to="#" className="block hover:bg-green-50">
         <div className="px-4 py-4 sm:px-6">
           <div className="flex items-center justify-between">
             <div className="text-sm font-medium text-rgba(0, 0, 0, 0.12)-600 truncate">{cls.title}</div>

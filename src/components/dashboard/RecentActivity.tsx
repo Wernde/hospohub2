@@ -10,8 +10,8 @@ const recentActivities = [
     id: 1,
     title: 'New recipe added: Chocolate Soufflé',
     time: 'Added by you - 2 hours ago',
-    icon: <BookOpen className="h-6 w-6 text-rgba(0, 0, 0, 0.12)-600" />,
-    iconBg: 'bg-rgba(0, 0, 0, 0.12)-100'
+    icon: <BookOpen className="h-6 w-6 text-blue-600" />,
+    iconBg: 'bg-blue-100'
   },
   {
     id: 2,
