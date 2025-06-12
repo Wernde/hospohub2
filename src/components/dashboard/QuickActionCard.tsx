@@ -15,7 +15,7 @@ const QuickActionCard = ({ id, title, description, icon, iconBg, href }: QuickAc
   return (
     <Link 
       to={href} 
-      className="group relative bg-rgba(0, 0, 0, 0.12)-50 rounded-lg p-6 hover:bg-rgba(0, 0, 0, 0.12)-100 transition-all duration-200"
+      className="group relative bg-rgba(0, 0, 0, 0.12)-50 rounded-lg p-6 hover:bg-[#fffbeb] transition-all duration-200"
     >
       <div className="flex items-center space-x-3">
         <div className={`flex-shrink-0 h-10 w-10 rounded-full ${iconBg} flex items-center justify-center`}>

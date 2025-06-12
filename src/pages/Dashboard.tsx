@@ -23,7 +23,7 @@ const Dashboard = () => {
   }, [user, navigate]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#f5f2ea]">
+    <div className="flex flex-col min-h-screen bg-[#f5f5f5]">
       <Navbar />
       
       {/* Main content */}

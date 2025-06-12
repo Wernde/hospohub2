@@ -13,7 +13,7 @@ interface ActivityItemProps {
 const ActivityItem = ({ id, title, time, icon, iconBg }: ActivityItemProps) => {
   return (
     <li>
-      <div className="px-4 py-4 sm:px-6">
+      <div className="px-4 py-4 sm:px-6 block hover:bg-[#f0f9ff]">
         <div className="flex items-center">
           <div className="min-w-0 flex-1 flex items-center">
             <div className="flex-shrink-0">

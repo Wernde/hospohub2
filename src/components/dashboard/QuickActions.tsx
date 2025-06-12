@@ -43,7 +43,7 @@ const quickActions = [
 const QuickActions = () => {
   return (
     <Card className="shadow overflow-hidden mb-8">
-      <CardHeader className="px-4 py-5 border-b border-rgba(0, 0, 0, 0.12)-100 sm:px-6">
+      <CardHeader className="px-4 py-5 border-b bg-amber-100 border-rgba(0, 0, 0, 0.12)-100 sm:px-6">
         <CardTitle className="text-lg text-rgba(0, 0, 0, 0.12)-900">Quick Actions</CardTitle>
       </CardHeader>
       <CardContent className="p-4 sm:p-6">

@@ -30,7 +30,7 @@ const StatsCard = ({ title, value, description, icon, iconBg, href }: StatsCardP
           </div>
         </div>
       </div>
-      <div className="bg-rgba(0, 0, 0, 0.12)-50 px-4 py-4 sm:px-6">
+      <div className="bg-rgba(0, 0, 0, 0.12)-50 px-4 py-4 sm:px-6 block hover:bg-[#f5f5f5]">
         <div className="text-sm">
           <Link to={href} className="font-medium text-rgba(0, 0, 0, 0.12)-600 hover:text-rgba(0, 0, 0, 0.12)-700">
             {description}

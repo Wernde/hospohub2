@@ -36,11 +36,11 @@ const Navbar = () => {
   const isHomePage = location.pathname === '/';
 
   const dashboardLinks: NavLink[] = [
-    { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
-    { name: 'Recipes', href: '/recipes', icon: <BookOpen className="w-4 h-4" /> },
-    { name: 'Classes', href: '/classes', icon: <GraduationCap className="w-4 h-4" /> },
-    { name: 'Pantry', href: '/pantry', icon: <ShoppingBasket className="w-4 h-4" /> },
-    { name: 'Shopping', href: '/shopping', icon: <ShoppingCart className="w-4 h-4" /> }
+    { name: 'Dashboard', href: '/dashboard', icon: <LayoutDashboard className="w-7 h-7" /> },
+    { name: 'Recipes', href: '/recipes', icon: <BookOpen className="w-7 h-7" /> },
+    { name: 'Classes', href: '/classes', icon: <GraduationCap className="w-7 h-7" /> },
+    { name: 'Pantry', href: '/pantry', icon: <ShoppingBasket className="w-7 h-7" /> },
+    { name: 'Shopping', href: '/shopping', icon: <ShoppingCart className="w-7 h-7" /> }
   ];
 
   const homeLinks: NavLink[] = [
@@ -49,9 +49,9 @@ const Navbar = () => {
       href: '/', 
       icon: (
         <img 
-          src="/Hospohub2/Images/Logo-HospoHub4.png" 
+          src="/Hospohub2/public/Images/Logo-HospoHub4.png" 
           alt="HospoHub" 
-          className="w-5 h-5 object-contain"
+          className="logo-breathing w-auto h-15 object-contain drop-shadow-2xl"
         />
       )
     },
@@ -66,20 +66,21 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#2c2c2c]/95 backdrop-blur-md shadow-lg py-2'
-          : 'bg-[#2c2c2c]/90 backdrop-blur-sm py-3'
+          ? 'bg-[#a1a1a1]/90 backdrop-blur-md shadow-lg py-2'
+          : 'bg-[#a1a1a1]/95 backdrop-blur-sm py-3'
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-18">
           <Link 
             to="/" 
             className="flex items-center space-x-3 transition-transform duration-300 hover:scale-[1.02]"
           >
+            
             <img 
-              src="/Images/Logo-HospoHub4.png" 
+              src="hospohub2/public/Images/Logo-HospoHub4.png" 
               alt="HospoHub Logo" 
-              className="w-12 h-12 object-contain"
+              className="logo-breathing w-auto h-12 object-contain drop-shadow-2xl"
             />
             <span className="font-display text-xl font-semibold text-white">
               HospoHub
