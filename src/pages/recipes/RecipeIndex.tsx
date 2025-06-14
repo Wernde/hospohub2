@@ -1,15 +1,18 @@
 
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { BookOpen, Plus, Download } from 'lucide-react';
-import RecipeFeaturesListContainer from '@/components/recipes/features/RecipeFeaturesListContainer';
+import { BookOpen, Plus } from 'lucide-react';
 import { exportRecipes } from '@/utils/excelExport';
 import ExportButton from '@/components/ui/export-button';
+import { Skeleton } from '@/components/ui/skeleton';
+
+// Lazy load the features component
+const RecipeFeaturesListContainer = lazy(() => import('@/components/recipes/features/RecipeFeaturesListContainer'));
 
 const RecipeIndex = () => {
   const { user } = useAuth();
@@ -86,7 +89,9 @@ const RecipeIndex = () => {
             </CardContent>
           </Card>
           
-          <RecipeFeaturesListContainer />
+          <Suspense fallback={<Skeleton className="h-64 w-full" />}>
+            <RecipeFeaturesListContainer />
+          </Suspense>
         </div>
       </main>
       

@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -6,14 +7,10 @@ const Index = () => {
   const navigate = useNavigate();
   const { user, isLoading } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
 
-  // Smooth navigate function with faster exit animation
+  // Smooth navigate function
   const smoothNavigate = useCallback((path: string) => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(path);
-    }, 300);
+    navigate(path);
   }, [navigate]);
 
   // Redirect authenticated users to dashboard
@@ -23,21 +20,18 @@ const Index = () => {
     }
   }, [user, isLoading, navigate]);
 
-  // Faster entrance animation
+  // Fast entrance animation
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 50);
-    return () => clearTimeout(timer);
+    setIsVisible(true);
   }, []);
 
-  // Show spinner while auth is loading
+  // Show minimal loading while auth is loading
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-400 mx-auto mb-4" />
-          <p className="text-lg text-gray-600">Loading...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-400 mx-auto mb-4" />
+          <p className="text-lg text-white">Loading...</p>
         </div>
       </div>
     );
@@ -49,90 +43,35 @@ const Index = () => {
   }
 
   return (
-    <>
-      <style>{`
-        @keyframes smoothFadeIn {
-          0% { opacity: 0; transform: scale(0.98) translateY(10px); }
-          100% { opacity: 1; transform: scale(1) translateY(0); }
-        }
-        @keyframes smoothFadeOut {
-          0% { opacity: 1; transform: scale(1) translateY(0); }
-          100% { opacity: 0; transform: scale(0.98) translateY(-10px); }
-        }
-        @keyframes logoGlow {
-          0%, 100% { transform: scale(1); filter: brightness(1); }
-          50% { transform: scale(1.02); filter: brightness(1.05); }
-        }
-        @keyframes buttonSlideUp {
-          0% { opacity: 0; transform: translateY(30px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .landing-container {
-          opacity: 0;
-          animation: smoothFadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .landing-container.visible { opacity: 1; }
-        .landing-container.exiting {
-          animation: smoothFadeOut 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-        }
-        .logo-animation {
-          opacity: 0;
-          animation: smoothFadeIn 1.5s ease-out 0.5s forwards,
-                     logoGlow 4s ease-in-out infinite 2s;
-        }
-        .button-animation {
-          opacity: 0;
-          animation: buttonSlideUp 1s cubic-bezier(0.4, 0, 0.2, 1) 2.5s forwards;
-        }
-        .btn-smooth {
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-          transform: translateY(0);
-        }
-        .btn-smooth:hover {
-          transform: translateY(-2px) scale(1.02);
-          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-        .btn-smooth:active {
-          transform: translateY(0) scale(0.98);
-        }
-      `}</style>
-
-      <div
-        className={`
-          landing-container
-          min-h-screen w-full flex flex-col justify-center items-center
-          relative text-center p-5 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}
-        `}
-        style={{
-          background: `url('/hospohub2/Images/HospoHUB.png') no-repeat center center fixed`,
-          backgroundSize: 'cover',
-        }}
-      >
+    <div className={`min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 bg-gray-900 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Background overlay for better text readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-gray-900/40" />
+      
+      <div className="relative z-10 max-w-4xl mx-auto">
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHUB Logo"
-          className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl lg:max-w-6xl"
+          className="w-full h-auto max-w-3xl mx-auto mb-8 transition-transform duration-700 hover:scale-105"
+          loading="eager"
         />
 
-        <div className="absolute bottom-8 w-full flex flex-col md:flex-row justify-between items-center px-4 sm:px-8 gap-4 md:gap-0">
+        <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-8">
           <button
             onClick={() => smoothNavigate('/auth')}
-            className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-8 py-4 text-lg sm:text-xl cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-gray-800 active:scale-95"
+            className="border-2 border-white bg-transparent text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-gray-800 active:scale-95"
           >
             SIGN IN
           </button>
 
           <button
             onClick={() => smoothNavigate('/dashboard')}
-            className="button-animation btn-smooth border-2 border-white bg-transparent text-white px-8 py-4 text-lg sm:text-xl cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-gray-800 active:scale-95"
+            className="border-2 border-white bg-transparent text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-gray-800 active:scale-95"
           >
             HOSPOHOUSE
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -109,7 +109,6 @@ const IngredientCalculator = () => {
                           value={ingredient.name}
                           onChange={(e) => updateIngredient(ingredient.id, 'name', e.target.value)}
                           placeholder="Ingredient"
-                          size="sm"
                         />
                       </div>
                       <div className="col-span-2">
@@ -117,15 +116,14 @@ const IngredientCalculator = () => {
                         <Input
                           type="number"
                           value={ingredient.quantity}
-                          onChange={(e) => updateIngredient(ingredient.id, 'quantity', Number(e.target.value))}
+                          onChange={(e) => updateIngredient(ingredient.id, 'quantity', Number(e.target.value) || 0)}
                           step="0.1"
-                          size="sm"
                         />
                       </div>
                       <div className="col-span-2">
                         <Label className="text-xs">Unit</Label>
                         <Select value={ingredient.unit} onValueChange={(value) => updateIngredient(ingredient.id, 'unit', value)}>
-                          <SelectTrigger size="sm">
+                          <SelectTrigger>
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
@@ -144,9 +142,8 @@ const IngredientCalculator = () => {
                         <Input
                           type="number"
                           value={ingredient.costPerUnit}
-                          onChange={(e) => updateIngredient(ingredient.id, 'costPerUnit', Number(e.target.value))}
+                          onChange={(e) => updateIngredient(ingredient.id, 'costPerUnit', Number(e.target.value) || 0)}
                           step="0.01"
-                          size="sm"
                         />
                       </div>
                       <div className="col-span-2">
