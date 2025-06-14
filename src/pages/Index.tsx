@@ -58,14 +58,14 @@ const Index = () => {
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-8">
           <button
             onClick={() => smoothNavigate('/auth')}
-            className="border-2 border-white bg-transparent text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-gray-800 active:scale-95"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95"
           >
             SIGN IN
           </button>
 
           <button
             onClick={() => smoothNavigate('/dashboard')}
-            className="border-2 border-white bg-transparent text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-gray-800 active:scale-95"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95"
           >
             HOSPOHOUSE
           </button>

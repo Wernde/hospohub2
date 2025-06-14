@@ -12,11 +12,12 @@ const ExportButton = ({
   onExport, 
   label = "Export", 
   className,
+  variant = "outline",
   ...props 
 }: ExportButtonProps) => {
   return (
     <Button
-      variant="outline"
+      variant={variant}
       size="sm"
       onClick={onExport}
       className={`flex items-center gap-1 ${className || ''}`}

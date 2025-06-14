@@ -62,8 +62,9 @@ const RecipeIndex = () => {
               <ExportButton 
                 onExport={handleExportRecipes} 
                 label="Export"
+                variant="outline"
               />
-              <Button asChild>
+              <Button>
                 <Link to="/recipes/new" className="flex items-center gap-2">
                   <Plus className="h-4 w-4" />
                   <span>Add New Recipe</span>
@@ -82,7 +83,7 @@ const RecipeIndex = () => {
                 <BookOpen className="w-12 h-12 mx-auto text-gray-400 mb-4" />
                 <h3 className="text-lg font-medium mb-2">No Recipes Added Yet</h3>
                 <p className="text-gray-500 mb-4">Start building your recipe collection</p>
-                <Button asChild>
+                <Button>
                   <Link to="/recipes/new">Add Recipe</Link>
                 </Button>
               </div>
