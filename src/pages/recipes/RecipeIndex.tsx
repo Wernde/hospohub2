@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import Navbar from '@/components/Navbar';
@@ -42,7 +43,7 @@ const RecipeIndex = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Navbar />
       
       {/* Main content */}

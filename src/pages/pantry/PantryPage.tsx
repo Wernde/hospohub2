@@ -9,7 +9,7 @@ import Navbar from '@/components/Navbar';
 const PantryPage = () => {
   return (
     <PantryProvider>
-      <div className="flex flex-col w-full min-h-screen bg-background">
+      <div className="flex flex-col w-full min-h-screen bg-gray-100">
         <Navbar />
         <PantryLayout />
         <Toaster />
