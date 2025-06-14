@@ -4,13 +4,13 @@ const AuthImagePanel = () => (
     <div 
       className="w-full h-full bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: `url('/Images/AuthPageImage.png')`
+        backgroundImage: `url('/hospohub2/Images/AuthPageImage.png')`
       }}
     />
     {/* Logo centered on image - larger and positioned properly */}
     <div className="absolute inset-20 flex items-center justify-start pl-15">
       <img 
-        src="/Images/Logo-HospoHub4.png" 
+        src="/hospohub2/Images/Logo-HospoHub4.png" 
         alt="HospoHUB Logo" 
         className="logo-breathing h-100 w-auto drop-shadow-2xl"
       />

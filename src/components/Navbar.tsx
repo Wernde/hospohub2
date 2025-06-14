@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -50,7 +49,7 @@ const Navbar = () => {
       href: '/', 
       icon: (
         <img 
-          src="/Images/Logo-HospoHub4.png" 
+          src="/hospohub2/Images/Logo-HospoHub4.png" 
           alt="HospoHub" 
           className="logo-breathing w-auto h-15 object-contain drop-shadow-2xl"
         />
@@ -78,7 +77,7 @@ const Navbar = () => {
             className="flex items-center space-x-3 transition-transform duration-300 hover:scale-[1.02]"
           >
             <img 
-              src="/Images/Logo-HospoHub4.png" 
+              src="/hospohub2/Images/Logo-HospoHub4.png" 
               alt="HospoHub Logo" 
               className="logo-breathing w-auto h-12 object-contain drop-shadow-2xl"
             />
@@ -97,7 +96,15 @@ const Navbar = () => {
                     location.pathname === link.href ? 'bg-gray-800/50 text-blue-200' : ''
                   }`}
                 >
-                  {link.icon}
+                  {link.name === 'Home' && isHomePage ? (
+                    <img 
+                      src="/hospohub2/Images/Logo-HospoHub4.png" 
+                      alt="HospoHub" 
+                      className="logo-breathing w-auto h-15 object-contain drop-shadow-2xl"
+                    />
+                  ) : (
+                    link.icon
+                  )}
                   <span>{link.name}</span>
                 </Link>
               ))}

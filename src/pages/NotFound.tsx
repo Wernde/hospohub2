@@ -1,4 +1,3 @@
-
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { Button } from '../components/ui/button';
@@ -20,7 +19,7 @@ const NotFound = () => {
       {/* Logo */}
       <div className="mb-0">
         <img
-          src="/Images/Logo-HospoHub4.png"
+          src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHub Logo"
           className="logo-breathing h-40 w-auto drop-shadow-2xl"
         />
