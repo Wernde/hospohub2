@@ -8,7 +8,11 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-3">
         <div className="flex flex-col items-center text-center">
           <Link to="/" className="flex items-center space-x-2 mb-1">
-            <ChefHat className="w-5 h-5 text-blue-300" />
+            <img 
+              src="/hospohub2/Images/Logo-HospoHub4.png" 
+              alt="HospoHub Logo" 
+              className="logo-breathing w-5 h-5 object-contain"
+            />
             <span className="font-display text-base font-semibold text-white">
               HospoHub
             </span>
