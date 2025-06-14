@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -106,12 +107,12 @@ const Index = () => {
           relative text-center p-5 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}
         `}
         style={{
-          background: `url('/hospohub2/Images/HospoHUB.png') no-repeat center center fixed`,
+          background: `url('/Images/HospoHUB.png') no-repeat center center fixed`,
           backgroundSize: 'cover',
         }}
       >
         <img
-          src="/hospohub2/Images/Logo-HospoHub4.png"
+          src="/Images/Logo-HospoHub4.png"
           alt="HospoHUB Logo"
           className="logo-animation w-full max-w-4xl h-auto md:max-w-5xl lg:max-w-6xl"
         />

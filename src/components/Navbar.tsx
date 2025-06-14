@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -49,7 +50,7 @@ const Navbar = () => {
       href: '/', 
       icon: (
         <img 
-          src="/Hospohub2/public/Images/Logo-HospoHub4.png" 
+          src="/Images/Logo-HospoHub4.png" 
           alt="HospoHub" 
           className="logo-breathing w-auto h-15 object-contain drop-shadow-2xl"
         />
@@ -66,8 +67,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#a1a1a1]/90 backdrop-blur-md shadow-lg py-2'
-          : 'bg-[#a1a1a1]/95 backdrop-blur-sm py-3'
+          ? 'bg-gray-700/90 backdrop-blur-md shadow-lg py-2'
+          : 'bg-gray-700/95 backdrop-blur-sm py-3'
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -76,9 +77,8 @@ const Navbar = () => {
             to="/" 
             className="flex items-center space-x-3 transition-transform duration-300 hover:scale-[1.02]"
           >
-            
             <img 
-              src="hospohub2/public/Images/Logo-HospoHub4.png" 
+              src="/Images/Logo-HospoHub4.png" 
               alt="HospoHub Logo" 
               className="logo-breathing w-auto h-12 object-contain drop-shadow-2xl"
             />
@@ -93,8 +93,8 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`text-white/90 hover:text-[#f5f2ea] transition-colors duration-200 flex items-center gap-2 py-2 px-3 rounded-md ${
-                    location.pathname === link.href ? 'bg-[#1a1a1a]/50 text-[#f5f2ea]' : ''
+                  className={`text-white/90 hover:text-blue-200 transition-colors duration-200 flex items-center gap-2 py-2 px-3 rounded-md ${
+                    location.pathname === link.href ? 'bg-gray-800/50 text-blue-200' : ''
                   }`}
                 >
                   {link.icon}
@@ -122,14 +122,14 @@ const Navbar = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-[#2c2c2c]/95 backdrop-blur-lg shadow-lg animate-fade-in">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-gray-800/95 backdrop-blur-lg shadow-lg animate-fade-in">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link 
                 key={link.name}
                 to={link.href} 
-                className={`px-4 py-2 text-white/90 hover:text-[#f5f2ea] hover:bg-[#1a1a1a]/50 rounded-md transition-colors flex items-center gap-2 ${
-                  location.pathname === link.href ? 'bg-[#1a1a1a]/70 text-[#f5f2ea]' : ''
+                className={`px-4 py-2 text-white/90 hover:text-blue-200 hover:bg-gray-700/50 rounded-md transition-colors flex items-center gap-2 ${
+                  location.pathname === link.href ? 'bg-gray-700/70 text-blue-200' : ''
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -142,14 +142,14 @@ const Navbar = () => {
                 <>
                   <Button 
                     variant="outline" 
-                    className="w-full border-[#f5f2ea]/30 text-[#f5f2ea] hover:bg-[#1a1a1a]/50"
+                    className="w-full border-blue-200/30 text-blue-200 hover:bg-gray-700/50"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
                     <Link to="/auth">Log in</Link>
                   </Button>
                   <Button 
-                    className="w-full bg-[#f5f2ea] text-[#2c2c2c] hover:bg-[#ede8df]"
+                    className="w-full bg-blue-600 text-white hover:bg-blue-700"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >

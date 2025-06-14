@@ -20,7 +20,7 @@ const NotFound = () => {
       {/* Logo */}
       <div className="mb-0">
         <img
-          src="/hospohub2/public/Images/Logo-HospoHub4.png"
+          src="/Images/Logo-HospoHub4.png"
           alt="HospoHub Logo"
           className="logo-breathing h-40 w-auto drop-shadow-2xl"
         />
