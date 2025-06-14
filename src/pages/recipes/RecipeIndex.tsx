@@ -51,8 +51,8 @@ const RecipeIndex = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
-              <BookOpen className="h-8 w-8 text-rgba(0, 0, 0, 0.12)-600 mr-3" />
-              <h1 className="text-2xl font-bold text-rgba(0, 0, 0, 0.12)-900">Recipe Collection</h1>
+              <BookOpen className="h-8 w-8 text-blue-600 mr-3" />
+              <h1 className="text-2xl font-bold text-gray-900">Recipe Collection</h1>
             </div>
             
             <div className="flex gap-2">
@@ -76,7 +76,7 @@ const RecipeIndex = () => {
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
-                <BookOpen className="w-12 h-12 mx-auto text-rgba(0, 0, 0, 0.12)-400 mb-4" />
+                <BookOpen className="w-12 h-12 mx-auto text-gray-400 mb-4" />
                 <h3 className="text-lg font-medium mb-2">No Recipes Added Yet</h3>
                 <p className="text-gray-500 mb-4">Start building your recipe collection</p>
                 <Button asChild>

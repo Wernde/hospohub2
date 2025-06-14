@@ -12,6 +12,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import PantryPage from './pages/pantry/PantryPage';
 import ShoppingPage from './pages/pantry/ShoppingPage';
 import PantrySettingsPage from './pages/pantry/PantrySettingsPage';
@@ -36,6 +38,8 @@ function App() {
           <Route path="/admin" element={<ProtectedRoute><AdminDashboard /></ProtectedRoute>} />
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/auth" element={<Auth />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           
           {/* Pantry routes */}
           <Route path="/pantry" element={<ProtectedRoute><PantryPage /></ProtectedRoute>} />

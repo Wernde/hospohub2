@@ -1,151 +1,177 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useToast } from '@/hooks/use-toast';
-import RecipePageHeader from '@/components/recipes/RecipePageHeader';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ClassDetailsForm from '@/components/classes/ClassDetailsForm';
-import RecipeSelectionTab from '@/components/classes/RecipeSelectionTab';
-import StudentsTab from '@/components/classes/StudentsTab';
-
-// Define student type
-interface Student {
-  id: string;
-  name: string;
-  email: string;
-  dietaryRequirements: string[];
-  allergies: string[];
-  notes?: string;
-}
-
-// Mock recipe data
-interface Recipe {
-  id: string;
-  name: string;
-  difficulty: string;
-  prepTime: number;
-  cookTime: number;
-  servings: number;
-}
-
-interface ClassDetailsFormData {
-  className: string;
-  instructor: string;
-  location: string;
-  startTime: string;
-  endTime: string;
-  description: string;
-}
-
-const mockRecipes: Recipe[] = [
-  { id: '1', name: 'Classic Chocolate Cake', difficulty: 'Medium', prepTime: 30, cookTime: 45, servings: 12 },
-  { id: '2', name: 'Vegetable Stir Fry', difficulty: 'Easy', prepTime: 15, cookTime: 10, servings: 4 },
-  { id: '3', name: 'Beef Wellington', difficulty: 'Hard', prepTime: 60, cookTime: 45, servings: 6 },
-  { id: '4', name: 'Pasta Carbonara', difficulty: 'Medium', prepTime: 15, cookTime: 15, servings: 4 },
-  { id: '5', name: 'Apple Pie', difficulty: 'Medium', prepTime: 45, cookTime: 50, servings: 8 },
-];
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowLeft, Save } from 'lucide-react';
+import { useToast } from '@/components/ui/use-toast';
 
 const ScheduleClass = () => {
   const navigate = useNavigate();
-  const [date, setDate] = useState<Date | undefined>(new Date());
-  const [students, setStudents] = useState<Student[]>([]);
-  const [activeTab, setActiveTab] = useState('details');
-  const [selectedRecipes, setSelectedRecipes] = useState<Recipe[]>([]);
-  const [classDetails, setClassDetails] = useState<ClassDetailsFormData>({
-    className: '',
-    instructor: '',
-    location: '',
-    startTime: '',
-    endTime: '',
-    description: '',
-  });
   const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    date: '',
+    time: '',
+    duration: '',
+    maxStudents: '',
+    location: ''
+  });
 
-  const handleFormData = (data: ClassDetailsFormData) => {
-    setClassDetails(data);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-    // Here we would save the class data including student information and recipes
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Here you would normally save to database
     toast({
-      title: "Class scheduled",
-      description: `${classDetails.className} has been scheduled with ${students.length} student(s) and ${selectedRecipes.length} recipe(s)`,
+      title: "Class Scheduled",
+      description: "Your cooking class has been successfully scheduled.",
     });
+    
     navigate('/classes');
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gray-100">
       <Navbar />
       
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
-        <div className="max-w-4xl mx-auto">
-          <RecipePageHeader title="Schedule a Class" />
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center mb-6">
+            <Link to="/classes">
+              <Button variant="outline" className="flex items-center mr-4">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Classes
+              </Button>
+            </Link>
+            <h1 className="text-2xl font-bold text-gray-900">Schedule New Class</h1>
+          </div>
           
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full mb-6">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="details">Class Details</TabsTrigger>
-              <TabsTrigger value="recipes">Recipe Selection</TabsTrigger>
-              <TabsTrigger value="students">Students & Summary</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="details">
-              <Card className="shadow-md">
-                <CardHeader className="bg-gradient-to-r from-rgba(0, 0, 0, 0.12)-50 to-rgba(0, 0, 0, 0.12)-100 border-b">
-                  <CardTitle className="text-xl text-rgba(0, 0, 0, 0.12)-800">Class Details</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <ClassDetailsForm 
-                    date={date}
-                    setDate={setDate}
-                    onNavigateBack={() => navigate('/classes')}
-                    onNavigateNext={() => setActiveTab('recipes')}
-                    onFormData={handleFormData}
+          <Card>
+            <CardHeader>
+              <CardTitle>Class Details</CardTitle>
+              <CardDescription>Fill in the information for your cooking class</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <Label htmlFor="title">Class Title</Label>
+                  <Input
+                    id="title"
+                    name="title"
+                    value={formData.title}
+                    onChange={handleInputChange}
+                    placeholder="e.g., Italian Pasta Making"
+                    required
                   />
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="recipes">
-              <Card className="shadow-md mb-6">
-                <CardHeader className="bg-gradient-to-r from-rgba(0, 0, 0, 0.12)-50 to-rgba(0, 0, 0, 0.12)-100 border-b">
-                  <CardTitle className="text-xl text-rgba(0, 0, 0, 0.12)-800">Recipe Selection</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <RecipeSelectionTab
-                    selectedRecipes={selectedRecipes}
-                    setSelectedRecipes={setSelectedRecipes}
-                    mockRecipes={mockRecipes}
-                    onNavigateBack={() => setActiveTab('details')}
-                    onNavigateNext={() => setActiveTab('students')}
+                </div>
+                
+                <div>
+                  <Label htmlFor="description">Description</Label>
+                  <Textarea
+                    id="description"
+                    name="description"
+                    value={formData.description}
+                    onChange={handleInputChange}
+                    placeholder="Describe what students will learn..."
+                    rows={3}
                   />
-                </CardContent>
-              </Card>
-            </TabsContent>
-            
-            <TabsContent value="students">
-              <Card className="shadow-md mb-6">
-                <CardHeader className="bg-gradient-to-r from-rgba(0, 0, 0, 0.12)-50 to-rgba(0, 0, 0, 0.12)-100 border-b">
-                  <CardTitle className="text-xl text-rgba(0, 0, 0, 0.12)-800">Students & Summary</CardTitle>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <StudentsTab
-                    students={students}
-                    setStudents={setStudents}
-                    onNavigateBack={() => setActiveTab('recipes')}
-                    onSubmit={handleSubmit}
-                    classDetails={classDetails}
-                    date={date}
-                    selectedRecipes={selectedRecipes}
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="date">Date</Label>
+                    <Input
+                      id="date"
+                      name="date"
+                      type="date"
+                      value={formData.date}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="time">Start Time</Label>
+                    <Input
+                      id="time"
+                      name="time"
+                      type="time"
+                      value={formData.time}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="duration">Duration (hours)</Label>
+                    <Input
+                      id="duration"
+                      name="duration"
+                      type="number"
+                      value={formData.duration}
+                      onChange={handleInputChange}
+                      placeholder="2"
+                      min="0.5"
+                      step="0.5"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <Label htmlFor="maxStudents">Max Students</Label>
+                    <Input
+                      id="maxStudents"
+                      name="maxStudents"
+                      type="number"
+                      value={formData.maxStudents}
+                      onChange={handleInputChange}
+                      placeholder="12"
+                      min="1"
+                      required
+                    />
+                  </div>
+                </div>
+                
+                <div>
+                  <Label htmlFor="location">Location</Label>
+                  <Input
+                    id="location"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleInputChange}
+                    placeholder="Kitchen Lab A"
+                    required
                   />
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
+                </div>
+                
+                <div className="flex justify-end space-x-2">
+                  <Button type="button" variant="outline" asChild>
+                    <Link to="/classes">Cancel</Link>
+                  </Button>
+                  <Button type="submit" className="flex items-center">
+                    <Save className="mr-2 h-4 w-4" />
+                    Schedule Class
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
         </div>
       </main>
       
