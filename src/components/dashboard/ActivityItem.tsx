@@ -13,7 +13,7 @@ interface ActivityItemProps {
 const ActivityItem = ({ id, title, time, icon, iconBg }: ActivityItemProps) => {
   return (
     <li>
-      <div className="px-4 py-4 sm:px-6 block hover:bg-[#f0f9ff]">
+      <div className="px-4 py-4 sm:px-6 block hover:bg-blue-50">
         <div className="flex items-center">
           <div className="min-w-0 flex-1 flex items-center">
             <div className="flex-shrink-0">
@@ -22,12 +22,12 @@ const ActivityItem = ({ id, title, time, icon, iconBg }: ActivityItemProps) => {
               </div>
             </div>
             <div className="min-w-0 flex-1 px-4">
-              <p className="text-sm font-medium text-rgba(0, 0, 0, 0.12)-600 truncate">{title}</p>
-              <p className="mt-1 text-sm text-rgba(0, 0, 0, 0.12)-500">{time}</p>
+              <p className="text-sm font-medium text-gray-600 truncate">{title}</p>
+              <p className="mt-1 text-sm text-gray-500">{time}</p>
             </div>
           </div>
           <div>
-            <Link to="#" className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-rgba(0, 0, 0, 0.12)-300 text-sm leading-5 font-medium rounded-full text-rgba(0, 0, 0, 0.12)-700 bg-white hover:bg-rgba(0, 0, 0, 0.12)-50">
+            <Link to="#" className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-gray-700 bg-white hover:bg-gray-50">
               View
             </Link>
           </div>
