@@ -17,12 +17,12 @@ const NotFound = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6 text-center">
-      {/* Logo */}
-      <div className="mb-0">
+      {/* Logo with background container */}
+      <div className="mb-8 p-6 bg-white rounded-full shadow-lg">
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHub Logo"
-          className="logo-breathing h-40 w-auto drop-shadow-2xl"
+          className="logo-breathing h-32 w-auto drop-shadow-2xl"
         />
       </div>
 
@@ -35,7 +35,7 @@ const NotFound = () => {
       </p>
 
       {/* Return Home Button */}
-      <Button size="lg" className="animated-button bg-gray-600 text-white hover:bg-gray-700">
+      <Button size="lg" className="animated-button bg-blue-600 text-white hover:bg-blue-700">
         <Link to="/" className="flex items-center gap-2">
           <Home className="h-5 w-5" />
           Return to Home
