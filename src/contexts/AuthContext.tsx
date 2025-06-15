@@ -21,6 +21,13 @@ interface OrganizationMembership {
   permissions?: Record<string, any>;
 }
 
+interface SignUpUserData {
+  firstName: string;
+  lastName: string;
+  role: string;
+  accessLevel: number;
+}
+
 interface AuthContextType {
   user: User | null;
   session: Session | null;
@@ -29,7 +36,7 @@ interface AuthContextType {
   userOrganizations: OrganizationMembership[];
   activeOrganization: Organization | null;
   setActiveOrganization: (org: Organization | null) => void;
-  signUp: (email: string, password: string, organizationName?: string) => Promise<{user: User | null, error: Error | null}>;
+  signUp: (email: string, password: string, organizationName?: string, userData?: SignUpUserData) => Promise<{user: User | null, error: Error | null}>;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => Promise<void>;
   checkIsAdmin: () => Promise<boolean>;
@@ -182,15 +189,39 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const signUp = async (email: string, password: string, organizationName?: string) => {
+  const signUp = async (email: string, password: string, organizationName?: string, userData?: SignUpUserData) => {
     try {
       setIsLoading(true);
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          data: {
+            first_name: userData?.firstName,
+            last_name: userData?.lastName,
+            role: userData?.role,
+          }
+        }
       });
 
       if (error) throw error;
+      
+      // Update user profile if data was provided
+      if (userData && data.user) {
+        try {
+          const { error: profileError } = await supabase
+            .from('profiles')
+            .update({
+              first_name: userData.firstName,
+              last_name: userData.lastName,
+            })
+            .eq('id', data.user.id);
+          
+          if (profileError) console.error('Error updating profile:', profileError);
+        } catch (profileError) {
+          console.error('Error updating profile:', profileError);
+        }
+      }
       
       // If organization name is provided, create an organization for the user
       if (organizationName && data.user) {
@@ -209,14 +240,22 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           
           if (orgError) throw orgError;
           
-          // Add the user as an admin of the organization
+          // Add the user as a member of the organization with the specified access level
+          const accessLevel = userData?.accessLevel || (userData?.role === 'administrator' ? 3 : 1);
           const { error: memberError } = await supabase
             .from('organization_members')
             .insert([
               { 
                 user_id: data.user.id, 
                 organization_id: orgData.id,
-                access_level: 3 // Admin
+                access_level: accessLevel,
+                can_invite_members: accessLevel >= 2,
+                can_manage_roles: accessLevel >= 3,
+                permissions: accessLevel === 1 
+                  ? { read: true }
+                  : accessLevel === 2 
+                  ? { read: true, write: true, invite: true }
+                  : { read: true, write: true, invite: true, admin: true }
               }
             ]);
           
