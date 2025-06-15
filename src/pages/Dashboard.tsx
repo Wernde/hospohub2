@@ -14,16 +14,15 @@ const QuickActions = lazy(() => import('@/components/dashboard/QuickActions'));
 const AdminCard = lazy(() => import('@/components/dashboard/AdminCard'));
 
 const Dashboard = () => {
-  const { user, isAdmin } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
+  const { user, isAdmin, isLoading } = useAuth();
   const navigate = useNavigate();
 
-  // Prevent navigation away from dashboard when logged in
+  // Redirect if not authenticated
   useEffect(() => {
-    if (!user) {
+    if (!isLoading && !user) {
       navigate('/auth', { replace: true });
     }
-  }, [user, navigate]);
+  }, [user, isLoading, navigate]);
 
   // Loading skeleton component
   const LoadingSkeleton = () => (
@@ -32,6 +31,23 @@ const Dashboard = () => {
       <Skeleton className="h-24 w-full" />
     </div>
   );
+
+  // Show loading while auth is being determined
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-stone-100">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600 mx-auto mb-4" />
+          <p className="text-lg text-stone-800">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render if no user (will redirect)
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="flex flex-col min-h-screen bg-stone-100">

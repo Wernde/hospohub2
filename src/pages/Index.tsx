@@ -1,3 +1,4 @@
+
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -8,24 +9,15 @@ const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [logoVisible, setLogoVisible] = useState(false);
   const [buttonVisible, setButtonVisible] = useState(false);
-  const [isExiting, setIsExiting] = useState(false);
 
-  // Smooth navigate function with transition
-  const smoothNavigate = useCallback((path: string) => {
-    setIsExiting(true);
-    setTimeout(() => {
-      navigate(path);
-    }, 500);
-  }, [navigate]);
-
-  // Redirect authenticated users to dashboard
+  // Redirect authenticated users to dashboard immediately
   useEffect(() => {
-    if (user) {
-      smoothNavigate('/dashboard');
+    if (user && !isLoading) {
+      navigate('/dashboard', { replace: true });
     }
-  }, [user, smoothNavigate]);
+  }, [user, isLoading, navigate]);
 
-  // Entrance animation sequence
+  // Entrance animation sequence - only if user is not authenticated
   useEffect(() => {
     if (!user && !isLoading) {
       // Start background fade
@@ -51,23 +43,28 @@ const Index = () => {
     }
   }, [user, isLoading]);
 
-  // Show loading while auth is loading or redirecting
+  // Show loading while auth is loading
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-200">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600 mx-auto mb-4" />
-          <p className="text-lg text-stone-800">{user ? 'Redirecting...' : 'Loading...'}</p>
+          <p className="text-lg text-stone-800">Loading...</p>
         </div>
       </div>
     );
+  }
+
+  // Don't render anything if user is authenticated (will redirect)
+  if (user) {
+    return null;
   }
 
   return (
     <div 
       className={`min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 transition-all duration-1000 ${
         isVisible ? 'opacity-100' : 'opacity-0'
-      } ${isExiting ? 'opacity-0 scale-95' : ''}`}
+      }`}
       style={{
         backgroundImage: `url('/hospohub2/Images/HospoHUB.png')`,
         backgroundSize: 'cover',
@@ -94,7 +91,7 @@ const Index = () => {
           buttonVisible ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
         }`}>
           <button
-            onClick={() => smoothNavigate('/auth')}
+            onClick={() => navigate('/auth')}
             className="bg-transparent border-2 border-white text-white px-16 py-6 text-2xl cursor-pointer rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-black active:scale-95 hover:scale-105 backdrop-blur-sm"
           >
             CONTINUE
