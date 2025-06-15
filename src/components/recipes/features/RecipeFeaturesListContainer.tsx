@@ -18,9 +18,9 @@ const RecipeFeaturesListContainer: React.FC = () => {
   } = useFeatures(recipeFeatures);
 
   return (
-    <div className="bg-rgba(0, 0, 0, 0.12)-50 rounded-lg p-6 my-8">
+    <div className="bg-stone-50 rounded-lg p-6 my-8">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-        <h2 className="text-xl font-semibold text-rgba(0, 0, 0, 0.12)-900">Recipe Management Features</h2>
+        <h2 className="text-xl font-semibold text-black">Recipe Management Features</h2>
         <FeatureHeaderActions upcomingFeatures={upcomingFeatures} />
       </div>
       

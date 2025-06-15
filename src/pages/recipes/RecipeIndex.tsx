@@ -46,7 +46,7 @@ const RecipeIndex = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-stone-100">
+    <div className="flex flex-col min-h-screen bg-stone-100 text-black">
       <Navbar />
       
       {/* Main content */}
@@ -54,8 +54,8 @@ const RecipeIndex = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
-              <BookOpen className="h-8 w-8 text-stone-600 mr-3" />
-              <h1 className="text-2xl font-bold text-stone-900">Recipe Collection</h1>
+              <BookOpen className="h-8 w-8 text-black mr-3" />
+              <h1 className="text-2xl font-bold text-black">Recipe Collection</h1>
             </div>
             
             <div className="flex gap-2">
@@ -73,14 +73,14 @@ const RecipeIndex = () => {
           
           <Card className="mb-8 bg-stone-50 border-stone-200">
             <CardHeader>
-              <CardTitle className="text-stone-900">My Recipes</CardTitle>
-              <CardDescription className="text-stone-600">Browse and manage your recipe collection</CardDescription>
+              <CardTitle className="text-black">My Recipes</CardTitle>
+              <CardDescription className="text-black">Browse and manage your recipe collection</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
                 <BookOpen className="w-12 h-12 mx-auto text-stone-400 mb-4" />
-                <h3 className="text-lg font-medium mb-2 text-stone-900">No Recipes Added Yet</h3>
-                <p className="text-stone-500 mb-4">Start building your recipe collection</p>
+                <h3 className="text-lg font-medium mb-2 text-black">No Recipes Added Yet</h3>
+                <p className="text-black mb-4">Start building your recipe collection</p>
                 <Button onClick={() => navigate('/recipes/new')} className="bg-stone-600 hover:bg-stone-700">
                   Add Recipe
                 </Button>

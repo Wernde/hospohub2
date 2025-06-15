@@ -15,7 +15,7 @@ const RecipeTools = () => {
   const [activeTab, setActiveTab] = useState('unit-conversion');
   
   return (
-    <div className="flex flex-col min-h-screen bg-stone-100">
+    <div className="flex flex-col min-h-screen bg-stone-100 text-black">
       <Navbar />
       
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
@@ -24,13 +24,13 @@ const RecipeTools = () => {
           
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid grid-cols-2 md:grid-cols-7 w-full mb-6 bg-stone-200">
-              <TabsTrigger value="unit-conversion" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Units</TabsTrigger>
-              <TabsTrigger value="ingredient-scaling" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Scaling</TabsTrigger>
-              <TabsTrigger value="attribution" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Attribution</TabsTrigger>
-              <TabsTrigger value="dietary" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Dietary</TabsTrigger>
-              <TabsTrigger value="substitution" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Substitutes</TabsTrigger>
-              <TabsTrigger value="sharing" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Sharing</TabsTrigger>
-              <TabsTrigger value="cost" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Costs</TabsTrigger>
+              <TabsTrigger value="unit-conversion" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white text-black">Units</TabsTrigger>
+              <TabsTrigger value="ingredient-scaling" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white text-black">Scaling</TabsTrigger>
+              <TabsTrigger value="attribution" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white text-black">Attribution</TabsTrigger>
+              <TabsTrigger value="dietary" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white text-black">Dietary</TabsTrigger>
+              <TabsTrigger value="substitution" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white text-black">Substitutes</TabsTrigger>
+              <TabsTrigger value="sharing" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white text-black">Sharing</TabsTrigger>
+              <TabsTrigger value="cost" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white text-black">Costs</TabsTrigger>
             </TabsList>
             
             <TabsContent value="unit-conversion">

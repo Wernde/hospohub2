@@ -35,7 +35,7 @@ const NewRecipe = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-stone-100">
+    <div className="flex flex-col min-h-screen bg-stone-100 text-black">
       <Navbar />
       
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
