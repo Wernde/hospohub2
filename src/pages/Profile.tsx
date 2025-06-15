@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Badge } from '@/components/ui/badge';
 
 interface Profile {
   first_name: string | null;
@@ -18,7 +19,7 @@ interface Profile {
 }
 
 const Profile = () => {
-  const { user, activeOrganization } = useAuth();
+  const { user, activeOrganization, getUserAccessLevel } = useAuth();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [profile, setProfile] = useState<Profile>({
@@ -37,6 +38,31 @@ const Profile = () => {
     specializations: '',
     preferred_cuisine: ''
   });
+
+  // Get user's access level for the active organization
+  const userAccessLevel = activeOrganization 
+    ? getUserAccessLevel(activeOrganization.id) 
+    : null;
+
+  const getAccessLevelLabel = (level: number | null) => {
+    if (level === null) return 'No Organization Access';
+    switch (level) {
+      case 1: return 'Member';
+      case 2: return 'Manager';
+      case 3: return 'Administrator';
+      default: return 'Unknown';
+    }
+  };
+
+  const getAccessLevelColor = (level: number | null) => {
+    if (level === null) return 'secondary';
+    switch (level) {
+      case 1: return 'default';
+      case 2: return 'secondary';
+      case 3: return 'destructive';
+      default: return 'secondary';
+    }
+  };
 
   useEffect(() => {
     if (user) {
@@ -115,9 +141,19 @@ const Profile = () => {
     <div className="flex flex-col min-h-screen bg-stone-100">
       <Navbar />
       
-      <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
+      <main className="flex-grow container mx-auto px-4 pt-32 pb-16">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8 text-stone-800">Your Profile</h1>
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-3xl font-bold text-stone-800">Your Profile</h1>
+            {activeOrganization && (
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-stone-600">Access Level:</span>
+                <Badge variant={getAccessLevelColor(userAccessLevel)}>
+                  {getAccessLevelLabel(userAccessLevel)}
+                </Badge>
+              </div>
+            )}
+          </div>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Basic Profile Information */}
@@ -314,6 +350,19 @@ const Profile = () => {
                       {activeOrganization.name}
                     </div>
                   </div>
+                  
+                  <div className="space-y-2">
+                    <Label>Your Access Level</Label>
+                    <div className="px-3 py-2 bg-stone-50 border rounded-md text-stone-700 flex items-center gap-2">
+                      <Badge variant={getAccessLevelColor(userAccessLevel)}>
+                        {getAccessLevelLabel(userAccessLevel)}
+                      </Badge>
+                      <span className="text-sm text-stone-500">
+                        (Assigned by organization administrator)
+                      </span>
+                    </div>
+                  </div>
+
                   {activeOrganization.description && (
                     <div className="space-y-2">
                       <Label>Description</Label>
