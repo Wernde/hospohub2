@@ -25,7 +25,7 @@ const OrganizationSelector = () => {
         variant="outline" 
         size="sm"
         onClick={() => navigate('/organization/create')}
-        className="flex items-center gap-2 bg-rgba(0, 0, 0, 0.12)-800/40 border-rgba(0, 0, 0, 0.12)-700 hover:bg-rgba(0, 0, 0, 0.12)-800/60 text-rgba(0, 0, 0, 0.12)-100"
+        className="flex items-center gap-2 bg-stone-800/40 border-stone-700 hover:bg-stone-800/60 text-white"
       >
         <Plus className="h-4 w-4" />
         <span>Create Organization</span>
@@ -43,11 +43,11 @@ const OrganizationSelector = () => {
       <DropdownMenuTrigger asChild>
         <Button 
           variant="outline" 
-          className="flex items-center justify-between bg-rgba(0, 0, 0, 0.12)-800/40 border-rgba(0, 0, 0, 0.12)-700 hover:bg-rgba(0, 0, 0, 0.12)-800/60 text-rgba(0, 0, 0, 0.12)-100"
+          className="flex items-center justify-between bg-stone-800/40 border-stone-700 hover:bg-stone-800/60 text-white"
           size="sm"
         >
           <span className="flex items-center gap-2 truncate max-w-[140px]">
-            <Building className="h-4 w-4 text-rgba(0, 0, 0, 0.12)-300" />
+            <Building className="h-4 w-4 text-stone-300" />
             <span className="truncate">
               {activeOrganization?.name || 'Select Organization'}
             </span>
@@ -62,7 +62,7 @@ const OrganizationSelector = () => {
           <DropdownMenuItem 
             key={membership.organization_id}
             className={`cursor-pointer ${
-              activeOrganization?.id === membership.organization.id ? 'bg-rgba(0, 0, 0, 0.12)-50 font-medium' : ''
+              activeOrganization?.id === membership.organization.id ? 'bg-stone-50 font-medium' : ''
             }`}
             onClick={() => {
               setActiveOrganization(membership.organization);
@@ -76,7 +76,7 @@ const OrganizationSelector = () => {
             <div className="flex items-center justify-between w-full">
               <span className="truncate">{membership.organization.name}</span>
               {membership.access_level === 3 && (
-                <span className="ml-2 text-xs bg-rgba(0, 0, 0, 0.12)-100 text-rgba(0, 0, 0, 0.12)-800 px-1.5 py-0.5 rounded">
+                <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">
                   Admin
                 </span>
               )}
@@ -90,7 +90,7 @@ const OrganizationSelector = () => {
         ))}
         <DropdownMenuSeparator />
         <DropdownMenuItem 
-          className="cursor-pointer text-rgba(0, 0, 0, 0.12)-600 hover:text-rgba(0, 0, 0, 0.12)-800"
+          className="cursor-pointer text-stone-600 hover:text-stone-800"
           onClick={handleCreateNewOrg}
         >
           <Plus className="h-4 w-4 mr-2" />
