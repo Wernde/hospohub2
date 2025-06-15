@@ -19,6 +19,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 // Lazy load heavy components
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const Profile = lazy(() => import("./pages/Profile"));
+const OrganizationCreate = lazy(() => import("./pages/organization/OrganizationCreate"));
 const PantryPage = lazy(() => import('./pages/pantry/PantryPage'));
 const ShoppingPage = lazy(() => import('./pages/pantry/ShoppingPage'));
 const PantrySettingsPage = lazy(() => import('./pages/pantry/PantrySettingsPage'));
