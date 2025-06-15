@@ -45,7 +45,7 @@ const PageSkeleton = () => (
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/hospohub2">
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Index />} />
