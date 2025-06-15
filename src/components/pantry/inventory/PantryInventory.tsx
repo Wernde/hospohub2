@@ -23,7 +23,7 @@ const PantryInventory = () => {
           <div className="flex gap-2">
             <ReceiptScannerDialog />
             <Link to="/orders">
-              <Button variant="outline" size="sm" className="flex items-center gap-1">
+              <Button variant="outline" size="sm" className="flex items-center gap-1 bg-stone-200 hover:bg-stone-300 border-stone-400">
                 <Package className="h-4 w-4" />
                 <span className="hidden sm:inline">Track Orders</span>
               </Button>

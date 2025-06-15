@@ -11,13 +11,18 @@ interface PantryItemProps {
 const PantryItem: React.FC<PantryItemProps> = ({ item }) => {
   const { updatePantryQuantity, removePantryItem } = usePantry();
   
+  // Check if item is expired (assuming expirationDate exists and is in the past)
+  const isExpired = item.expirationDate && new Date(item.expirationDate) < new Date();
+  
   return (
     <div className="bg-white p-3 rounded-lg shadow-sm border">
       <div className="flex justify-between">
         <div className="flex items-center">
           <div className="mr-2">
-            {item.isLowStock ? (
-              <AlertTriangle className="h-5 w-5 text-yellow-500" />
+            {isExpired ? (
+              <AlertTriangle className="h-5 w-5 text-red-500 animate-pulse" />
+            ) : item.isLowStock ? (
+              <AlertTriangle className="h-5 w-5 text-amber-500 animate-pulse" />
             ) : (
               <CheckCircle className="h-5 w-5 text-green-500" />
             )}
@@ -48,8 +53,12 @@ const PantryItem: React.FC<PantryItemProps> = ({ item }) => {
             </button>
           </div>
           <div className="text-sm">
-            {item.isLowStock ? (
-              <span className="text-yellow-500">
+            {isExpired ? (
+              <span className="text-red-500 animate-pulse">
+                Expired
+              </span>
+            ) : item.isLowStock ? (
+              <span className="text-amber-500 animate-pulse">
                 Low Stock (Min: {item.lowStockThreshold} {item.unit})
               </span>
             ) : (

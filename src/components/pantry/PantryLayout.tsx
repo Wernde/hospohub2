@@ -34,7 +34,7 @@ const PantryLayout: React.FC<PantryLayoutProps> = ({
           <div className="flex items-center gap-2">
             {actions}
             <Link to="/shopping" className="ml-2">
-              <Button variant="outline" className="flex items-center">
+              <Button variant="outline" className="flex items-center bg-stone-200 hover:bg-stone-300 border-stone-400">
                 <ShoppingCart className="mr-2 h-4 w-4" />
                 Shopping List
               </Button>
@@ -48,22 +48,22 @@ const PantryLayout: React.FC<PantryLayoutProps> = ({
       ) : (
         <Tabs defaultValue={activeTab} value={activeTab} onValueChange={setActiveTab} className="w-full">
           <div className="flex justify-between items-center mb-6">
-            <TabsList className="grid w-full grid-cols-3">
-              <TabsTrigger value="combined">Combined View</TabsTrigger>
-              <TabsTrigger value="inventory">Pantry Inventory</TabsTrigger>
-              <TabsTrigger value="recipes">Recipe Needs</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-3 bg-stone-200">
+              <TabsTrigger value="combined" className="bg-stone-100 data-[state=active]:bg-stone-400 data-[state=active]:text-white">Combined View</TabsTrigger>
+              <TabsTrigger value="inventory" className="bg-stone-100 data-[state=active]:bg-stone-400 data-[state=active]:text-white">Pantry Inventory</TabsTrigger>
+              <TabsTrigger value="recipes" className="bg-stone-100 data-[state=active]:bg-stone-400 data-[state=active]:text-white">Recipe Needs</TabsTrigger>
             </TabsList>
           </div>
           
           <TabsContent value="combined" className="mt-0">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-[600px]">
               {/* Left panel - Pantry inventory */}
-              <div className="lg:col-span-1 bg-card shadow-sm rounded-lg p-6 overflow-y-auto max-h-[800px]">
+              <div className="lg:col-span-1 bg-stone-100 shadow-sm rounded-lg p-6 overflow-y-auto max-h-[800px]">
                 <PantryInventory />
               </div>
               
               {/* Right panel - Recipe needs and shopping list */}
-              <div className="lg:col-span-2 bg-card shadow-sm rounded-lg p-6 overflow-y-auto max-h-[800px]">
+              <div className="lg:col-span-2 bg-stone-100 shadow-sm rounded-lg p-6 overflow-y-auto max-h-[800px]">
                 <RecipeNeedsPanel />
               </div>
             </div>
@@ -71,7 +71,7 @@ const PantryLayout: React.FC<PantryLayoutProps> = ({
           
           <TabsContent value="inventory" className="mt-0">
             <div className="flex flex-col gap-6">
-              <div className="w-full bg-card shadow-sm rounded-lg p-6 overflow-y-auto">
+              <div className="w-full bg-stone-100 shadow-sm rounded-lg p-6 overflow-y-auto">
                 <PantryInventory />
               </div>
               
