@@ -18,7 +18,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-stone-100 p-6 text-center animate-fade-in">
       {/* Logo with background container */}
-      <div className="mb-8 p-6 bg-stone-700 rounded-full shadow-lg">
+      <div className="mb-8 p-6 bg-blue-600 rounded-full shadow-lg">
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHub Logo"
@@ -26,16 +26,19 @@ const NotFound = () => {
         />
       </div>
 
-      {/* Error Code */}
-      <h1 className="text-4xl md:text-6xl font-bold mb-4 font-display text-stone-800">404</h1>
+      {/* Error message container with background */}
+      <div className="bg-white/80 backdrop-blur-sm rounded-lg p-8 shadow-lg border border-stone-200 max-w-md">
+        {/* Error Code */}
+        <h1 className="text-4xl md:text-6xl font-bold mb-4 font-display text-stone-800">404</h1>
 
-      {/* Message */}
-      <p className="text-xl md:text-2xl text-stone-600 mb-8 max-w-md">
-        Oops! This page seems to have wandered away from our HospoHub platform.
-      </p>
+        {/* Message */}
+        <p className="text-xl md:text-2xl text-stone-600 mb-8">
+          Oops! This page seems to have wandered away from our HospoHub platform.
+        </p>
+      </div>
 
       {/* Return Home Button */}
-      <Link to="/">
+      <Link to="/" className="mt-6">
         <Button size="lg" className="animated-button bg-stone-600 text-white hover:bg-stone-700 flex items-center gap-2 transition-all duration-300">
           <Home className="h-5 w-5" />
           Return to Home
