@@ -33,7 +33,7 @@ const PantryItem: React.FC<PantryItemProps> = ({ item }) => {
           <div className="flex items-center space-x-2">
             <input
               type="number"
-              className="w-16 px-2 py-1 border rounded text-right"
+              className="w-16 px-2 py-1 border border-gray-400 bg-gray-100 rounded text-right text-gray-900"
               value={item.currentQuantity}
               min="0"
               step="0.1"

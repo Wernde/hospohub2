@@ -10,7 +10,7 @@ export interface PantryInputProps
 const PantryInput = React.forwardRef<HTMLInputElement, PantryInputProps>(
   ({ className, type, variant = 'default', ...props }, ref) => {
     const variantStyles = {
-      default: "bg-stone-50 border-stone-300 text-stone-900 placeholder:text-stone-500 focus-visible:ring-stone-500",
+      default: "bg-gray-100 border-gray-400 text-gray-900 placeholder:text-gray-600 focus-visible:ring-gray-500",
       'low-stock': "bg-red-50 border-red-300 text-red-900 placeholder:text-red-500 focus-visible:ring-red-500",
       'expiring': "bg-yellow-50 border-yellow-300 text-yellow-900 placeholder:text-yellow-500 focus-visible:ring-yellow-500"
     }

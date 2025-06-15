@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { usePantry } from '../PantryContext';
-import { Input } from '@/components/ui/input';
+import { PantryInput } from '@/components/ui/pantry-input';
 import { Button } from '@/components/ui/button';
 
 const AddItemForm = () => {
@@ -11,7 +11,7 @@ const AddItemForm = () => {
     <div className="mb-4 p-4 bg-gray-100 rounded-lg">
       <h3 className="font-bold mb-2">Add New Pantry Item</h3>
       <div className="mb-2">
-        <Input
+        <PantryInput
           type="text"
           className="w-full"
           placeholder="Ingredient Name"
@@ -21,7 +21,7 @@ const AddItemForm = () => {
       </div>
       <div className="mb-2">
         <select
-          className="w-full px-3 py-2 border rounded"
+          className="w-full px-3 py-2 border border-gray-400 bg-gray-100 rounded text-gray-900"
           value={newItem.category}
           onChange={(e) => setNewItem({...newItem, category: e.target.value})}
         >
@@ -37,7 +37,7 @@ const AddItemForm = () => {
         </select>
       </div>
       <div className="mb-2 flex space-x-2">
-        <Input
+        <PantryInput
           type="number"
           className="w-1/2"
           placeholder="Quantity"
@@ -47,7 +47,7 @@ const AddItemForm = () => {
           onChange={(e) => setNewItem({...newItem, currentQuantity: parseFloat(e.target.value)})}
         />
         <select
-          className="w-1/2 px-3 py-2 border rounded"
+          className="w-1/2 px-3 py-2 border border-gray-400 bg-gray-100 rounded text-gray-900"
           value={newItem.unit}
           onChange={(e) => setNewItem({...newItem, unit: e.target.value})}
         >
@@ -60,7 +60,7 @@ const AddItemForm = () => {
         </select>
       </div>
       <div className="mb-2">
-        <Input
+        <PantryInput
           type="text"
           className="w-full"
           placeholder="Storage Location"
@@ -69,7 +69,7 @@ const AddItemForm = () => {
         />
       </div>
       <div className="mb-2">
-        <Input
+        <PantryInput
           type="number"
           className="w-full"
           placeholder="Low Stock Threshold"
@@ -80,7 +80,7 @@ const AddItemForm = () => {
         />
       </div>
       <Button
-        className="w-full bg-rgba(0, 0, 0, 0.12)-500 hover:bg-rgba(0, 0, 0, 0.12)-600"
+        className="w-full bg-amber-500 hover:bg-amber-600"
         onClick={handleAddItem}
       >
         Add to Pantry
