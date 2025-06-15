@@ -64,7 +64,7 @@ const ClassDetailsForm: React.FC<ClassDetailsFormProps> = ({
           <DescriptionField form={form} />
         </div>
         
-        <div className="flex justify-end space-x-2 pt-4">
+        <div className="flex justify-end space-x-2 pt-4 text-black">
           <Button 
             type="button" 
             variant="outline" 

@@ -52,7 +52,7 @@ const RecipeSelectionTab: React.FC<RecipeSelectionTabProps> = ({
     <div className="space-y-6">
       <div>
         <div className="flex justify-between items-center">
-          <h3 className="text-lg font-medium">Selected Recipes</h3>
+          <h3 className="text-lg font-medium text-black">Selected Recipes</h3>
           <Dialog open={recipeDialogOpen} onOpenChange={setRecipeDialogOpen}>
             <DialogTrigger asChild>
               <Button variant="outline">
@@ -61,17 +61,17 @@ const RecipeSelectionTab: React.FC<RecipeSelectionTabProps> = ({
             </DialogTrigger>
             <DialogContent className="max-w-md">
               <DialogHeader>
-                <DialogTitle>Select Recipes</DialogTitle>
-                <DialogDescription>
+                <DialogTitle className="text-black">Select Recipes</DialogTitle>
+                <DialogDescription className="text-black">
                   Choose recipes to include in this class.
                 </DialogDescription>
               </DialogHeader>
               <div className="mt-4 space-y-4">
                 {mockRecipes.map((recipe) => (
-                  <div key={recipe.id} className="flex items-center justify-between p-3 bg-rgba(0, 0, 0, 0.12)-50 rounded-md">
+                  <div key={recipe.id} className="flex items-center justify-between p-3 bg-stone-50 rounded-md">
                     <div>
-                      <h4 className="font-medium">{recipe.name}</h4>
-                      <p className="text-sm text-gray-500">
+                      <h4 className="font-medium text-black">{recipe.name}</h4>
+                      <p className="text-sm text-black">
                         {recipe.difficulty} • {recipe.prepTime + recipe.cookTime} min • {recipe.servings} servings
                       </p>
                     </div>
@@ -100,8 +100,8 @@ const RecipeSelectionTab: React.FC<RecipeSelectionTabProps> = ({
                 className="flex items-center justify-between p-4 border rounded-lg bg-white shadow-sm"
               >
                 <div>
-                  <h4 className="font-medium">{recipe.name}</h4>
-                  <p className="text-sm text-gray-500">
+                  <h4 className="font-medium text-black">{recipe.name}</h4>
+                  <p className="text-sm text-black">
                     {recipe.difficulty} • {recipe.prepTime + recipe.cookTime} min • {recipe.servings} servings
                   </p>
                 </div>
@@ -126,8 +126,8 @@ const RecipeSelectionTab: React.FC<RecipeSelectionTabProps> = ({
         ) : (
           <div className="p-8 text-center border rounded-lg bg-gray-50 mt-4">
             <ChefHat className="h-12 w-12 mx-auto text-gray-400 mb-2" />
-            <h3 className="text-lg font-medium text-gray-900 mb-1">No recipes selected</h3>
-            <p className="text-gray-500 mb-4">Add recipes to teach in this class</p>
+            <h3 className="text-lg font-medium text-black mb-1">No recipes selected</h3>
+            <p className="text-black mb-4">Add recipes to teach in this class</p>
             <Button
               onClick={() => setRecipeDialogOpen(true)}
               variant="outline"

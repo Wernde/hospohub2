@@ -19,8 +19,8 @@ const ClassesIndex = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
-              <GraduationCap className="h-8 w-8 text-stone-700 mr-3" />
-              <h1 className="text-2xl font-bold text-stone-900">Classes</h1>
+              <GraduationCap className="h-8 w-8 text-black mr-3" />
+              <h1 className="text-2xl font-bold text-black">Classes</h1>
             </div>
             
             <Button onClick={() => navigate('/classes/schedule')} className="bg-stone-600 hover:bg-stone-700">
@@ -31,14 +31,14 @@ const ClassesIndex = () => {
           
           <Card className="mb-8 bg-stone-50 border-stone-200">
             <CardHeader>
-              <CardTitle className="text-stone-900">My Classes</CardTitle>
-              <CardDescription className="text-stone-600">Manage your cooking classes and workshops</CardDescription>
+              <CardTitle className="text-black">My Classes</CardTitle>
+              <CardDescription className="text-black">Manage your cooking classes and workshops</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="text-center py-8">
                 <Calendar className="w-12 h-12 mx-auto text-stone-400 mb-4" />
-                <h3 className="text-lg font-medium mb-2 text-stone-900">No Classes Scheduled</h3>
-                <p className="text-stone-600 mb-4">Start by scheduling your first cooking class</p>
+                <h3 className="text-lg font-medium mb-2 text-black">No Classes Scheduled</h3>
+                <p className="text-black mb-4">Start by scheduling your first cooking class</p>
                 <Button onClick={() => navigate('/classes/schedule')} className="bg-stone-600 hover:bg-stone-700">
                   Schedule Class
                 </Button>
