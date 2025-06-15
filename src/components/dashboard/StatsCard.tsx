@@ -24,9 +24,9 @@ const StatsCard = ({ title, value, description, icon, iconBg, href, hoverColor =
           </div>
           <div className="ml-5 w-0 flex-1">
             <dl>
-              <dt className="text-sm font-medium text-gray-500 truncate">{title}</dt>
+              <dt className="text-sm font-medium text-black truncate">{title}</dt>
               <dd>
-                <div className="text-lg font-semibold text-gray-900">{value}</div>
+                <div className="text-lg font-semibold text-black">{value}</div>
               </dd>
             </dl>
           </div>
@@ -34,7 +34,7 @@ const StatsCard = ({ title, value, description, icon, iconBg, href, hoverColor =
       </div>
       <div className={`${descriptionBg} px-4 py-4 sm:px-6 block hover:opacity-80 transition-opacity duration-200`}>
         <div className="text-sm">
-          <Link to={href} className="font-medium text-gray-600 hover:text-gray-700">
+          <Link to={href} className="font-medium text-black hover:text-gray-700">
             {description}
           </Link>
         </div>

@@ -21,11 +21,11 @@ const QuickActionCard = ({ id, title, description, icon, iconBg, href }: QuickAc
         <div className={`flex-shrink-0 h-10 w-10 rounded-full ${iconBg} flex items-center justify-center`}>
           {icon}
         </div>
-        <h4 className="text-base font-semibold text-gray-900 group-hover:text-gray-700">
+        <h4 className="text-base font-semibold text-black group-hover:text-black">
           {title}
         </h4>
       </div>
-      <p className="mt-2 text-sm text-gray-600">{description}</p>
+      <p className="mt-2 text-sm text-black">{description}</p>
     </Link>
   );
 };

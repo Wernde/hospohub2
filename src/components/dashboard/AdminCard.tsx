@@ -8,11 +8,11 @@ const AdminCard = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Admin Controls</CardTitle>
-        <CardDescription>Access your admin dashboard</CardDescription>
+        <CardTitle className="text-black">Admin Controls</CardTitle>
+        <CardDescription className="text-black">Access your admin dashboard</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="mb-4">You have admin privileges. You can access the admin dashboard to manage users and system settings.</p>
+        <p className="mb-4 text-black">You have admin privileges. You can access the admin dashboard to manage users and system settings.</p>
         <Link 
           to="/admin" 
           className="inline-flex items-center px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
