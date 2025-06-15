@@ -18,7 +18,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-stone-100 p-6 text-center animate-fade-in">
       {/* Logo with background container */}
-      <div className="mb-8 p-6 bg-blue-600 rounded-full shadow-lg">
+      <div className="mb-8 p-6 bg-stone-700 rounded-full shadow-lg">
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHub Logo"
