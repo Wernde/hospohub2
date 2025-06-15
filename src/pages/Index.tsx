@@ -1,4 +1,3 @@
-
 import { useEffect, useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
@@ -79,24 +78,24 @@ const Index = () => {
       {/* Dark overlay for better text readability */}
       <div className="absolute inset-0 bg-black/20" />
       
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHUB Logo"
           width="1000"
           height="300"
-          className={`logo-breathing w-full h-auto max-w-3xl mx-auto mb-12 transition-all duration-1000 ${
+          className={`logo-breathing w-full h-auto max-w-3xl mx-auto mb-16 transition-all duration-1000 ${
             logoVisible ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
           }`}
           loading="eager"
         />
 
-        <div className={`transition-all duration-1000 delay-300 ${
+        <div className={`flex justify-center transition-all duration-1000 delay-300 ${
           buttonVisible ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
         }`}>
           <button
             onClick={() => smoothNavigate('/auth')}
-            className="bg-transparent border-2 border-white text-white px-12 py-4 text-lg cursor-pointer rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-black active:scale-95 hover:scale-105 backdrop-blur-sm"
+            className="bg-transparent border-2 border-white text-white px-16 py-6 text-2xl cursor-pointer rounded-lg font-medium transition-all duration-300 hover:bg-white hover:text-black active:scale-95 hover:scale-105 backdrop-blur-sm"
           >
             CONTINUE
           </button>
