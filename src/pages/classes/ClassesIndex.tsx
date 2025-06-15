@@ -1,15 +1,16 @@
 
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
 import { GraduationCap, Plus, Calendar } from 'lucide-react';
 
 const ClassesIndex = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
@@ -23,11 +24,9 @@ const ClassesIndex = () => {
               <h1 className="text-2xl font-bold text-gray-900">Classes</h1>
             </div>
             
-            <Button>
-              <Link to="/classes/schedule" className="flex items-center gap-2">
-                <Plus className="h-4 w-4" />
-                <span>Schedule New Class</span>
-              </Link>
+            <Button onClick={() => navigate('/classes/schedule')}>
+              <Plus className="h-4 w-4 mr-2" />
+              Schedule New Class
             </Button>
           </div>
           
@@ -41,8 +40,8 @@ const ClassesIndex = () => {
                 <Calendar className="w-12 h-12 mx-auto text-gray-400 mb-4" />
                 <h3 className="text-lg font-medium mb-2">No Classes Scheduled</h3>
                 <p className="text-gray-500 mb-4">Start by scheduling your first cooking class</p>
-                <Button>
-                  <Link to="/classes/schedule">Schedule Class</Link>
+                <Button onClick={() => navigate('/classes/schedule')}>
+                  Schedule Class
                 </Button>
               </div>
             </CardContent>

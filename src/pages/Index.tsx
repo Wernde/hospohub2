@@ -51,7 +51,7 @@ const Index = () => {
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHUB Logo"
-          className="w-full h-auto max-w-3xl mx-auto mb-8 transition-transform duration-700 hover:scale-105"
+          className="logo-breathing w-full h-auto max-w-3xl mx-auto mb-8 transition-transform duration-700 hover:scale-105"
           loading="eager"
         />
 

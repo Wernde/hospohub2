@@ -35,12 +35,12 @@ const NotFound = () => {
       </p>
 
       {/* Return Home Button */}
-      <Button size="lg" className="animated-button bg-blue-600 text-white hover:bg-blue-700">
-        <Link to="/" className="flex items-center gap-2">
+      <Link to="/">
+        <Button size="lg" className="animated-button bg-gray-600 text-white hover:bg-gray-700 flex items-center gap-2">
           <Home className="h-5 w-5" />
           Return to Home
-        </Link>
-      </Button>
+        </Button>
+      </Link>
     </div>
   );
 };

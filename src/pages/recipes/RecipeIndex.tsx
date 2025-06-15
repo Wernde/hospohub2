@@ -1,11 +1,11 @@
 
 import React, { Suspense, lazy } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
 import { BookOpen, Plus } from 'lucide-react';
 import { exportRecipes } from '@/utils/excelExport';
 import ExportButton from '@/components/ui/export-button';
@@ -16,6 +16,7 @@ const RecipeFeaturesListContainer = lazy(() => import('@/components/recipes/feat
 
 const RecipeIndex = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
   
   // Mock recipes for export functionality
   const mockRecipes = [
@@ -64,11 +65,9 @@ const RecipeIndex = () => {
                 label="Export"
                 variant="outline"
               />
-              <Button>
-                <Link to="/recipes/new" className="flex items-center gap-2">
-                  <Plus className="h-4 w-4" />
-                  <span>Add New Recipe</span>
-                </Link>
+              <Button onClick={() => navigate('/recipes/new')}>
+                <Plus className="h-4 w-4 mr-2" />
+                Add New Recipe
               </Button>
             </div>
           </div>
@@ -83,8 +82,8 @@ const RecipeIndex = () => {
                 <BookOpen className="w-12 h-12 mx-auto text-gray-400 mb-4" />
                 <h3 className="text-lg font-medium mb-2">No Recipes Added Yet</h3>
                 <p className="text-gray-500 mb-4">Start building your recipe collection</p>
-                <Button>
-                  <Link to="/recipes/new">Add Recipe</Link>
+                <Button onClick={() => navigate('/recipes/new')}>
+                  Add Recipe
                 </Button>
               </div>
             </CardContent>
