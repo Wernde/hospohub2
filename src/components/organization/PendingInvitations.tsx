@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { toast } from '@/hooks/use-toast';
 import { Clock, X, RotateCcw } from 'lucide-react';
+import type { Json } from '@/integrations/supabase/types';
 
 interface Invitation {
   id: string;
@@ -15,7 +16,7 @@ interface Invitation {
   status: string;
   created_at: string;
   expires_at: string;
-  permissions: Record<string, any>;
+  permissions: Json;
 }
 
 const accessLevelNames = {
@@ -120,6 +121,14 @@ const PendingInvitations = () => {
 
   const isExpired = (expiresAt: string) => new Date(expiresAt) < new Date();
 
+  // Helper function to safely access permissions
+  const getPermissions = (permissions: Json): Record<string, any> => {
+    if (typeof permissions === 'object' && permissions !== null && !Array.isArray(permissions)) {
+      return permissions as Record<string, any>;
+    }
+    return {};
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -140,51 +149,55 @@ const PendingInvitations = () => {
           </div>
         ) : (
           <div className="space-y-3">
-            {invitations.map((invitation) => (
-              <div key={invitation.id} className="flex items-center justify-between p-3 border rounded-lg">
-                <div className="flex-1">
-                  <div className="font-medium text-stone-900">{invitation.email}</div>
-                  <div className="flex items-center gap-2 text-sm text-stone-600">
-                    <Badge variant="outline">
-                      {accessLevelNames[invitation.access_level as keyof typeof accessLevelNames]}
-                    </Badge>
-                    {invitation.permissions?.invite && (
-                      <Badge variant="secondary" className="text-xs">Can Invite</Badge>
-                    )}
-                    {invitation.permissions?.manage_roles && (
-                      <Badge variant="secondary" className="text-xs">Can Manage</Badge>
-                    )}
+            {invitations.map((invitation) => {
+              const permissions = getPermissions(invitation.permissions);
+              
+              return (
+                <div key={invitation.id} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div className="flex-1">
+                    <div className="font-medium text-stone-900">{invitation.email}</div>
+                    <div className="flex items-center gap-2 text-sm text-stone-600">
+                      <Badge variant="outline">
+                        {accessLevelNames[invitation.access_level as keyof typeof accessLevelNames]}
+                      </Badge>
+                      {permissions?.invite && (
+                        <Badge variant="secondary" className="text-xs">Can Invite</Badge>
+                      )}
+                      {permissions?.manage_roles && (
+                        <Badge variant="secondary" className="text-xs">Can Manage</Badge>
+                      )}
+                      {isExpired(invitation.expires_at) && (
+                        <Badge variant="destructive" className="text-xs">Expired</Badge>
+                      )}
+                    </div>
+                    <div className="text-xs text-stone-500">
+                      Expires: {new Date(invitation.expires_at).toLocaleDateString()}
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-2">
                     {isExpired(invitation.expires_at) && (
-                      <Badge variant="destructive" className="text-xs">Expired</Badge>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => resendInvitation(invitation.id)}
+                      >
+                        <RotateCcw className="h-4 w-4 mr-1" />
+                        Resend
+                      </Button>
                     )}
-                  </div>
-                  <div className="text-xs text-stone-500">
-                    Expires: {new Date(invitation.expires_at).toLocaleDateString()}
-                  </div>
-                </div>
-                
-                <div className="flex gap-2">
-                  {isExpired(invitation.expires_at) && (
                     <Button
-                      variant="outline"
+                      variant="destructive"
                       size="sm"
-                      onClick={() => resendInvitation(invitation.id)}
+                      onClick={() => revokeInvitation(invitation.id)}
                     >
-                      <RotateCcw className="h-4 w-4 mr-1" />
-                      Resend
+                      <X className="h-4 w-4 mr-1" />
+                      Revoke
                     </Button>
-                  )}
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => revokeInvitation(invitation.id)}
-                  >
-                    <X className="h-4 w-4 mr-1" />
-                    Revoke
-                  </Button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </CardContent>
