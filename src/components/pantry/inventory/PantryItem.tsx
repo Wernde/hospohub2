@@ -17,7 +17,7 @@ const PantryItem: React.FC<PantryItemProps> = ({ item }) => {
         <div className="flex items-center">
           <div className="mr-2">
             {item.isLowStock ? (
-              <AlertTriangle className="h-5 w-5 text-amber-500" />
+              <AlertTriangle className="h-5 w-5 text-yellow-500" />
             ) : (
               <CheckCircle className="h-5 w-5 text-green-500" />
             )}
@@ -49,7 +49,7 @@ const PantryItem: React.FC<PantryItemProps> = ({ item }) => {
           </div>
           <div className="text-sm">
             {item.isLowStock ? (
-              <span className="text-amber-500">
+              <span className="text-yellow-500">
                 Low Stock (Min: {item.lowStockThreshold} {item.unit})
               </span>
             ) : (
