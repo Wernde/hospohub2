@@ -11,7 +11,9 @@ const statsCards = [
     description: 'View all recipes',
     icon: <BookOpen className="h-6 w-6 text-white" />,
     iconBg: 'bg-orange-400',
-    href: '/recipes'
+    href: '/recipes',
+    hoverColor: 'hover:bg-orange-50',
+    descriptionBg: 'bg-orange-100'
   },
   {
     title: 'Active Classes',
@@ -19,7 +21,9 @@ const statsCards = [
     description: 'View all classes',
     icon: <GraduationCap className="h-6 w-6 text-white" />,
     iconBg: 'bg-green-400',
-    href: '/classes'
+    href: '/classes',
+    hoverColor: 'hover:bg-green-50',
+    descriptionBg: 'bg-green-100'
   },
   {
     title: 'Total Students',
@@ -27,7 +31,9 @@ const statsCards = [
     description: 'Manage students',
     icon: <Users className="h-6 w-6 text-white" />,
     iconBg: 'bg-blue-400',
-    href: '/students'
+    href: '/students',
+    hoverColor: 'hover:bg-blue-50',
+    descriptionBg: 'bg-blue-100'
   },
   {
     title: 'Pantry Items',
@@ -35,7 +41,9 @@ const statsCards = [
     description: 'View pantry',
     icon: <Package className="h-6 w-6 text-white" />,
     iconBg: 'bg-purple-400',
-    href: '/pantry'
+    href: '/pantry',
+    hoverColor: 'hover:bg-purple-50',
+    descriptionBg: 'bg-purple-100'
   }
 ];
 
@@ -51,6 +59,8 @@ const StatsCards = () => {
           icon={stat.icon}
           iconBg={stat.iconBg}
           href={stat.href}
+          hoverColor={stat.hoverColor}
+          descriptionBg={stat.descriptionBg}
         />
       ))}
     </div>

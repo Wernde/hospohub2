@@ -10,12 +10,14 @@ interface StatsCardProps {
   icon: React.ReactNode;
   iconBg: string;
   href: string;
+  hoverColor?: string;
+  descriptionBg?: string;
 }
 
-const StatsCard = ({ title, value, description, icon, iconBg, href }: StatsCardProps) => {
+const StatsCard = ({ title, value, description, icon, iconBg, href, hoverColor = 'hover:bg-gray-100', descriptionBg = 'bg-gray-50' }: StatsCardProps) => {
   return (
     <Card className="overflow-hidden">
-      <div className="px-4 py-5 sm:p-6">
+      <div className={`px-4 py-5 sm:p-6 transition-colors duration-200 ${hoverColor}`}>
         <div className="flex items-center">
           <div className={`flex-shrink-0 ${iconBg} rounded-md p-3`}>
             {icon}
@@ -30,7 +32,7 @@ const StatsCard = ({ title, value, description, icon, iconBg, href }: StatsCardP
           </div>
         </div>
       </div>
-      <div className="bg-gray-50 px-4 py-4 sm:px-6 block hover:bg-gray-100">
+      <div className={`${descriptionBg} px-4 py-4 sm:px-6 block hover:opacity-80 transition-opacity duration-200`}>
         <div className="text-sm">
           <Link to={href} className="font-medium text-gray-600 hover:text-gray-700">
             {description}
