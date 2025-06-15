@@ -13,7 +13,7 @@ interface AuthLayoutProps {
 
 const AuthLayout = ({ activeTab, setActiveTab, isVisible, isExiting, onNavigate }: AuthLayoutProps) => (
   <div 
-    className={`auth-container min-h-screen w-full ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}`}
+    className={`auth-container min-h-screen w-full bg-stone-100 ${isVisible ? 'visible' : ''} ${isExiting ? 'exiting' : ''}`}
   >
     <div className="flex h-screen w-full">
       <AuthImagePanel />
