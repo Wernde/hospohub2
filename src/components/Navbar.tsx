@@ -45,17 +45,6 @@ const Navbar = () => {
   ];
 
   const homeLinks: NavLink[] = [
-    { 
-      name: 'Home', 
-      href: '/', 
-      icon: (
-        <img 
-          src="/hospohub2/Images/Logo-HospoHub4.png" 
-          alt="HospoHub" 
-          className="logo-breathing w-auto h-15 object-contain drop-shadow-2xl"
-        />
-      )
-    },
     { name: 'Features', href: '#features', icon: <LayoutDashboard className="w-4 h-4" /> },
     { name: 'Testimonials', href: '#testimonials', icon: <BookOpen className="w-4 h-4" /> },
     { name: 'Contact', href: '#contact', icon: <ShoppingCart className="w-4 h-4" /> },
@@ -67,8 +56,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-stone-200/90 backdrop-blur-md shadow-lg py-2'
-          : 'bg-stone-200/95 backdrop-blur-sm py-3'
+          ? 'bg-stone-800/90 backdrop-blur-md shadow-lg py-2'
+          : 'bg-stone-800/95 backdrop-blur-sm py-3'
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -82,30 +71,24 @@ const Navbar = () => {
               alt="HospoHub Logo" 
               className="logo-breathing w-auto h-12 object-contain drop-shadow-2xl"
             />
-            <span className="font-display text-xl font-semibold text-stone-800">
+            <span className="font-display text-xl font-semibold text-stone-200">
               HospoHub
             </span>
           </Link>
 
           <div className="hidden md:flex flex-1 items-center justify-center mx-6">
-            <div className="flex justify-between space-x-2 md:space-x-4 lg:space-x-8">
+            <div className="flex justify-center space-x-2 md:space-x-4 lg:space-x-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`text-stone-700 hover:text-stone-900 transition-all duration-300 flex items-center gap-2 py-2 px-3 rounded-md ${
-                    location.pathname === link.href ? 'bg-stone-300/50 text-stone-900' : ''
+                  className={`transition-all duration-300 flex items-center gap-2 py-2 px-3 rounded-md ${
+                    (isHomePage ? location.hash === link.href : location.pathname === link.href)
+                      ? 'bg-stone-200 text-stone-900 font-semibold' 
+                      : 'text-stone-300 hover:text-white hover:bg-stone-700/50'
                   }`}
                 >
-                  {link.name === 'Home' && isHomePage ? (
-                    <img 
-                      src="/hospohub2/Images/Logo-HospoHub4.png" 
-                      alt="HospoHub" 
-                      className="logo-breathing w-auto h-15 object-contain drop-shadow-2xl"
-                    />
-                  ) : (
-                    link.icon
-                  )}
+                  {link.icon}
                   <span>{link.name}</span>
                 </Link>
               ))}
@@ -117,7 +100,7 @@ const Navbar = () => {
           </div>
 
           <button 
-            className="md:hidden text-stone-800"
+            className="md:hidden text-stone-200"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -130,14 +113,16 @@ const Navbar = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-stone-300/95 backdrop-blur-lg shadow-lg animate-fade-in">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-stone-800/95 backdrop-blur-lg shadow-lg animate-fade-in">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link 
                 key={link.name}
                 to={link.href} 
-                className={`px-4 py-2 text-stone-700 hover:text-stone-900 hover:bg-stone-200/50 rounded-md transition-colors flex items-center gap-2 ${
-                  location.pathname === link.href ? 'bg-stone-200/70 text-stone-900' : ''
+                className={`px-4 py-2 rounded-md transition-colors flex items-center gap-2 ${
+                  (isHomePage ? location.hash === link.href : location.pathname === link.href) 
+                    ? 'bg-stone-200 text-stone-900 font-semibold' 
+                    : 'text-stone-300 hover:text-white hover:bg-stone-700/50'
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -150,14 +135,14 @@ const Navbar = () => {
                 <>
                   <Button 
                     variant="outline" 
-                    className="w-full border-stone-500/30 text-stone-800 hover:bg-stone-400/50"
+                    className="w-full border-stone-600 text-stone-200 hover:bg-stone-700 hover:text-white"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
                     <Link to="/auth">Log in</Link>
                   </Button>
                   <Button 
-                    className="w-full bg-stone-600 text-white hover:bg-stone-700"
+                    className="w-full bg-stone-200 text-stone-800 font-semibold hover:bg-stone-100"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
