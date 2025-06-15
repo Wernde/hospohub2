@@ -31,7 +31,7 @@ const NotFound = () => {
 
       {/* Message */}
       <p className="text-xl md:text-2xl text-stone-600 mb-8 max-w-md">
-        Oops! This page seems to have wandered away from our <HospoHub></HospoHub> platform.
+        Oops! This page seems to have wandered away from our HospoHub platform.
       </p>
 
       {/* Return Home Button */}
