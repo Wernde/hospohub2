@@ -10,7 +10,7 @@ export interface PantryTextareaProps
 const PantryTextarea = React.forwardRef<HTMLTextAreaElement, PantryTextareaProps>(
   ({ className, variant = 'default', ...props }, ref) => {
     const variantStyles = {
-      default: "bg-stone-50 border-stone-300 text-stone-900 placeholder:text-stone-500 focus-visible:ring-stone-500",
+      default: "bg-stone-100 border-stone-400 text-black placeholder:text-stone-600 focus-visible:ring-stone-500",
       'low-stock': "bg-red-50 border-red-300 text-red-900 placeholder:text-red-500 focus-visible:ring-red-500",
       'expiring': "bg-yellow-50 border-yellow-300 text-yellow-900 placeholder:text-yellow-500 focus-visible:ring-yellow-500"
     }

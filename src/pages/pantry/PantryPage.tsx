@@ -11,7 +11,9 @@ const PantryPage = () => {
     <PantryProvider>
       <div className="flex flex-col w-full min-h-screen bg-stone-100">
         <Navbar />
-        <PantryLayout />
+        <div className="page-transition text-black">
+          <PantryLayout />
+        </div>
         <Toaster />
       </div>
     </PantryProvider>

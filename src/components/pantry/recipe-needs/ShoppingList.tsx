@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { ShoppingBag, FileText, ExternalLink } from 'lucide-react';
 import { usePantry } from '../PantryContext';
@@ -50,11 +49,11 @@ const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
   }, [shoppingList]);
   
   const content = (
-    <div>
+    <div className="text-black">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-bold">Shopping List</h2>
+        <h2 className="text-xl font-bold text-black">Shopping List</h2>
         <div className="flex space-x-2">
-          <Button className="flex items-center px-3 py-1 bg-rgba(0, 0, 0, 0.12)-600 text-white rounded-lg hover:bg-rgba(0, 0, 0, 0.12)-700">
+          <Button className="flex items-center px-3 py-1 bg-stone-600 text-white rounded-lg hover:bg-stone-700">
             <FileText className="h-4 w-4 mr-1" />
             <span>Export</span>
           </Button>
@@ -70,8 +69,8 @@ const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
       {aggregatedList.length === 0 ? (
         <div className="bg-white p-8 rounded-lg shadow-sm border text-center">
           <ShoppingBag className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-          <h3 className="text-lg font-semibold text-gray-500 mb-2">Your shopping list is empty</h3>
-          <p className="text-gray-400">
+          <h3 className="text-lg font-semibold text-black mb-2">Your shopping list is empty</h3>
+          <p className="text-black">
             Items that need to be ordered will appear here
           </p>
         </div>
@@ -80,19 +79,19 @@ const ShoppingList = ({ standalone = false }: ShoppingListProps) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Ingredient</TableHead>
-                <TableHead>Quantity</TableHead>
-                <TableHead>For Recipe(s)</TableHead>
-                <TableHead>Class(es)</TableHead>
+                <TableHead className="text-black">Ingredient</TableHead>
+                <TableHead className="text-black">Quantity</TableHead>
+                <TableHead className="text-black">For Recipe(s)</TableHead>
+                <TableHead className="text-black">Class(es)</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {aggregatedList.map((item: any) => (
                 <TableRow key={item.id} className="hover:bg-gray-50">
-                  <TableCell className="font-medium">{item.name}</TableCell>
-                  <TableCell>{item.quantity.toFixed(2)} {item.unit}</TableCell>
-                  <TableCell>{item.recipes.join(', ')}</TableCell>
-                  <TableCell>{item.classNames.join(', ')}</TableCell>
+                  <TableCell className="font-medium text-black">{item.name}</TableCell>
+                  <TableCell className="text-black">{item.quantity.toFixed(2)} {item.unit}</TableCell>
+                  <TableCell className="text-black">{item.recipes.join(', ')}</TableCell>
+                  <TableCell className="text-black">{item.classNames.join(', ')}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -37,9 +37,9 @@ const Dashboard = () => {
     <div className="flex flex-col min-h-screen bg-stone-100">
       <Navbar />
       
-      {/* Main content */}
-      <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
-        <div className="max-w-7xl mx-auto">
+      {/* Main content with smooth transition */}
+      <main className="flex-grow container mx-auto px-4 pt-24 pb-16 page-transition">
+        <div className="max-w-7xl mx-auto text-black">
           {/* Dashboard Header */}
           <DashboardHeader />
           

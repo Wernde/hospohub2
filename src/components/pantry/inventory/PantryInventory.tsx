@@ -15,15 +15,15 @@ const PantryInventory = () => {
   const { showAddItemForm } = usePantry();
   
   return (
-    <div>
+    <div className="text-black">
       <div className="mb-4">
-        <h2 className="text-xl font-bold mb-2">Pantry Inventory</h2>
+        <h2 className="text-xl font-bold mb-2 text-black">Pantry Inventory</h2>
         <div className="flex flex-col sm:flex-row gap-2 justify-between items-start sm:items-center mb-4">
           <PantrySearch />
           <div className="flex gap-2">
             <ReceiptScannerDialog />
             <Link to="/orders">
-              <Button variant="outline" size="sm" className="flex items-center gap-1 bg-stone-200 hover:bg-stone-300 border-stone-400">
+              <Button variant="outline" size="sm" className="flex items-center gap-1 bg-stone-200 hover:bg-stone-300 border-stone-400 text-black">
                 <Package className="h-4 w-4" />
                 <span className="hidden sm:inline">Track Orders</span>
               </Button>

@@ -8,8 +8,8 @@ const AddItemForm = () => {
   const { newItem, setNewItem, handleAddItem } = usePantry();
   
   return (
-    <div className="mb-4 p-4 bg-gray-100 rounded-lg">
-      <h3 className="font-bold mb-2">Add New Pantry Item</h3>
+    <div className="mb-4 p-4 bg-stone-100 rounded-lg">
+      <h3 className="font-bold mb-2 text-black">Add New Pantry Item</h3>
       <div className="mb-2">
         <PantryInput
           type="text"
@@ -21,7 +21,7 @@ const AddItemForm = () => {
       </div>
       <div className="mb-2">
         <select
-          className="w-full px-3 py-2 border border-gray-400 bg-gray-100 rounded text-gray-900"
+          className="w-full px-3 py-2 border border-stone-400 bg-stone-100 rounded text-black"
           value={newItem.category}
           onChange={(e) => setNewItem({...newItem, category: e.target.value})}
         >
@@ -47,7 +47,7 @@ const AddItemForm = () => {
           onChange={(e) => setNewItem({...newItem, currentQuantity: parseFloat(e.target.value)})}
         />
         <select
-          className="w-1/2 px-3 py-2 border border-gray-400 bg-gray-100 rounded text-gray-900"
+          className="w-1/2 px-3 py-2 border border-stone-400 bg-stone-100 rounded text-black"
           value={newItem.unit}
           onChange={(e) => setNewItem({...newItem, unit: e.target.value})}
         >
@@ -80,7 +80,7 @@ const AddItemForm = () => {
         />
       </div>
       <Button
-        className="w-full bg-amber-500 hover:bg-amber-600"
+        className="w-full bg-amber-500 hover:bg-amber-600 text-black"
         onClick={handleAddItem}
       >
         Add to Pantry

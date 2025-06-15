@@ -13,16 +13,16 @@ const OrdersPage = () => {
     <PantryProvider>
       <div className="flex flex-col w-full min-h-screen bg-gray-100">
         <Navbar />
-        <div className="container mx-auto flex flex-col gap-4 p-4 pt-24">
+        <div className="container mx-auto flex flex-col gap-4 p-4 pt-24 text-black page-transition">
           <div className="flex justify-between items-center mb-4">
             <Link to="/pantry">
-              <Button variant="outline" className="flex items-center">
+              <Button variant="outline" className="flex items-center bg-stone-200 hover:bg-stone-300 border-stone-400 text-black">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back to Pantry
               </Button>
             </Link>
             <Link to="/pantry/settings">
-              <Button variant="outline" className="flex items-center">
+              <Button variant="outline" className="flex items-center bg-stone-200 hover:bg-stone-300 border-stone-400 text-black">
                 <Settings className="mr-2 h-4 w-4" />
                 Store Settings
               </Button>

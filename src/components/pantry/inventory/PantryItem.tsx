@@ -28,8 +28,8 @@ const PantryItem: React.FC<PantryItemProps> = ({ item }) => {
             )}
           </div>
           <div>
-            <h4 className="font-semibold">{item.ingredientName}</h4>
-            <div className="text-sm text-gray-500">
+            <h4 className="font-semibold text-black">{item.ingredientName}</h4>
+            <div className="text-sm text-black">
               Location: {item.location || 'Not specified'}
             </div>
           </div>
@@ -38,13 +38,13 @@ const PantryItem: React.FC<PantryItemProps> = ({ item }) => {
           <div className="flex items-center space-x-2">
             <input
               type="number"
-              className="w-16 px-2 py-1 border border-gray-400 bg-gray-100 rounded text-right text-gray-900"
+              className="w-16 px-2 py-1 border border-stone-400 bg-stone-100 rounded text-right text-black"
               value={item.currentQuantity}
               min="0"
               step="0.1"
               onChange={(e) => updatePantryQuantity(item.id, parseFloat(e.target.value))}
             />
-            <span>{item.unit}</span>
+            <span className="text-black">{item.unit}</span>
             <button 
               className="p-1 text-red-500 hover:bg-red-50 rounded"
               onClick={() => removePantryItem(item.id)}

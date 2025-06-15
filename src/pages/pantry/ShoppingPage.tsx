@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -57,18 +56,18 @@ const ShoppingPageContent = () => {
   };
   
   return (
-    <div className="container mx-auto flex flex-col gap-4 p-4 pt-24">
+    <div className="container mx-auto flex flex-col gap-4 p-4 pt-24 text-black page-transition">
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-2xl font-bold text-stone-900">Shopping List</h1>
-          <p className="text-stone-600">Manage your grocery shopping list</p>
+          <h1 className="text-2xl font-bold text-black">Shopping List</h1>
+          <p className="text-black">Manage your grocery shopping list</p>
         </div>
         <div className="flex items-center gap-2">
           <Button 
             variant="outline" 
             size="sm" 
             onClick={() => setIsSharePointDialogOpen(true)}
-            className="border-stone-300 text-stone-700 hover:bg-stone-50"
+            className="border-stone-400 text-black bg-stone-200 hover:bg-stone-300"
           >
             Connect to SharePoint
           </Button>
