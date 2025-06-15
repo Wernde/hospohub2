@@ -19,10 +19,10 @@ const Index = () => {
 
   // Redirect authenticated users to dashboard
   useEffect(() => {
-    if (user && !isLoading) {
+    if (user) { // isLoading is already false here
       smoothNavigate('/dashboard');
     }
-  }, [user, isLoading, smoothNavigate]);
+  }, [user, smoothNavigate]);
 
   // Entrance animation
   useEffect(() => {
@@ -32,25 +32,13 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Show loading while auth is loading
+  // Show loading while auth is loading or redirecting
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-200">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600 mx-auto mb-4" />
-          <p className="text-lg text-stone-800">Loading...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // If user is already logged in, show loading
-  if (user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-200">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600 mx-auto mb-4" />
-          <p className="text-lg text-stone-800">Redirecting...</p>
+          <p className="text-lg text-stone-800">{user ? 'Redirecting...' : 'Loading...'}</p>
         </div>
       </div>
     );
@@ -67,6 +55,8 @@ const Index = () => {
         <img
           src="/hospohub2/Images/Logo-HospoHub4.png"
           alt="HospoHUB Logo"
+          width="1000" // Placeholder: Replace with actual width
+          height="300" // Placeholder: Replace with actual height
           className="logo-breathing w-full h-auto max-w-3xl mx-auto mb-8 transition-transform duration-700 hover:scale-105"
           loading="eager"
         />
@@ -92,3 +82,5 @@ const Index = () => {
 };
 
 export default Index;
+
+
