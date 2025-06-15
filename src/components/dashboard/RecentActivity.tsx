@@ -33,7 +33,7 @@ const RecentActivity = () => {
   return (
     <Card className="shadow overflow-hidden">
       <CardHeader className="px-4 py-5 border-b bg-blue-50 border-gray-200 sm:px-6">
-        <CardTitle className="text-lg text-gray-900">Recent Activity</CardTitle>
+        <CardTitle className="text-lg text-black">Recent Activity</CardTitle>
       </CardHeader>
       <ul className="divide-y divide-gray-200">
         {recentActivities.map((activity) => (
