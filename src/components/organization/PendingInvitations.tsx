@@ -15,8 +15,7 @@ interface Invitation {
   status: string;
   created_at: string;
   expires_at: string;
-  can_invite_members: boolean;
-  can_manage_roles: boolean;
+  permissions: Record<string, any>;
 }
 
 const accessLevelNames = {
@@ -149,10 +148,10 @@ const PendingInvitations = () => {
                     <Badge variant="outline">
                       {accessLevelNames[invitation.access_level as keyof typeof accessLevelNames]}
                     </Badge>
-                    {invitation.can_invite_members && (
+                    {invitation.permissions?.invite && (
                       <Badge variant="secondary" className="text-xs">Can Invite</Badge>
                     )}
-                    {invitation.can_manage_roles && (
+                    {invitation.permissions?.manage_roles && (
                       <Badge variant="secondary" className="text-xs">Can Manage</Badge>
                     )}
                     {isExpired(invitation.expires_at) && (

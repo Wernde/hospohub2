@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -30,10 +31,13 @@ interface OrganizationMember {
   status: string;
   user_email?: string;
   created_at: string;
+  can_invite_members?: boolean;
+  can_manage_roles?: boolean;
+  permissions?: Record<string, any>;
 }
 
 const accessLevelLabels = {
-  1: { name: 'Member', icon: Shield, color: 'text-rgba(0, 0, 0, 0.12)-500' },
+  1: { name: 'Member', icon: Shield, color: 'text-stone-500' },
   2: { name: 'Manager', icon: ShieldCheck, color: 'text-green-500' },
   3: { name: 'Admin', icon: ShieldAlert, color: 'text-orange-500' },
 };

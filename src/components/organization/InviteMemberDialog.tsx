@@ -12,7 +12,7 @@ import { toast } from '@/hooks/use-toast';
 import { UserPlus } from 'lucide-react';
 
 const InviteMemberDialog = () => {
-  const { activeOrganization, canUserPerformAction } = useAuth();
+  const { activeOrganization, canUserPerformAction, user } = useAuth();
   const [email, setEmail] = useState('');
   const [accessLevel, setAccessLevel] = useState('1');
   const [canInviteMembers, setCanInviteMembers] = useState(false);
@@ -28,7 +28,7 @@ const InviteMemberDialog = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!activeOrganization) return;
+    if (!activeOrganization || !user) return;
 
     try {
       setIsLoading(true);
@@ -60,8 +60,7 @@ const InviteMemberDialog = () => {
           permissions,
           invitation_token: tokenData,
           expires_at: expiresAt.toISOString(),
-          can_invite_members: canInviteMembers,
-          can_manage_roles: canManageRoles,
+          invited_by: user.id,
         }]);
 
       if (error) throw error;
@@ -87,6 +86,14 @@ const InviteMemberDialog = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleCanInviteMembersChange = (checked: boolean | 'indeterminate') => {
+    setCanInviteMembers(checked === true);
+  };
+
+  const handleCanManageRolesChange = (checked: boolean | 'indeterminate') => {
+    setCanManageRoles(checked === true);
   };
 
   return (
@@ -139,7 +146,7 @@ const InviteMemberDialog = () => {
                 <Checkbox
                   id="canInvite"
                   checked={canInviteMembers}
-                  onCheckedChange={setCanInviteMembers}
+                  onCheckedChange={handleCanInviteMembersChange}
                 />
                 <Label htmlFor="canInvite" className="text-sm">
                   Can invite other members
@@ -151,7 +158,7 @@ const InviteMemberDialog = () => {
                   <Checkbox
                     id="canManage"
                     checked={canManageRoles}
-                    onCheckedChange={setCanManageRoles}
+                    onCheckedChange={handleCanManageRolesChange}
                   />
                   <Label htmlFor="canManage" className="text-sm">
                     Can manage member roles
