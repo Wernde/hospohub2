@@ -12,7 +12,7 @@ interface AuthFormPanelProps {
 
 const AuthFormPanel = ({ activeTab, setActiveTab, isExiting, onNavigate }: AuthFormPanelProps) => (
   <div className="w-full lg:w-1/2 flex flex-col justify-center items-center p-10 lg:p-20 relative bg-stone-50">
-    <div className={`form-box w-full max-w-lg bg-white/90 backdrop-blur-sm p-12 lg:p-16 rounded-lg shadow-xl border border-stone-200 z-10 ${isExiting ? 'exiting' : ''}`}>
+    <div className={`form-box w-full max-w-lg bg-stone-100/90 backdrop-blur-sm p-12 lg:p-16 rounded-lg shadow-xl border border-stone-300 z-10 ${isExiting ? 'exiting' : ''}`}>
       <h2 className="text-2xl lg:text-3xl font-semibold mb-3 text-stone-800">Welcome</h2>
       <p className="text-sm mb-6 text-stone-600">Choose an option below to get started</p>
 
