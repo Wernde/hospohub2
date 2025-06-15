@@ -7,45 +7,50 @@ const Index = () => {
   const navigate = useNavigate();
   const { user, isLoading } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
+  const [hasRedirected, setHasRedirected] = useState(false);
 
   // Smooth navigate function
   const smoothNavigate = useCallback((path: string) => {
     navigate(path);
   }, [navigate]);
 
-  // Redirect authenticated users to dashboard
+  // Redirect authenticated users to dashboard (only once)
   useEffect(() => {
-    if (user && !isLoading) {
+    if (user && !isLoading && !hasRedirected) {
+      setHasRedirected(true);
       navigate('/dashboard');
     }
-  }, [user, isLoading, navigate]);
+  }, [user, isLoading, navigate, hasRedirected]);
 
   // Fast entrance animation
   useEffect(() => {
-    setIsVisible(true);
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100);
+    return () => clearTimeout(timer);
   }, []);
 
   // Show minimal loading while auth is loading
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+      <div className="min-h-screen flex items-center justify-center bg-stone-800">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-400 mx-auto mb-4" />
-          <p className="text-lg text-white">Loading...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-400 mx-auto mb-4" />
+          <p className="text-lg text-stone-200">Loading...</p>
         </div>
       </div>
     );
   }
 
   // If user is already logged in, render nothing (redirect is happening)
-  if (user) {
+  if (user && hasRedirected) {
     return null;
   }
 
   return (
-    <div className={`min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 bg-gray-900 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 bg-stone-800 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
       {/* Background overlay for better text readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-gray-900/40" />
+      <div className="absolute inset-0 bg-gradient-to-br from-stone-700/20 to-stone-900/40" />
       
       <div className="relative z-10 max-w-4xl mx-auto">
         <img
@@ -58,14 +63,14 @@ const Index = () => {
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-8">
           <button
             onClick={() => smoothNavigate('/auth')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95"
+            className="bg-stone-600 hover:bg-stone-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95"
           >
             SIGN IN
           </button>
 
           <button
             onClick={() => smoothNavigate('/dashboard')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95"
+            className="bg-stone-600 hover:bg-stone-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95"
           >
             HOSPOHOUSE
           </button>

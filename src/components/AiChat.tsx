@@ -126,10 +126,10 @@ const AiChat = () => {
 
   return (
     <>
-      {/* Chat button with neutral colors */}
+      {/* Chat button with stone colors */}
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 rounded-full w-14 h-14 p-0 bg-gray-700 hover:bg-gray-800 shadow-lg"
+        className="fixed bottom-6 left-6 rounded-full w-14 h-14 p-0 bg-stone-700 hover:bg-stone-800 shadow-lg"
         aria-label="Open AI Chat"
       >
         <MessageSquare className="h-6 w-6" />
