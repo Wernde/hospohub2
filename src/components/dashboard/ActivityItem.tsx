@@ -28,8 +28,8 @@ const ActivityItem = ({ id, title, time, icon, iconBg }: ActivityItemProps) => {
             </div>
           </div>
           <div>
-            <Link to="#" className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-black bg-white hover:bg-gray-50">
-              <Eye className="h-4 w-4 text-blue-600 mr-1" />
+            <Link to="#" className="inline-flex items-center shadow-sm px-2.5 py-0.5 border border-gray-300 text-sm leading-5 font-medium rounded-full text-white bg-blue-500 hover:bg-blue-600">
+              <Eye className="h-4 w-4 text-white mr-1" />
               View
             </Link>
           </div>
