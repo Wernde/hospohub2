@@ -58,10 +58,7 @@ const Navbar = () => {
         isScrolled
           ? 'backdrop-blur-md shadow-lg py-2'
           : 'backdrop-blur-sm py-3'
-      }`}
-      style={{ 
-        backgroundColor: isScrolled ? '#e7e5e4dd' : '#e7e5e4f0'
-      }}
+      } navbar-river-flow`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18">
@@ -117,8 +114,7 @@ const Navbar = () => {
 
       {isMobileMenuOpen && (
         <div 
-          className="md:hidden absolute top-full left-0 right-0 backdrop-blur-lg shadow-lg animate-fade-in"
-          style={{ backgroundColor: '#e7e5e4f0' }}
+          className="md:hidden absolute top-full left-0 right-0 backdrop-blur-lg shadow-lg animate-fade-in navbar-river-flow"
         >
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
             {navLinks.map((link) => (

@@ -64,6 +64,19 @@
   }
 }
 
+/* River Flow Animation for Navbar */
+@keyframes riverFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* Global Classes */
 .logo-breathing {
   animation: logo-breathing 3s ease-in-out infinite;
@@ -93,6 +106,28 @@
 
 .page-transition {
   animation: pageTransition 0.5s ease-out;
+}
+
+/* Navbar River Flow Effect */
+.navbar-river-flow {
+  background: linear-gradient(
+    45deg,
+    #f5f5f4,
+    #e7e5e4,
+    #d6d3d1,
+    #a8a29e,
+    #78716c,
+    #57534e,
+    #44403c,
+    #57534e,
+    #78716c,
+    #a8a29e,
+    #d6d3d1,
+    #e7e5e4,
+    #f5f5f4
+  );
+  background-size: 400% 400%;
+  animation: riverFlow 8s ease-in-out infinite;
 }
 
 /* Font Family */
