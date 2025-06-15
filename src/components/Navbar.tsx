@@ -56,9 +56,12 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-stone-800/90 backdrop-blur-md shadow-lg py-2'
-          : 'bg-stone-800/95 backdrop-blur-sm py-3'
+          ? 'backdrop-blur-md shadow-lg py-2'
+          : 'backdrop-blur-sm py-3'
       }`}
+      style={{ 
+        backgroundColor: isScrolled ? '#e7e5e4dd' : '#e7e5e4f0'
+      }}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-18">
@@ -71,7 +74,7 @@ const Navbar = () => {
               alt="HospoHub Logo" 
               className="logo-breathing w-auto h-12 object-contain drop-shadow-2xl"
             />
-            <span className="font-display text-xl font-semibold text-stone-200">
+            <span className="font-display text-xl font-semibold text-stone-800">
               HospoHub
             </span>
           </Link>
@@ -84,8 +87,8 @@ const Navbar = () => {
                   to={link.href}
                   className={`transition-all duration-300 flex items-center gap-2 py-2 px-3 rounded-md ${
                     (isHomePage ? location.hash === link.href : location.pathname === link.href)
-                      ? 'bg-stone-200 text-stone-900 font-semibold' 
-                      : 'text-stone-300 hover:text-white hover:bg-stone-700/50'
+                      ? 'bg-stone-800 text-white font-semibold' 
+                      : 'text-stone-700 hover:text-stone-900 hover:bg-stone-300/50'
                   }`}
                 >
                   {link.icon}
@@ -100,7 +103,7 @@ const Navbar = () => {
           </div>
 
           <button 
-            className="md:hidden text-stone-200"
+            className="md:hidden text-stone-800"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -113,7 +116,10 @@ const Navbar = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-stone-800/95 backdrop-blur-lg shadow-lg animate-fade-in">
+        <div 
+          className="md:hidden absolute top-full left-0 right-0 backdrop-blur-lg shadow-lg animate-fade-in"
+          style={{ backgroundColor: '#e7e5e4f0' }}
+        >
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link 
@@ -121,8 +127,8 @@ const Navbar = () => {
                 to={link.href} 
                 className={`px-4 py-2 rounded-md transition-colors flex items-center gap-2 ${
                   (isHomePage ? location.hash === link.href : location.pathname === link.href) 
-                    ? 'bg-stone-200 text-stone-900 font-semibold' 
-                    : 'text-stone-300 hover:text-white hover:bg-stone-700/50'
+                    ? 'bg-stone-800 text-white font-semibold' 
+                    : 'text-stone-700 hover:text-stone-900 hover:bg-stone-300/50'
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -135,14 +141,14 @@ const Navbar = () => {
                 <>
                   <Button 
                     variant="outline" 
-                    className="w-full border-stone-600 text-stone-200 hover:bg-stone-700 hover:text-white"
+                    className="w-full border-stone-600 text-stone-800 hover:bg-stone-300/50 hover:text-stone-900"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
                     <Link to="/auth">Log in</Link>
                   </Button>
                   <Button 
-                    className="w-full bg-stone-200 text-stone-800 font-semibold hover:bg-stone-100"
+                    className="w-full bg-stone-800 text-white font-semibold hover:bg-stone-700"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
