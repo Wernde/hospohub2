@@ -148,21 +148,23 @@ const Navbar = () => {
               <div className="pt-2 flex flex-col space-y-3">
                 {!user && (
                   <>
-                    <Button 
-                      variant="outline" 
-                      className="w-full border-white text-white hover:bg-white/90 hover:text-stone-800"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      asChild
-                    >
-                      <Link to="/auth">Log in</Link>
-                    </Button>
-                    <Button 
-                      className="w-full bg-white text-stone-800 font-semibold hover:bg-white/90"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                      asChild
-                    >
-                      <Link to="/auth?tab=signup">Sign up</Link>
-                    </Button>
+                    <Link to="/auth">
+                      <Button 
+                        variant="outline" 
+                        className="w-full border-white text-white hover:bg-white/90 hover:text-stone-800"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Log in
+                      </Button>
+                    </Link>
+                    <Link to="/auth?tab=signup">
+                      <Button 
+                        className="w-full bg-white text-stone-800 font-semibold hover:bg-white/90"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Sign up
+                      </Button>
+                    </Link>
                   </>
                 )}
               </div>

@@ -16,7 +16,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/AuthContext";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Lazy load heavy components
+// Lazy load heavy components with preload hints
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const Profile = lazy(() => import("./pages/Profile"));
 const OrganizationCreate = lazy(() => import("./pages/organization/OrganizationCreate"));
@@ -32,9 +32,9 @@ const RecipeTools = lazy(() => import("./pages/recipes/RecipeTools"));
 const IngredientCalculator = lazy(() => import("./pages/calculator/IngredientCalculator"));
 const AiChat = lazy(() => import("./components/AiChat"));
 
-// Loading fallback component
+// Optimized loading fallback component
 const PageSkeleton = () => (
-  <div className="min-h-screen bg-gray-100 p-4">
+  <div className="min-h-screen bg-stone-100 p-4">
     <Skeleton className="h-16 w-full mb-4" />
     <div className="container mx-auto">
       <Skeleton className="h-8 w-64 mb-6" />
