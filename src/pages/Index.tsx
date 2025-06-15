@@ -35,10 +35,10 @@ const Index = () => {
   // Show loading while auth is loading
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-800">
+      <div className="min-h-screen flex items-center justify-center bg-stone-200">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-400 mx-auto mb-4" />
-          <p className="text-lg text-stone-200">Loading...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600 mx-auto mb-4" />
+          <p className="text-lg text-stone-800">Loading...</p>
         </div>
       </div>
     );
@@ -47,10 +47,10 @@ const Index = () => {
   // If user is already logged in, show loading
   if (user) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-800">
+      <div className="min-h-screen flex items-center justify-center bg-stone-200">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-400 mx-auto mb-4" />
-          <p className="text-lg text-stone-200">Redirecting...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-600 mx-auto mb-4" />
+          <p className="text-lg text-stone-800">Redirecting...</p>
         </div>
       </div>
     );

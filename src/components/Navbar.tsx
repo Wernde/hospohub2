@@ -71,7 +71,7 @@ const Navbar = () => {
               alt="HospoHub Logo" 
               className="logo-breathing w-auto h-12 object-contain drop-shadow-2xl"
             />
-            <span className="font-display text-xl font-semibold text-stone-800">
+            <span className="font-display text-xl font-semibold text-white">
               HospoHub
             </span>
           </Link>
@@ -84,8 +84,8 @@ const Navbar = () => {
                   to={link.href}
                   className={`transition-all duration-300 flex items-center gap-2 py-2 px-3 rounded-md border ${
                     (isHomePage ? location.hash === link.href : location.pathname === link.href)
-                      ? 'bg-stone-800 text-white font-semibold border-white' 
-                      : 'text-stone-700 hover:text-stone-900 hover:bg-stone-300/50 border-white'
+                      ? 'bg-white text-stone-800 font-semibold border-white' 
+                      : 'text-white hover:text-stone-800 hover:bg-white/90 border-white'
                   }`}
                 >
                   {link.icon}
@@ -100,7 +100,7 @@ const Navbar = () => {
           </div>
 
           <button 
-            className="md:hidden text-stone-800"
+            className="md:hidden text-white"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? (
@@ -123,8 +123,8 @@ const Navbar = () => {
                 to={link.href} 
                 className={`px-4 py-2 rounded-md transition-colors flex items-center gap-2 border ${
                   (isHomePage ? location.hash === link.href : location.pathname === link.href) 
-                    ? 'bg-stone-800 text-white font-semibold border-white' 
-                    : 'text-stone-700 hover:text-stone-900 hover:bg-stone-300/50 border-white'
+                    ? 'bg-white text-stone-800 font-semibold border-white' 
+                    : 'text-white hover:text-stone-800 hover:bg-white/90 border-white'
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -137,14 +137,14 @@ const Navbar = () => {
                 <>
                   <Button 
                     variant="outline" 
-                    className="w-full border-stone-600 text-stone-800 hover:bg-stone-300/50 hover:text-stone-900"
+                    className="w-full border-white text-white hover:bg-white/90 hover:text-stone-800"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
                     <Link to="/auth">Log in</Link>
                   </Button>
                   <Button 
-                    className="w-full bg-stone-800 text-white font-semibold hover:bg-stone-700"
+                    className="w-full bg-white text-stone-800 font-semibold hover:bg-white/90"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
