@@ -68,6 +68,15 @@ function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           
+          {/* Organization routes */}
+          <Route path="/organization/create" element={
+            <ProtectedRoute>
+              <Suspense fallback={<PageSkeleton />}>
+                <OrganizationCreate />
+              </Suspense>
+            </ProtectedRoute>
+          } />
+          
           {/* Pantry routes */}
           <Route path="/pantry" element={
             <ProtectedRoute>
