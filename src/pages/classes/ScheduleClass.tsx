@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -45,7 +44,7 @@ const ScheduleClass = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-stone-100">
       <Navbar />
       
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
@@ -57,7 +56,7 @@ const ScheduleClass = () => {
                 Back to Classes
               </Button>
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">Schedule New Class</h1>
+            <h1 className="text-2xl font-bold text-stone-900">Schedule New Class</h1>
           </div>
           
           <Card>
@@ -174,8 +173,6 @@ const ScheduleClass = () => {
           </Card>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

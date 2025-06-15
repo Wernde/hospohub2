@@ -3,7 +3,6 @@ import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { GraduationCap, Plus, Calendar } from 'lucide-react';
@@ -48,8 +47,6 @@ const ClassesIndex = () => {
           </Card>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };
