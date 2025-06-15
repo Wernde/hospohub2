@@ -85,10 +85,10 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`transition-all duration-300 flex items-center gap-2 py-2 px-3 rounded-md ${
+                  className={`transition-all duration-300 flex items-center gap-2 py-2 px-3 rounded-md border ${
                     (isHomePage ? location.hash === link.href : location.pathname === link.href)
-                      ? 'bg-stone-800 text-white font-semibold' 
-                      : 'text-stone-700 hover:text-stone-900 hover:bg-stone-300/50'
+                      ? 'bg-stone-800 text-white font-semibold border-white' 
+                      : 'text-stone-700 hover:text-stone-900 hover:bg-stone-300/50 border-white'
                   }`}
                 >
                   {link.icon}
@@ -125,10 +125,10 @@ const Navbar = () => {
               <Link 
                 key={link.name}
                 to={link.href} 
-                className={`px-4 py-2 rounded-md transition-colors flex items-center gap-2 ${
+                className={`px-4 py-2 rounded-md transition-colors flex items-center gap-2 border ${
                   (isHomePage ? location.hash === link.href : location.pathname === link.href) 
-                    ? 'bg-stone-800 text-white font-semibold' 
-                    : 'text-stone-700 hover:text-stone-900 hover:bg-stone-300/50'
+                    ? 'bg-stone-800 text-white font-semibold border-white' 
+                    : 'text-stone-700 hover:text-stone-900 hover:bg-stone-300/50 border-white'
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
