@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -91,7 +92,7 @@ const ShoppingPageContent = () => {
 const ShoppingPage = () => {
   return (
     <PantryProvider>
-      <div className="flex flex-col w-full min-h-screen bg-stone-100">
+      <div className="flex flex-col w-full min-h-screen bg-stone-100 text-black">
         <Navbar />
         <ShoppingPageContent />
       </div>

@@ -20,7 +20,7 @@ const PantrySettingsPage = () => {
 
   return (
     <PantryProvider>
-      <div className="flex flex-col w-full min-h-screen bg-gray-100">
+      <div className="flex flex-col w-full min-h-screen bg-gray-100 text-black">
         <Navbar />
         <div className="container mx-auto flex flex-col gap-4 p-4 pt-24 text-black page-transition">
           <div className="flex justify-between items-center mb-4">
