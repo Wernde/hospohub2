@@ -16,7 +16,7 @@ const RecipePageHeader: React.FC<RecipePageHeaderProps> = ({ title, description 
     <>
       <Button 
         variant="ghost" 
-        className="mb-6" 
+        className="mb-6 text-stone-700 hover:bg-stone-200" 
         onClick={() => navigate(-1)}
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
@@ -24,10 +24,10 @@ const RecipePageHeader: React.FC<RecipePageHeaderProps> = ({ title, description 
       </Button>
       
       <div className="flex items-center mb-6">
-        <BookOpen className="mr-3 h-8 w-8 text-rgba(0, 0, 0, 0.12)-600" />
+        <BookOpen className="mr-3 h-8 w-8 text-stone-600" />
         <div>
-          <h1 className="text-2xl font-semibold text-rgba(0, 0, 0, 0.12)-900">{title}</h1>
-          {description && <p className="text-gray-500 mt-1">{description}</p>}
+          <h1 className="text-2xl font-semibold text-stone-900">{title}</h1>
+          {description && <p className="text-stone-500 mt-1">{description}</p>}
         </div>
       </div>
     </>

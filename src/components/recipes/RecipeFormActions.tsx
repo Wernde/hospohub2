@@ -17,13 +17,14 @@ const RecipeFormActions = ({ isSubmitting }: RecipeFormActionsProps) => {
         type="button" 
         variant="outline" 
         onClick={() => navigate(-1)}
+        className="border-stone-300 text-stone-700 hover:bg-stone-50"
       >
         Cancel
       </Button>
       <Button 
         type="submit" 
         disabled={isSubmitting}
-        className="gap-2"
+        className="gap-2 bg-stone-600 hover:bg-stone-700"
       >
         {isSubmitting ? (
           <>

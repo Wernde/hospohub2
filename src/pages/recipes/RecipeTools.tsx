@@ -2,7 +2,6 @@
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import RecipePageHeader from '@/components/recipes/RecipePageHeader';
 import UnitConversionTool from '@/components/recipes/UnitConversionTool';
 import IngredientScalingTool from '@/components/recipes/IngredientScalingTool';
@@ -16,7 +15,7 @@ const RecipeTools = () => {
   const [activeTab, setActiveTab] = useState('unit-conversion');
   
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-stone-100">
       <Navbar />
       
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
@@ -24,14 +23,14 @@ const RecipeTools = () => {
           <RecipePageHeader title="Recipe Tools" />
           
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid grid-cols-2 md:grid-cols-7 w-full mb-6">
-              <TabsTrigger value="unit-conversion">Units</TabsTrigger>
-              <TabsTrigger value="ingredient-scaling">Scaling</TabsTrigger>
-              <TabsTrigger value="attribution">Attribution</TabsTrigger>
-              <TabsTrigger value="dietary">Dietary</TabsTrigger>
-              <TabsTrigger value="substitution">Substitutes</TabsTrigger>
-              <TabsTrigger value="sharing">Sharing</TabsTrigger>
-              <TabsTrigger value="cost">Costs</TabsTrigger>
+            <TabsList className="grid grid-cols-2 md:grid-cols-7 w-full mb-6 bg-stone-200">
+              <TabsTrigger value="unit-conversion" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Units</TabsTrigger>
+              <TabsTrigger value="ingredient-scaling" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Scaling</TabsTrigger>
+              <TabsTrigger value="attribution" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Attribution</TabsTrigger>
+              <TabsTrigger value="dietary" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Dietary</TabsTrigger>
+              <TabsTrigger value="substitution" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Substitutes</TabsTrigger>
+              <TabsTrigger value="sharing" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Sharing</TabsTrigger>
+              <TabsTrigger value="cost" className="data-[state=active]:bg-stone-600 data-[state=active]:text-white">Costs</TabsTrigger>
             </TabsList>
             
             <TabsContent value="unit-conversion">
@@ -64,8 +63,6 @@ const RecipeTools = () => {
           </Tabs>
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

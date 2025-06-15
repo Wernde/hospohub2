@@ -1,7 +1,6 @@
 
 import { useState } from 'react';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import RecipeForm from '@/components/recipes/RecipeForm';
 import RecipePageHeader from '@/components/recipes/RecipePageHeader';
 import { simulateRecipeParsing } from '@/utils/recipeParser';
@@ -36,7 +35,7 @@ const NewRecipe = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-stone-100">
       <Navbar />
       
       <main className="flex-grow container mx-auto px-4 pt-24 pb-16">
@@ -52,8 +51,6 @@ const NewRecipe = () => {
           />
         </div>
       </main>
-      
-      <Footer />
     </div>
   );
 };

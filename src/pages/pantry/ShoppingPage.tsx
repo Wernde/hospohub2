@@ -60,14 +60,15 @@ const ShoppingPageContent = () => {
     <div className="container mx-auto flex flex-col gap-4 p-4 pt-24">
       <div className="flex justify-between items-center mb-4">
         <div>
-          <h1 className="text-2xl font-bold">Shopping List</h1>
-          <p className="text-muted-foreground">Manage your grocery shopping list</p>
+          <h1 className="text-2xl font-bold text-stone-900">Shopping List</h1>
+          <p className="text-stone-600">Manage your grocery shopping list</p>
         </div>
         <div className="flex items-center gap-2">
           <Button 
             variant="outline" 
             size="sm" 
             onClick={() => setIsSharePointDialogOpen(true)}
+            className="border-stone-300 text-stone-700 hover:bg-stone-50"
           >
             Connect to SharePoint
           </Button>
@@ -91,7 +92,7 @@ const ShoppingPageContent = () => {
 const ShoppingPage = () => {
   return (
     <PantryProvider>
-      <div className="flex flex-col w-full min-h-screen bg-gray-100">
+      <div className="flex flex-col w-full min-h-screen bg-stone-100">
         <Navbar />
         <ShoppingPageContent />
       </div>
