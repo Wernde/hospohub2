@@ -7,22 +7,24 @@ const Index = () => {
   const navigate = useNavigate();
   const { user, isLoading } = useAuth();
   const [isVisible, setIsVisible] = useState(false);
-  const [hasRedirected, setHasRedirected] = useState(false);
+  const [isExiting, setIsExiting] = useState(false);
 
-  // Smooth navigate function
+  // Smooth navigate function with transition
   const smoothNavigate = useCallback((path: string) => {
-    navigate(path);
+    setIsExiting(true);
+    setTimeout(() => {
+      navigate(path);
+    }, 300);
   }, [navigate]);
 
-  // Redirect authenticated users to dashboard (only once)
+  // Redirect authenticated users to dashboard
   useEffect(() => {
-    if (user && !isLoading && !hasRedirected) {
-      setHasRedirected(true);
-      navigate('/dashboard');
+    if (user && !isLoading) {
+      smoothNavigate('/dashboard');
     }
-  }, [user, isLoading, navigate, hasRedirected]);
+  }, [user, isLoading, smoothNavigate]);
 
-  // Fast entrance animation
+  // Entrance animation
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsVisible(true);
@@ -30,7 +32,7 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Show minimal loading while auth is loading
+  // Show loading while auth is loading
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-800">
@@ -42,13 +44,22 @@ const Index = () => {
     );
   }
 
-  // If user is already logged in, render nothing (redirect is happening)
-  if (user && hasRedirected) {
-    return null;
+  // If user is already logged in, show loading
+  if (user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-stone-800">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-stone-400 mx-auto mb-4" />
+          <p className="text-lg text-stone-200">Redirecting...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className={`min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 bg-stone-800 transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+    <div className={`min-h-screen w-full flex flex-col justify-center items-center relative text-center p-5 bg-stone-800 transition-all duration-500 ${
+      isVisible ? 'opacity-100' : 'opacity-0'
+    } ${isExiting ? 'opacity-0 scale-95' : ''}`}>
       {/* Background overlay for better text readability */}
       <div className="absolute inset-0 bg-gradient-to-br from-stone-700/20 to-stone-900/40" />
       
@@ -63,14 +74,14 @@ const Index = () => {
         <div className="flex flex-col md:flex-row justify-center items-center gap-6 mt-8">
           <button
             onClick={() => smoothNavigate('/auth')}
-            className="bg-stone-600 hover:bg-stone-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95"
+            className="bg-stone-600 hover:bg-stone-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95 hover:scale-105"
           >
             SIGN IN
           </button>
 
           <button
             onClick={() => smoothNavigate('/dashboard')}
-            className="bg-stone-600 hover:bg-stone-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95"
+            className="bg-stone-600 hover:bg-stone-700 text-white px-8 py-4 text-lg cursor-pointer w-full md:w-auto max-w-xs min-h-[48px] rounded-lg font-medium transition-all duration-300 active:scale-95 hover:scale-105"
           >
             HOSPOHOUSE
           </button>

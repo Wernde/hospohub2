@@ -16,7 +16,7 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100 p-6 text-center">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-stone-100 p-6 text-center animate-fade-in">
       {/* Logo with background container */}
       <div className="mb-8 p-6 bg-white rounded-full shadow-lg">
         <img
@@ -27,16 +27,16 @@ const NotFound = () => {
       </div>
 
       {/* Error Code */}
-      <h1 className="text-4xl md:text-6xl font-bold mb-4 font-display">404</h1>
+      <h1 className="text-4xl md:text-6xl font-bold mb-4 font-display text-stone-800">404</h1>
 
       {/* Message */}
-      <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-md">
+      <p className="text-xl md:text-2xl text-stone-600 mb-8 max-w-md">
         Oops! This page seems to have wandered away from our HospoHUB platform.
       </p>
 
       {/* Return Home Button */}
       <Link to="/">
-        <Button size="lg" className="animated-button bg-gray-600 text-white hover:bg-gray-700 flex items-center gap-2">
+        <Button size="lg" className="animated-button bg-stone-600 text-white hover:bg-stone-700 flex items-center gap-2 transition-all duration-300">
           <Home className="h-5 w-5" />
           Return to Home
         </Button>

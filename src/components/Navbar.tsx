@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -57,7 +58,7 @@ const Navbar = () => {
     },
     { name: 'Features', href: '#features', icon: <LayoutDashboard className="w-4 h-4" /> },
     { name: 'Testimonials', href: '#testimonials', icon: <BookOpen className="w-4 h-4" /> },
-    { name: 'Pricing', href: '/pricing', icon: <ShoppingCart className="w-4 h-4" /> },
+    { name: 'Contact', href: '#contact', icon: <ShoppingCart className="w-4 h-4" /> },
   ];
 
   const navLinks = isHomePage ? homeLinks : dashboardLinks;
@@ -66,8 +67,8 @@ const Navbar = () => {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-gray-700/90 backdrop-blur-md shadow-lg py-2'
-          : 'bg-gray-700/95 backdrop-blur-sm py-3'
+          ? 'bg-stone-700/90 backdrop-blur-md shadow-lg py-2'
+          : 'bg-stone-700/95 backdrop-blur-sm py-3'
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 lg:px-8">
@@ -92,8 +93,8 @@ const Navbar = () => {
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`text-white/90 hover:text-blue-200 transition-colors duration-200 flex items-center gap-2 py-2 px-3 rounded-md ${
-                    location.pathname === link.href ? 'bg-gray-800/50 text-blue-200' : ''
+                  className={`text-white/90 hover:text-stone-200 transition-all duration-300 flex items-center gap-2 py-2 px-3 rounded-md ${
+                    location.pathname === link.href ? 'bg-stone-800/50 text-stone-200' : ''
                   }`}
                 >
                   {link.name === 'Home' && isHomePage ? (
@@ -129,14 +130,14 @@ const Navbar = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 right-0 bg-gray-800/95 backdrop-blur-lg shadow-lg animate-fade-in">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-stone-800/95 backdrop-blur-lg shadow-lg animate-fade-in">
           <div className="container mx-auto px-4 py-4 flex flex-col space-y-3">
             {navLinks.map((link) => (
               <Link 
                 key={link.name}
                 to={link.href} 
-                className={`px-4 py-2 text-white/90 hover:text-blue-200 hover:bg-gray-700/50 rounded-md transition-colors flex items-center gap-2 ${
-                  location.pathname === link.href ? 'bg-gray-700/70 text-blue-200' : ''
+                className={`px-4 py-2 text-white/90 hover:text-stone-200 hover:bg-stone-700/50 rounded-md transition-colors flex items-center gap-2 ${
+                  location.pathname === link.href ? 'bg-stone-700/70 text-stone-200' : ''
                 }`}
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -149,14 +150,14 @@ const Navbar = () => {
                 <>
                   <Button 
                     variant="outline" 
-                    className="w-full border-blue-200/30 text-blue-200 hover:bg-gray-700/50"
+                    className="w-full border-stone-200/30 text-stone-200 hover:bg-stone-700/50"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
                     <Link to="/auth">Log in</Link>
                   </Button>
                   <Button 
-                    className="w-full bg-blue-600 text-white hover:bg-blue-700"
+                    className="w-full bg-stone-600 text-white hover:bg-stone-700"
                     onClick={() => setIsMobileMenuOpen(false)}
                     asChild
                   >
