@@ -9,34 +9,134 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      member_invitations: {
+        Row: {
+          accepted_at: string | null
+          access_level: number
+          created_at: string | null
+          email: string
+          expires_at: string
+          id: string
+          invitation_token: string
+          invited_by: string
+          organization_id: string
+          permissions: Json | null
+          status: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          access_level?: number
+          created_at?: string | null
+          email: string
+          expires_at: string
+          id?: string
+          invitation_token: string
+          invited_by: string
+          organization_id: string
+          permissions?: Json | null
+          status?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          access_level?: number
+          created_at?: string | null
+          email?: string
+          expires_at?: string
+          id?: string
+          invitation_token?: string
+          invited_by?: string
+          organization_id?: string
+          permissions?: Json | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "member_invitations_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       organization_members: {
         Row: {
           access_level: number
+          can_invite_members: boolean | null
+          can_manage_roles: boolean | null
           created_at: string
           id: string
+          invited_at: string | null
+          invited_by: string | null
           organization_id: string
+          permissions: Json | null
           status: string
           user_id: string
         }
         Insert: {
           access_level?: number
+          can_invite_members?: boolean | null
+          can_manage_roles?: boolean | null
           created_at?: string
           id?: string
+          invited_at?: string | null
+          invited_by?: string | null
           organization_id: string
+          permissions?: Json | null
           status?: string
           user_id: string
         }
         Update: {
           access_level?: number
+          can_invite_members?: boolean | null
+          can_manage_roles?: boolean | null
           created_at?: string
           id?: string
+          invited_at?: string | null
+          invited_by?: string | null
           organization_id?: string
+          permissions?: Json | null
           status?: string
           user_id?: string
         }
         Relationships: [
           {
             foreignKeyName: "organization_members_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organization_settings: {
+        Row: {
+          created_at: string | null
+          id: string
+          organization_id: string
+          setting_key: string
+          setting_value: Json
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          organization_id: string
+          setting_key: string
+          setting_value: Json
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          organization_id?: string
+          setting_key?: string
+          setting_value?: Json
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "organization_settings_organization_id_fkey"
             columns: ["organization_id"]
             isOneToOne: false
             referencedRelation: "organizations"
@@ -124,6 +224,10 @@ export type Database = {
       assign_admin_role: {
         Args: { user_id_param: string }
         Returns: undefined
+      }
+      generate_invitation_token: {
+        Args: Record<PropertyKey, never>
+        Returns: string
       }
       get_admin_users: {
         Args: Record<PropertyKey, never>

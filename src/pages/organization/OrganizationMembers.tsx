@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { supabase } from '@/integrations/supabase/client';
@@ -18,6 +17,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import InviteMemberDialog from '@/components/organization/InviteMemberDialog';
+import PendingInvitations from '@/components/organization/PendingInvitations';
+import AccessControlSettings from '@/components/organization/AccessControlSettings';
 
 // Define types for our member data
 interface OrganizationMember {
@@ -157,19 +159,31 @@ const OrganizationMembers = () => {
   }
 
   return (
-    <div className="container mx-auto py-10">
+    <div className="container mx-auto py-10 space-y-6">
+      {/* Access Control Settings */}
+      <AccessControlSettings />
+      
+      {/* Pending Invitations */}
+      <PendingInvitations />
+      
+      {/* Current Members */}
       <Card>
         <CardHeader>
-          <CardTitle>Organization Members</CardTitle>
-          <CardDescription>
-            Manage the members of {activeOrganization?.name}
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-stone-900">Organization Members</CardTitle>
+              <CardDescription className="text-stone-600">
+                Manage the members of {activeOrganization?.name}
+              </CardDescription>
+            </div>
+            <InviteMemberDialog />
+          </div>
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <div className="flex justify-center py-6">Loading members...</div>
+            <div className="flex justify-center py-6 text-stone-600">Loading members...</div>
           ) : members.length === 0 ? (
-            <div className="text-center py-6">No members found.</div>
+            <div className="text-center py-6 text-stone-600">No members found.</div>
           ) : (
             <div className="space-y-4">
               {members.map((member) => {
@@ -188,12 +202,22 @@ const OrganizationMembers = () => {
                         </AvatarFallback>
                       </Avatar>
                       <div>
-                        <div className="font-medium">{member.user_email || 'Unknown User'}</div>
-                        <div className="flex items-center text-sm text-muted-foreground">
+                        <div className="font-medium text-stone-900">{member.user_email || 'Unknown User'}</div>
+                        <div className="flex items-center text-sm text-stone-600">
                           <AccessLevelIcon className={`h-4 w-4 mr-1 ${levelColor}`} />
                           <span>
                             {accessLevelLabels[member.access_level as keyof typeof accessLevelLabels]?.name || 'Unknown Role'}
                           </span>
+                          {member.can_invite_members && (
+                            <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">
+                              Can Invite
+                            </span>
+                          )}
+                          {member.can_manage_roles && (
+                            <span className="ml-2 text-xs bg-green-100 text-green-800 px-1.5 py-0.5 rounded">
+                              Can Manage
+                            </span>
+                          )}
                         </div>
                       </div>
                     </div>

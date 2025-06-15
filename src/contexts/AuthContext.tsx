@@ -1,4 +1,3 @@
-
 import { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
@@ -17,6 +16,9 @@ interface OrganizationMembership {
   organization: Organization;
   access_level: number;
   status: string;
+  can_invite_members?: boolean;
+  can_manage_roles?: boolean;
+  permissions?: Record<string, any>;
 }
 
 interface AuthContextType {
@@ -114,6 +116,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           organization_id,
           access_level,
           status,
+          can_invite_members,
+          can_manage_roles,
+          permissions,
           organization:organizations(*)
         `)
         .eq('user_id', userId)
