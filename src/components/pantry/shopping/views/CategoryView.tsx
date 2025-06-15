@@ -44,13 +44,13 @@ const CategoryView = ({
     <div className="space-y-6">
       {Object.entries(itemsByCategory).map(([category, items]) => (
         <Card key={category} className="overflow-hidden">
-          <CardHeader className="bg-muted/50 py-3">
+          <CardHeader className="bg-stone-200 border-b py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Tag className="h-4 w-4 text-muted-foreground" />
-                <CardTitle className="text-lg">{category}</CardTitle>
+                <Tag className="h-4 w-4 text-black" />
+                <CardTitle className="text-lg text-black">{category}</CardTitle>
               </div>
-              <div className="text-sm font-medium">
+              <div className="text-sm font-medium text-black">
                 {items.length} item{items.length !== 1 ? 's' : ''}
               </div>
             </div>
@@ -59,12 +59,12 @@ const CategoryView = ({
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-[50px]">Status</TableHead>
-                  <TableHead>Ingredient</TableHead>
-                  <TableHead>Quantity</TableHead>
-                  <TableHead>Price</TableHead>
-                  <TableHead>For Recipe(s)</TableHead>
-                  <TableHead className="w-[100px]">Actions</TableHead>
+                  <TableHead className="w-[50px] text-black">Status</TableHead>
+                  <TableHead className="text-black">Ingredient</TableHead>
+                  <TableHead className="text-black">Quantity</TableHead>
+                  <TableHead className="text-black">Price</TableHead>
+                  <TableHead className="text-black">For Recipe(s)</TableHead>
+                  <TableHead className="w-[100px] text-black">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -79,7 +79,7 @@ const CategoryView = ({
                         onCheckedChange={() => togglePurchased(item.id)}
                       />
                     </TableCell>
-                    <TableCell className={`font-medium ${purchasedItems[item.id] ? "line-through text-gray-400" : ""}`}>
+                    <TableCell className={`font-medium text-black ${purchasedItems[item.id] ? "line-through text-gray-400" : ""}`}>
                       {item.name}
                     </TableCell>
                     <TableCell>
@@ -104,14 +104,14 @@ const CategoryView = ({
                         </div>
                       ) : (
                         <span 
-                          className={`cursor-pointer ${purchasedItems[item.id] ? "line-through text-gray-400" : ""}`}
+                          className={`cursor-pointer text-black ${purchasedItems[item.id] ? "line-through text-gray-400" : ""}`}
                           onClick={() => startEditing(item)}
                         >
                           {item.quantity.toFixed(2)} {item.unit}
                         </span>
                       )}
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="text-black">
                       ${item.prices?.[selectedStore]?.toFixed(2) || 'N/A'}
                     </TableCell>
                     <TableCell>
