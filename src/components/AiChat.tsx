@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { MessageSquare } from 'lucide-react';
@@ -125,10 +126,10 @@ const AiChat = () => {
 
   return (
     <>
-      {/* Chat button with brand colors - moved position */}
+      {/* Chat button with brand colors - moved to right side */}
       <Button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 left-6 rounded-full w-14 h-14 p-0 bg-[#2c2c2c] hover:bg-[#1a1a1a] shadow-lg"
+        className="fixed bottom-6 right-6 rounded-full w-14 h-14 p-0 bg-[#2c2c2c] hover:bg-[#1a1a1a] shadow-lg"
         aria-label="Open AI Chat"
       >
         <MessageSquare className="h-6 w-6" />
