@@ -19,7 +19,7 @@ const ClassesIndex = () => {
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
-              <GraduationCap className="h-8 w-8 text-stone-600 mr-3" />
+              <GraduationCap className="h-8 w-8 text-stone-700 mr-3" />
               <h1 className="text-2xl font-bold text-stone-900">Classes</h1>
             </div>
             
@@ -38,7 +38,7 @@ const ClassesIndex = () => {
               <div className="text-center py-8">
                 <Calendar className="w-12 h-12 mx-auto text-stone-400 mb-4" />
                 <h3 className="text-lg font-medium mb-2 text-stone-900">No Classes Scheduled</h3>
-                <p className="text-stone-500 mb-4">Start by scheduling your first cooking class</p>
+                <p className="text-stone-600 mb-4">Start by scheduling your first cooking class</p>
                 <Button onClick={() => navigate('/classes/schedule')} className="bg-stone-600 hover:bg-stone-700">
                   Schedule Class
                 </Button>

@@ -61,13 +61,13 @@ const ScheduleClass = () => {
           
           <Card>
             <CardHeader>
-              <CardTitle>Class Details</CardTitle>
-              <CardDescription>Fill in the information for your cooking class</CardDescription>
+              <CardTitle className="text-stone-900">Class Details</CardTitle>
+              <CardDescription className="text-stone-600">Fill in the information for your cooking class</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <Label htmlFor="title">Class Title</Label>
+                  <Label htmlFor="title" className="text-stone-700">Class Title</Label>
                   <Input
                     id="title"
                     name="title"
@@ -79,7 +79,7 @@ const ScheduleClass = () => {
                 </div>
                 
                 <div>
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description" className="text-stone-700">Description</Label>
                   <Textarea
                     id="description"
                     name="description"
@@ -92,7 +92,7 @@ const ScheduleClass = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="date">Date</Label>
+                    <Label htmlFor="date" className="text-stone-700">Date</Label>
                     <Input
                       id="date"
                       name="date"
@@ -104,7 +104,7 @@ const ScheduleClass = () => {
                   </div>
                   
                   <div>
-                    <Label htmlFor="time">Start Time</Label>
+                    <Label htmlFor="time" className="text-stone-700">Start Time</Label>
                     <Input
                       id="time"
                       name="time"
@@ -118,7 +118,7 @@ const ScheduleClass = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="duration">Duration (hours)</Label>
+                    <Label htmlFor="duration" className="text-stone-700">Duration (hours)</Label>
                     <Input
                       id="duration"
                       name="duration"
@@ -133,7 +133,7 @@ const ScheduleClass = () => {
                   </div>
                   
                   <div>
-                    <Label htmlFor="maxStudents">Max Students</Label>
+                    <Label htmlFor="maxStudents" className="text-stone-700">Max Students</Label>
                     <Input
                       id="maxStudents"
                       name="maxStudents"
@@ -148,7 +148,7 @@ const ScheduleClass = () => {
                 </div>
                 
                 <div>
-                  <Label htmlFor="location">Location</Label>
+                  <Label htmlFor="location" className="text-stone-700">Location</Label>
                   <Input
                     id="location"
                     name="location"
